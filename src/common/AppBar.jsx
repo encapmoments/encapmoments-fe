@@ -8,6 +8,7 @@ const AppBar = () => {
         <View style={AppBarStyles.AppBar}>
             <Image style={AppBarStyles.AppBarCover} source={require('../assets/AppBarImages/covers/cover2.jpg')}/>
             <Text style={AppBarStyles.AppBarText}>  Encap{'\n'}Moments</Text>
+
             <View style={AppBarStyles.AppBarAlarmWrapper}>
                 <Image style={AppBarStyles.AppBarAlarm} source={require('../assets/AppBarImages/alarm.png')} />
             </View>
