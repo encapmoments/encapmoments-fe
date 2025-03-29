@@ -1,9 +1,11 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { View, Text } from 'react-native';
 
-import { AppBar, CommonButton, TabBar } from '../../common/commonIndex';
+import { CommonButton } from '../../common/commonIndex';
+import LoginScreenStyles from './LoginStyles';
+import InputText from '../../common/InputText/InputText';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const backgroundStyle = {
     backgroundColor: '#F8F3D9',
     flex: 1,
@@ -13,16 +15,21 @@ const LoginScreen = () => {
 
   return (
     <View style={backgroundStyle}>
-      <ScrollView style={backgroundStyle}>
-        <View style={{paddingRight: safePadding}}>
-          <AppBar />
-          <CommonButton
-            title="로그인"
-            onPress={() => console.log('로그인')}
-          />
-        </View>
-      </ScrollView>
-      <TabBar />
+      <View style={{padding: safePadding}}>
+        <Text style={LoginScreenStyles.loginText}>로그인</Text>
+        <InputText title="이메일" style={LoginScreenStyles.inputText}/>
+        <InputText title="비밀번호" style={LoginScreenStyles.inputText}/>
+        <Text style={LoginScreenStyles.forgotPW} onPress={() => navigation.navigate('FindPW')}>Forgot password?</Text>
+        <CommonButton
+          title="로그인"
+          onPress={() => navigation.navigate('Mission')}
+          style={LoginScreenStyles.commonButton}
+        />
+        <Text style={LoginScreenStyles.donthaveAccount}>계정이 없으신가요?{'    '}
+          <Text style={LoginScreenStyles.signUp} onPress={() => navigation.navigate('SignUp')}>Sign Up</Text>
+        </Text>
+        <Text style={LoginScreenStyles.donthaveAccount}>Or Connect</Text>
+      </View>
     </View>
   );
 };

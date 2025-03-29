@@ -1,16 +1,19 @@
+import Typography from '../../styles/typography';
+import { Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window');
+
 const CommonButtonStyles = {
     commonButton: {
         backgroundColor: '#4A4434',
-        paddingVertical: 12,
+        paddingVertical: height * 0.025,
         borderRadius: 999, // 완전 둥글게
         alignItems: 'center',
-        marginTop: 24,
-        marginLeft: 20,
+
     },
     commonButtonText: {
         color: 'white',
-        fontWeight: 'bold',
         fontSize: 14,
+        ...Typography.bamin2,
     },
 };
 

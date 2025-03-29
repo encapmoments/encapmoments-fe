@@ -67,6 +67,9 @@ const AppBarStyles = StyleSheet.create({
         resizeMode: 'cover',
 
     },
+    handleBackArrow: {
+        zIndex: 1,
+    },
 
 });
 

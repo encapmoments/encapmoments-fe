@@ -4,6 +4,8 @@ const Colors = {
     black: '#000000',
     orange: '#FF8A3D',
     button: '#4A4434',
+    inputtextarea: '#F7F7F9',
+    graytext: '#7D848D',
 
     // 필요하면 점점 추가해도 돼
   };
