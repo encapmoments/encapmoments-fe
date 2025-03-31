@@ -6,7 +6,7 @@ const Colors = {
     button: '#4A4434',
     inputtextarea: '#F7F7F9',
     graytext: '#7D848D',
-
+    missions: '#EBE5C2',
     // 필요하면 점점 추가해도 돼
   };
 

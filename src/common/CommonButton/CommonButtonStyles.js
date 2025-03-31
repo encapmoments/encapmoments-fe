@@ -1,6 +1,6 @@
-import Typography from '../../styles/typography';
 import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
+import { Colors, Typography} from '../../styles/stylesIndex';
 
 const CommonButtonStyles = {
     commonButton: {

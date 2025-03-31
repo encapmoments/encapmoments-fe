@@ -4,73 +4,82 @@ import { Colors, Typography } from '../../styles/stylesIndex';
 const { width, height } = Dimensions.get('window');
 
 const AppBarStyles = StyleSheet.create({
+  AppBar: {
+    backgroundColor: '#F8F3D9',
+    height: height * 0.15,
+    width: width,
+    overflow: 'hidden',
+  },
 
-    AppBar: {
-        backgroundColor: '#F8F3D9',
-        height: height * 0.15,
-        width: width * 1.0,
-    },
-    AppBarText: {
-        ...Typography.bamin1,
-        marginTop: height * 0.03,
-        marginLeft: width * 0.04,
-        fontSize: 24,
-        fontWeight: '400',
-        color: Colors.white,
-    },
+  AppBarCoverWrapper: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 0,
+  },
+  AppBarCoverContent: {
+    flexDirection: 'row',
+  },
+  AppBarCover: {
+    width: width,
+    height: height * 0.15,
+    resizeMode: 'stretch',
+    opacity: 0.3,
+  },
 
-    AppBarCover: {
-        width: width * 1.0,
-        height: height * 0.15,
-        position: 'absolute',
-        overflow: 'hidden',
-        opacity: 0.3,
-        resizeMode: 'stretch',
-    },
+  AppBarText: {
+    ...Typography.bamin1,
+    marginTop: height * 0.03,
+    marginLeft: width * 0.04,
+    fontSize: 24,
+    fontWeight: '400',
+    color: Colors.white,
+    zIndex: 1,
+  },
 
-    AppBarAlarm: {
-        width: width * 0.07,
-        height: width * 0.07,
-        resizeMode: 'cover',
-    },
-    AppBarAlarmWrapper: {
-        marginLeft: width * 0.7,
-        marginTop: height * 0.05,
-        width: width * 0.12,
-        height:  width * 0.12,
-        position: 'absolute',
-        borderRadius: 18,
-        backgroundColor: Colors.white,
-        borderColor: Colors.white,
-        borderWidth: 1,
-        overflow: 'hidden',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    AppBarPersonWrapper: {
-        marginLeft: width * 0.85,
-        marginTop: height * 0.05,
-        width: width * 0.12,
-        height: width * 0.12,
-        position: 'absolute',
-        borderRadius: 18,
-        backgroundColor: Colors.white,
-        borderColor: Colors.white,
-        borderWidth: 1,
-        overflow: 'hidden',
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-    AppBarPerson: {
-        width: width * 0.09,
-        height: width * 0.09,
-        resizeMode: 'cover',
+  AppBarAlarmWrapper: {
+    position: 'absolute',
+    left: width * 0.7,
+    top: height * 0.05,
+    width: width * 0.12,
+    height: width * 0.12,
+    borderRadius: 18,
+    backgroundColor: Colors.white,
+    borderColor: Colors.white,
+    borderWidth: 1,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  AppBarAlarm: {
+    width: width * 0.07,
+    height: width * 0.07,
+    resizeMode: 'cover',
+  },
 
-    },
-    handleBackArrow: {
-        zIndex: 1,
-    },
+  AppBarPersonWrapper: {
+    position: 'absolute',
+    left: width * 0.85,
+    top: height * 0.05,
+    width: width * 0.12,
+    height: width * 0.12,
+    borderRadius: 18,
+    backgroundColor: Colors.white,
+    borderColor: Colors.white,
+    borderWidth: 1,
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  AppBarPerson: {
+    width: width * 0.09,
+    height: width * 0.09,
+    resizeMode: 'cover',
+  },
 
+  handleBackArrow: {
+    zIndex: 1,
+  },
 });
 
 export default AppBarStyles;
