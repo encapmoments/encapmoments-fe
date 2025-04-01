@@ -5,8 +5,10 @@ import LoginScreen from '../screens/Login/LoginScreen';
 import SignUpScreen from '../screens/Login/SignUpScreen';
 import FindPassWordScreen from '../screens/Login/FindPassWordScreen';
 import SetProfileImageScreen from '../screens/Login/SetProfileImageScreen';
-import MissionScreen from '../screens/Mission/MissionScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
+import MissionScreen from '../screens/Mission/MissionScreen';
+import MissionCreateScreen from '../screens/Mission/MissionCreateScreen';
+import MissionSelectScreen from '../screens/Mission/MissionSelectScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +37,14 @@ const StackNavigator = () => {
             />
             <Stack.Screen name="SetProfileImage"
                 component={SetProfileImageScreen}
+                options={{ headerShown: false, animation: 'none'}}
+            />
+            <Stack.Screen name="MissionCreate"
+                component={MissionCreateScreen}
+                options={{ headerShown: false, animation: 'none'}}
+            />
+            <Stack.Screen name="MissionSelect"
+                component={MissionSelectScreen}
                 options={{ headerShown: false, animation: 'none'}}
             />
         </Stack.Navigator>

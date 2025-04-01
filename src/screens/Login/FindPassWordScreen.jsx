@@ -29,7 +29,7 @@ const FindPassWordScreen = ({ navigation }) => {
         <View style={LoginScreenStyles.spacingVertical} />
         <CommonButton
           title="로그인"
-          onPress={() => navigation.navigate('Mission')}
+          onPress={() => navigation.navigate('Login')}
           style={LoginScreenStyles.commonButton}
         />
 

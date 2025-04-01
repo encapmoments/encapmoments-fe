@@ -31,7 +31,7 @@ const AppBarStyles = StyleSheet.create({
     marginLeft: width * 0.04,
     fontSize: 24,
     fontWeight: '400',
-    color: Colors.white,
+    color: Colors.black,
     zIndex: 1,
   },
 
