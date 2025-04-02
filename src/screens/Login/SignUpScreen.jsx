@@ -25,7 +25,7 @@ const SignUpScreen = ({ navigation }) => {
         <Text style={LoginScreenStyles.loginText}>회원가입</Text>
         <InputText title="닉네임" style={LoginScreenStyles.inputText}/>
         <InputText title="이메일" style={LoginScreenStyles.inputText}/>
-        <InputText title="비밀번호" style={LoginScreenStyles.inputText}/>
+        <InputText title="비밀번호" style={LoginScreenStyles.inputText} secureTextEntry={true}/>
         <CommonButton
           title="완료"
           onPress={() => navigation.navigate('SetProfileImage')}

@@ -18,7 +18,7 @@ const LoginScreen = ({ navigation }) => {
       <View style={{padding: safePadding}}>
         <Text style={LoginScreenStyles.loginText}>로그인</Text>
         <InputText title="이메일" style={LoginScreenStyles.inputText}/>
-        <InputText title="비밀번호" style={LoginScreenStyles.inputText}/>
+        <InputText title="비밀번호" style={LoginScreenStyles.inputText} secureTextEntry={true}/>
         <Text style={LoginScreenStyles.forgotPW} onPress={() => navigation.navigate('FindPW')}>Forgot password?</Text>
         <CommonButton
           title="로그인"

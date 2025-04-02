@@ -19,7 +19,7 @@ const LoginScreenStyles = StyleSheet.create({
     },
 
     inputText: {
-        ...Typography.bamin1,
+        ...Typography.sf,
         color: Colors.black,
         marginTop: height * 0.02,
     },

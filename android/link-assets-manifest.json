@@ -8,6 +8,10 @@
     {
       "path": "src/assets/fonts/BMJUA_ttf.ttf",
       "sha1": "e9ae3ad795aea36d4b271599072fe6761edefd5a"
+    },
+    {
+      "path": "src/assets/fonts/SF-UI-DISPLAY-MEDIUM-58646BE638F96.OTF",
+      "sha1": "cdedea75635f4ca94dc758b2c8022334b5bb1d6b"
     }
   ]
 }

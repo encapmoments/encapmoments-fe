@@ -33,7 +33,7 @@ const MissionScreen = ({ navigation }) => {
 
         </ScrollView>
       </View>
-      <TabBar />
+      <TabBar navigation={navigation}/>
 
     </>
   );

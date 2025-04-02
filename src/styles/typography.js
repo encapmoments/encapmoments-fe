@@ -7,6 +7,9 @@ const Typography = {
   bamin2: {
     fontFamily: 'BMHANNAPro',
   },
+  sf: {
+    fontFamily: 'SF-UI-DISPLAY-MEDIUM-58646BE638F96',
+  },
 };
 
 export default Typography;
