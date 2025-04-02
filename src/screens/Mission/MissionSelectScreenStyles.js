@@ -36,6 +36,32 @@ const MissionSelectScreenStyles = StyleSheet.create({
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
     },
+    missionTitle: {
+        ...Typography.bamin1,
+        marginLeft:width * 0.1,
+        marginTop:height * 0.03,
+        fontSize:20,
+    },
+    missionPoint: {
+        ...Typography.bamin1,
+        fontSize:12,
+        marginLeft:width * 0.1,
+        marginTop:height * 0.01,
+    },
+    missionPointP: {
+        color: Colors.orange,
+    },
+    missionDescription: {
+        ...Typography.bamin1,
+        fontSize: 12,
+        marginTop: height * 0.003,
+        color: Colors.graytext,
+        marginLeft:width * 0.1,
+        flexWrap: 'wrap',
+    },
+    paddings: {
+        padding: '5%',
+    },
 });
 
 export default MissionSelectScreenStyles;

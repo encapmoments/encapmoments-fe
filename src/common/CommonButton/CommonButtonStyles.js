@@ -5,11 +5,12 @@ import { Colors, Typography} from '../../styles/stylesIndex';
 const CommonButtonStyles = {
     commonButton: {
         backgroundColor: '#4A4434',
-        paddingVertical: height * 0.025,
-        borderRadius: 999, // 완전 둥글게
+        paddingVertical: height * 0.02,
+        borderRadius: 999,
         alignItems: 'center',
+        justifyContent: 'center',
+      },
 
-    },
     commonButtonText: {
         color: 'white',
         fontSize: 14,

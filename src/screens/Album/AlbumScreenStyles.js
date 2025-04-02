@@ -36,31 +36,28 @@ const AlbumScreenStyles = StyleSheet.create({
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
     },
-    paddings: {
-        padding: '5%',
-    },
-    missionTitle: {
+    albumText: {
         ...Typography.bamin1,
-        marginLeft:width * 0.1,
-        marginTop:height * 0.03,
-        fontSize:20,
+        fontSize: 18,
+        marginTop: height * 0.03,
+        marginLeft: width * 0.05,
     },
-    missionPoint: {
-        ...Typography.bamin1,
-        fontSize:12,
-        marginLeft:width * 0.1,
-        marginTop:height * 0.01,
+    albumListsWrapper: {
+        backgroundColor: Colors.inputtextarea,
+        borderRadius: 40,
+        alignSelf:'center',
+        width:width * 0.7,
+        height: height * 0.5,
+        marginTop: height * 0.02,
     },
-    missionPointP: {
-        color: Colors.orange,
+    albumLists: {
+        marginTop: height * 0.02,
     },
-    missionDescription: {
-        ...Typography.bamin1,
-        fontSize: 12,
-        marginTop: height * 0.003,
-        color: Colors.graytext,
-        marginLeft:width * 0.1,
-        flexWrap: 'wrap',
+    albumListsRowColumn: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: width * 0.02,
+        paddingVertical: height * 0.02,
     },
 });
 

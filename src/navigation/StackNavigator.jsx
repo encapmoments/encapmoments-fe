@@ -11,6 +11,7 @@ import MissionCreateScreen from '../screens/Mission/MissionCreateScreen';
 import MissionSelectScreen from '../screens/Mission/MissionSelectScreen';
 import AlbumScreen from '../screens/Album/AlbumScreen';
 import AlbumSelectScreen from '../screens/Album/AlbumSelectScreen';
+import MissionPostScreen from '../screens/Mission/MissionPostScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,10 @@ const StackNavigator = () => {
             />
             <Stack.Screen name="MissionSelect"
                 component={MissionSelectScreen}
+                options={{ headerShown: false, animation: 'none'}}
+            />
+            <Stack.Screen name="MissionPost"
+                component={MissionPostScreen}
                 options={{ headerShown: false, animation: 'none'}}
             />
             <Stack.Screen name="Album"
