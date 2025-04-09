@@ -24,7 +24,7 @@ const TabBar = ({ navigation }) => {
                     />
                     <Text style={TabBarStyles.tabBarText}>앨범</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('ProfileAccount')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                     <Image
                         style={TabBarStyles.tabBarMissionIcon}
                         source={require('../../assets/icons/plusIcon.png')}

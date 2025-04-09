@@ -1,11 +1,14 @@
-import { Colors, Typography } from '../../styles/stylesIndex';
+import { Colors, Fontsizes, Typography } from '../../styles/stylesIndex';
 import { Dimensions, StyleSheet } from 'react-native';
 const { width, height } = Dimensions.get('window');
+
+const safePadding = '5%';
 
 const ProfileAccountScreenStyles = StyleSheet.create({
     backgroundStyle: {
         backgroundColor: Colors.basic,
         flex: 1,
+        padding: safePadding,
     },
     backArrow: {
         width: width * 0.12,
@@ -24,28 +27,21 @@ const ProfileAccountScreenStyles = StyleSheet.create({
     },
     topStyle: {
         flexDirection: 'row',
-        marginTop: height * 0.05,
+        marginTop: height * 0.025,
     },
     mainText: {
         ...Typography.bamin1,
-        fontSize: 18,
+        fontSize: Fontsizes.mm,
         alignSelf: 'center',
-        marginLeft: width * 0.38,
+        marginLeft: width * 0.33,
     },
-    doneText: {
-        ...Typography.bamin1,
-        fontSize: 18,
-        color: Colors.orange,
-        marginLeft: width * 0.25,
 
-
-    },
     setProfileImageWrapper: {
         alignSelf: 'center',
-        width: width * 0.2,
-        height: width * 0.2,
+        width: width * 0.24,
+        height: width * 0.24,
         borderRadius: width * 0.5,
-        marginTop: height * 0.04,
+        marginTop: height * 0.05,
         backgroundColor: Colors.white,
         borderColor: Colors.white,
         borderWidth: 1,
@@ -54,9 +50,21 @@ const ProfileAccountScreenStyles = StyleSheet.create({
         alignItems: 'center',
       },
     setProfileImage: {
-        width: width * 0.2,
-        height: width * 0.2,
+        width: width * 0.24,
+        height: width * 0.24,
         resizeMode: 'cover',
+    },
+    options: {
+        ...Typography.bamin1,
+        color: Colors.black,
+        fontSize: Fontsizes.mm,
+        marginTop: height * 0.015,
+    },
+    optionsWrapper: {
+        marginTop: height * 0.02,
+    },
+    commonButton: {
+        marginTop: height * 0.03,
     },
 });
 

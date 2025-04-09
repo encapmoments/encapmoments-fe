@@ -13,6 +13,7 @@ import AlbumSelectScreen from '../screens/Album/AlbumSelectScreen';
 import MissionPostScreen from '../screens/Mission/MissionPostScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import ProfileAccountScreen from '../screens/Profile/ProfileAccountScreen';
+import ProfileSetMemberScreen from '../screens/Profile/ProfileSetMemberScreen';
 // import ProfileMissionScreen from '../screens/Profile/ProfileMissionScreen';
 
 
@@ -73,6 +74,10 @@ const StackNavigator = () => {
                 component={ProfileMissionScreen}
                 options={{ headerShown: false, animation: 'none'}}
             /> */}
+             <Stack.Screen name="ProfileSetMember"
+                component={ProfileSetMemberScreen}
+                options={{ headerShown: false, animation: 'none'}}
+            />
         </Stack.Navigator>
     );
 };

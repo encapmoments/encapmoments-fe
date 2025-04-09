@@ -18,19 +18,13 @@ const MissionScreen = ({ navigation }) => {
         {/* 미션이 없으면 AddWeeklyMissions만, 미션이 있으면 ScrollView에 씌워서 위치 조정 후 3개 만들기*/}
 
         <Text style={MissionScreenStyles.missionText}>일일 미션</Text>
+        <Text style={MissionScreenStyles.dailyMissionTimeRemains}>11:09:19</Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
           <DailyMission navigation={navigation} title={'하이'} />
           <DailyMission navigation={navigation} title={'하삼'} />
           <DailyMission navigation={navigation} title={'하사'} />
           <DailyMission navigation={navigation} title={'하오'} />
           <DailyMission navigation={navigation} title={'하육'} />
-          <TouchableOpacity onPress={() => navigation.navigate('MissionSelect')} style={MissionScreenStyles.example}>
-            <Text>미션 선택</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')} style={MissionScreenStyles.example2}>
-            <Text>로그인창</Text>
-          </TouchableOpacity>
-
         </ScrollView>
       </View>
       <TabBar navigation={navigation}/>

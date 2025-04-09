@@ -1,4 +1,4 @@
-import { Colors, Typography } from '../../styles/stylesIndex';
+import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 
 import { StyleSheet, Dimensions } from 'react-native';
 
@@ -36,9 +36,10 @@ const MissionCreateScreenStyles = StyleSheet.create({
         marginTop: height * 0.05,
     },
     missionDescriptionText: {
+        ...Typography.bamin1,
         marginTop: height * 0.015,
         color: Colors.graytext,
-        fontSize: 12,
+        fontSize: Fontsizes.sm,
         alignSelf: 'center',
     },
     inputTextWrapper: {
@@ -46,7 +47,7 @@ const MissionCreateScreenStyles = StyleSheet.create({
         backgroundColor: Colors.missions,
         width: width * 0.8,
         alignSelf: 'center',
-        borderRadius:14,
+        borderRadius: Spacing.md,
         height:height * 0.45,
     },
     inputText: {
@@ -55,7 +56,7 @@ const MissionCreateScreenStyles = StyleSheet.create({
         width: width * 0.65,
         height:height * 0.35,
         alignSelf: 'center',
-         textAlignVertical: 'top',
+        textAlignVertical: 'top',
     },
 });
 

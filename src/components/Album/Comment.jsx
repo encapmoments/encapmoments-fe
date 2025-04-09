@@ -1,6 +1,5 @@
 import { View, Text, Image } from 'react-native';
 import CommentStyles from './CommentStyles';
-import { Avatar } from 'react-native-elements';
 
 const Comment = ({ image, member, comment }) => {
     return (

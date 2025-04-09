@@ -4,6 +4,7 @@ const Colors = {
     black: '#000000',
     orange: '#FF8A3D',
     button: '#4A4434',
+    inputtext: '#B9B28A',
     inputtextarea: '#F7F7F9',
     graytext: '#7D848D',
     graytext2: '#707B81',

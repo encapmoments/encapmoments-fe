@@ -1,30 +1,53 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native';
 import MissionPostScreenStyles from './MissionPostScreenStyles';
-
+import CommentCreate from '../../components/Mission/CommentCreate';
+import Colors from '../../styles/colors';
 import { CommonButton } from '../../common/commonIndex';
 
 const MissionPostScreen = ({ navigation }) => {
 
     return (
-        <View style={MissionPostScreenStyles.backgroundStyle}>
+        <KeyboardAvoidingView style={MissionPostScreenStyles.backgroundStyle}>
             <TouchableOpacity onPress={() => navigation.pop()} style={MissionPostScreenStyles.touchBackArrow}>
                 <Image
                     style={MissionPostScreenStyles.backArrow}
                     source={require('../../assets/icons/backArrowWrapper.png')}
                 />
             </TouchableOpacity>
-            <Image
-                style={MissionPostScreenStyles.missionImage}
-                source={require('../../assets/AppBarImages/covers/cover2.jpg')}
-            />
-            <View style={MissionPostScreenStyles.missionInfo}>
-                <CommonButton
-                    title="완료"
-                    onPress={() => navigation.navigate('AlbumSelect')}
-                    style={MissionPostScreenStyles.commonButton}
+            <View style={MissionPostScreenStyles.missionImageWrapper}>
+            <TouchableOpacity>
+                <Image
+                    style={MissionPostScreenStyles.plusIcon}
+                    source={require('../../assets/icons/plusIcon.png')}
                 />
+            </TouchableOpacity>
             </View>
-        </View>
+            <View style={MissionPostScreenStyles.missionInfo}>
+                <ScrollView horizontal={false} showsHorizontalScrollIndicator={false} style={MissionPostScreenStyles.scroll}>
+                    <TextInput style={MissionPostScreenStyles.titleInput} placeholder="제목" placeholderTextColor={Colors.white} />
+                    <TextInput style={MissionPostScreenStyles.tagInput} placeholder="태그" placeholderTextColor={Colors.white} />
+
+                    {/* 여기는 추가될 comments */}
+                        <CommentCreate />
+                    {/* 여기까지 */}
+
+                    <TouchableOpacity>
+                    <Image
+                        style={MissionPostScreenStyles.plusIconForComments}
+                        source={require('../../assets/icons/plusIcon.png')}
+                    />
+                    </TouchableOpacity>
+                </ScrollView>
+                <View/>
+                <View style={MissionPostScreenStyles.commonButton}>
+                    <CommonButton
+                        title="완료"
+                        onPress={() => navigation.navigate('AlbumSelect')}
+                    />
+                </View>
+            </View>
+
+        </KeyboardAvoidingView>
     );
 };
 

@@ -1,4 +1,4 @@
-import { Colors, Typography } from '../../styles/stylesIndex';
+import { Colors, Fontsizes, Spacing, Typography } from '../../styles/stylesIndex';
 
 import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
@@ -14,7 +14,7 @@ const CardStyles = StyleSheet.create({
     },
     texts: {
         ...Typography.bamin2,
-        fontSize: 11,
+        fontSize: Fontsizes.sm,
         textAlign: 'left',
         marginLeft: width * 0.03,
     },
@@ -23,28 +23,28 @@ const CardStyles = StyleSheet.create({
         width : width * 0.2,
         height : height * 0.12,
         alignSelf: 'center',
-        borderRadius: 14,
+        borderRadius: Spacing.sm,
         resizeMode: 'cover',
     },
     locationRow: {
         flexDirection: 'row',
     },
     locationImage: {
-        width: width * 0.04,
-        height: width * 0.04,
-        marginLeft: width * 0.025,
+        width: width * 0.03,
+        height: width * 0.03,
+        marginLeft: width * 0.02,
 
     },
     locationText: {
         color: Colors.graytext,
         ...Typography.bamin1,
-        fontSize: 11,
+        fontSize: Fontsizes.sm,
         marginLeft: width * 0.01,
     },
     tagText: {
         color: Colors.graytext,
         ...Typography.bamin1,
-        fontSize: 11,
+        fontSize: Fontsizes.sm,
         marginLeft: width * 0.025,
         marginTop: height * 0.01,
     },

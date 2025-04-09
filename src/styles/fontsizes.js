@@ -6,6 +6,7 @@ const Fontsizes = {
     xs: scaleFont(8),
     sm: scaleFont(10),
     md: scaleFont(12),
+    mm: scaleFont(16),
     lg: scaleFont(20),
     xl: scaleFont(24),
     xxl: scaleFont(32),

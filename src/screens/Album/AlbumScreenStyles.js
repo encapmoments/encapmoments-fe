@@ -1,4 +1,4 @@
-import { Colors, Typography } from '../../styles/stylesIndex';
+import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 
 import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
@@ -38,13 +38,13 @@ const AlbumScreenStyles = StyleSheet.create({
     },
     albumText: {
         ...Typography.bamin1,
-        fontSize: 18,
+        fontSize: Fontsizes.lg,
         marginTop: height * 0.03,
         marginLeft: width * 0.05,
     },
     albumListsWrapper: {
         backgroundColor: Colors.inputtextarea,
-        borderRadius: 40,
+        borderRadius: Spacing.lg,
         alignSelf:'center',
         width:width * 0.7,
         height: height * 0.5,
@@ -52,6 +52,8 @@ const AlbumScreenStyles = StyleSheet.create({
     },
     albumLists: {
         marginTop: height * 0.02,
+        borderRadius: Spacing.md,
+
     },
     albumListsRowColumn: {
         flexDirection: 'row',
