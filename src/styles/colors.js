@@ -6,6 +6,7 @@ const Colors = {
     button: '#4A4434',
     inputtextarea: '#F7F7F9',
     graytext: '#7D848D',
+    graytext2: '#707B81',
     missions: '#EBE5C2',
     missionInput: '#F3F3F3',
     red: '#F50000',

@@ -17,8 +17,8 @@ const LoginScreen = ({ navigation }) => {
     <View style={backgroundStyle}>
       <View style={{padding: safePadding}}>
         <Text style={LoginScreenStyles.loginText}>로그인</Text>
-        <InputText title="이메일" style={LoginScreenStyles.inputText}/>
-        <InputText title="비밀번호" style={LoginScreenStyles.inputText} secureTextEntry={true}/>
+        <InputText title="이메일" />
+        <InputText title="비밀번호" secureTextEntry={true}/>
         <Text style={LoginScreenStyles.forgotPW} onPress={() => navigation.navigate('FindPW')}>Forgot password?</Text>
         <CommonButton
           title="로그인"
@@ -28,7 +28,7 @@ const LoginScreen = ({ navigation }) => {
         <Text style={LoginScreenStyles.donthaveAccount}>계정이 없으신가요?{'    '}
           <Text style={LoginScreenStyles.signUp} onPress={() => navigation.navigate('SignUp')}>Sign Up</Text>
         </Text>
-        <Text style={LoginScreenStyles.donthaveAccount}>Or Connect</Text>
+        <Text style={LoginScreenStyles.orConnect}>Or Connect</Text>
       </View>
     </View>
   );

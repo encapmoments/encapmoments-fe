@@ -23,9 +23,9 @@ const SignUpScreen = ({ navigation }) => {
             />
         </TouchableOpacity>
         <Text style={LoginScreenStyles.loginText}>회원가입</Text>
-        <InputText title="닉네임" style={LoginScreenStyles.inputText}/>
-        <InputText title="이메일" style={LoginScreenStyles.inputText}/>
-        <InputText title="비밀번호" style={LoginScreenStyles.inputText} secureTextEntry={true}/>
+        <InputText title="닉네임" />
+        <InputText title="이메일"/>
+        <InputText title="비밀번호" secureTextEntry={true}/>
         <CommonButton
           title="완료"
           onPress={() => navigation.navigate('SetProfileImage')}
@@ -34,7 +34,7 @@ const SignUpScreen = ({ navigation }) => {
         <Text style={LoginScreenStyles.donthaveAccount}>계정이 이미 있으신가요?{'    '}
           <Text style={LoginScreenStyles.signUp} onPress={() => navigation.navigate('Login')}>Sign In</Text>
         </Text>
-        <Text style={LoginScreenStyles.donthaveAccount}>Or Connect</Text>
+        <Text style={LoginScreenStyles.orConnect}>Or Connect</Text>
 
       </View>
     </View>

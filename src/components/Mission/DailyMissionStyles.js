@@ -1,4 +1,4 @@
-import { Colors, Typography } from '../../styles/stylesIndex';
+import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 import { StyleSheet, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -10,13 +10,13 @@ const DailyMissionStyles = StyleSheet.create({
         width: width * 0.35,
         height: height * 0.1,
         marginLeft: width * 0.05,
-        borderRadius: 14,
+        borderRadius: Spacing.sm,
         justifyContent: 'center',
 
     },
     dailyMissionText: {
         ...Typography.bamin2,
-        fontSize: 12,
+        fontSize: Fontsizes.md,
         alignSelf: 'center',
 
     },

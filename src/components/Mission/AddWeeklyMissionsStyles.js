@@ -1,4 +1,4 @@
-import { Colors, Typography } from '../../styles/stylesIndex';
+import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 import { StyleSheet, Dimensions } from 'react-native';
 
 const { width, height}  = Dimensions.get('window');
@@ -12,7 +12,7 @@ const AddWeeklyMissionsStyles = StyleSheet.create({
         alignSelf: 'center',
         width: width * 0.6,
         justifyContent: 'center',
-        borderRadius: 14,
+        borderRadius: Spacing.md,
 
     },
 
@@ -21,17 +21,10 @@ const AddWeeklyMissionsStyles = StyleSheet.create({
          height: width * 0.2,
          alignSelf: 'center',
     },
-
-    missionText: {
-        ...Typography.bamin1,
-        fontSize: 18,
-        marginTop: height * 0.03,
-        marginLeft: width * 0.05,
-    },
     weeklyNoMissionText: {
         ...Typography.bamin1,
         color:Colors.org,
-        fontSize: 12,
+        fontSize: Fontsizes.md,
         alignSelf: 'center',
         marginTop: height * 0.01,
     },

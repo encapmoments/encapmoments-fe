@@ -1,11 +1,11 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Colors, Typography } from '../../styles/stylesIndex';
+import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 
 const { width, height } = Dimensions.get('window');
 
 const AppBarStyles = StyleSheet.create({
   AppBar: {
-    backgroundColor: '#F8F3D9',
+    backgroundColor: Colors.basic,
     height: height * 0.15,
     width: width,
     overflow: 'hidden',
@@ -27,9 +27,9 @@ const AppBarStyles = StyleSheet.create({
 
   AppBarText: {
     ...Typography.bamin1,
-    marginTop: height * 0.03,
+    marginTop: height * 0.035,
     marginLeft: width * 0.04,
-    fontSize: 24,
+    fontSize: Fontsizes.lg,
     fontWeight: '400',
     color: Colors.black,
     zIndex: 1,
@@ -41,7 +41,7 @@ const AppBarStyles = StyleSheet.create({
     top: height * 0.05,
     width: width * 0.12,
     height: width * 0.12,
-    borderRadius: 18,
+    borderRadius: Spacing.md,
     backgroundColor: Colors.white,
     borderColor: Colors.white,
     borderWidth: 1,
@@ -62,7 +62,7 @@ const AppBarStyles = StyleSheet.create({
     top: height * 0.05,
     width: width * 0.12,
     height: width * 0.12,
-    borderRadius: 18,
+    borderRadius: Spacing.md,
     backgroundColor: Colors.white,
     borderColor: Colors.white,
     borderWidth: 1,

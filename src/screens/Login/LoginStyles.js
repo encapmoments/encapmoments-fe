@@ -1,8 +1,8 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import Typography from '../../styles/typography';
-const { width, height } = Dimensions.get('window');
+import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
+import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 
-import Colors from '../../styles/colors';
+
+const { width, height } = Dimensions.get('window');
 
 const LoginScreenStyles = StyleSheet.create({
     commonButton: {
@@ -11,60 +11,55 @@ const LoginScreenStyles = StyleSheet.create({
 
     loginText: {
         ...Typography.bamin1,
-        fontSize: 24,
+        fontSize: Fontsizes.lg,
         alignItems: 'center',
         alignSelf: 'center',
-        marginTop: height * 0.1,
+        marginTop: height * 0.15,
         marginBottom: height * 0.06,
-    },
-
-    inputText: {
-        ...Typography.sf,
-        color: Colors.black,
-        marginTop: height * 0.02,
     },
 
     forgotPW: {
         ...Typography.bamin1,
         color: Colors.orange,
         marginTop: height * 0.02,
-        marginLeft: width * 0.6,
-        fontSize: 12,
+        marginLeft: width * 0.63,
+        fontSize: Fontsizes.sm,
     },
     donthaveAccount: {
         ...Typography.bamin1,
-        color: Colors.black,
-        marginTop: height * 0.04,
+        color: Colors.graytext2,
+        marginTop: height * 0.08,
         alignSelf: 'center',
-        fontSize: 12,
+        fontSize: Fontsizes.sm,
     },
     signUp: {
         ...Typography.bamin1,
         color: Colors.orange,
-        fontSize: 12,
+        fontSize: Fontsizes.sm,
+    },
+    orConnect: {
+        ...Typography.bamin1,
+        color: Colors.graytext2,
+        marginTop: height * 0.03,
+        alignSelf: 'center',
+        fontSize: Fontsizes.sm,
     },
 
-    loginTextForFinding: {
-        ...Typography.bamin1,
-        fontSize: 24,
-        alignItems: 'center',
-        alignSelf: 'center',
-        marginTop: height * 0.1,
-        marginBottom: height * 0.02,
-    },
     findPassWordDescription: {
-        color: Colors.graytext,
+        color: Colors.graytext2,
         alignSelf: 'center',
-        marginBottom: height * 0.1,
+        marginBottom: height * 0.04,
         textAlign: 'center',
+        marginTop: height * -0.04,
     },
-    spacingVertical: {
-        marginBottom: height * 0.05,
+    findPadding: {
+        marginBottom: height * -0.02,
     },
+
     setProfileImageWrapper: {
         alignSelf: 'center',
-        width: width * 0.4,
-        height: width * 0.4,
+        width: width * 0.5,
+        height: width * 0.5,
         borderRadius: width * 0.5,
         backgroundColor: Colors.white,
         borderColor: Colors.white,
@@ -74,11 +69,19 @@ const LoginScreenStyles = StyleSheet.create({
         alignItems: 'center',
       },
     setProfileImage: {
-        width: width * 0.4,
-        height: width * 0.4,
+        width: width * 0.5,
+        height: width * 0.5,
         resizeMode: 'cover',
-
     },
+    setProfileImageDescription : {
+        ...Typography.bamin1,
+        color: Colors.graytext2,
+        fontSize: Fontsizes.md,
+        textAlign: 'center',
+        marginTop: height * 0.02,
+        marginBottom: height * -0.02,
+    },
+
     backArrow: {
         width: width * 0.12,
         height: width * 0.12,

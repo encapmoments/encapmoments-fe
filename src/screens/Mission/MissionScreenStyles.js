@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-import { Colors, Typography } from '../../styles/stylesIndex.js';
+import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex.js';
 const { width, height } = Dimensions.get('window');
 
 const MissionScreenStyles = StyleSheet.create({
@@ -10,7 +10,7 @@ const MissionScreenStyles = StyleSheet.create({
     },
     missionText: {
         ...Typography.bamin1,
-        fontSize: 18,
+        fontSize: Fontsizes.lg,
         marginTop: height * 0.03,
         marginLeft: width * 0.05,
     },
@@ -18,7 +18,10 @@ const MissionScreenStyles = StyleSheet.create({
         flexDirection: 'row',
     },
     weeklyMissionTimeRemains: {
-        marginLeft:width * 0.6,
+        ...Typography.bamin1,
+        color: Colors.black,
+        marginLeft:width * 0.65,
+
     },
 
     example: {

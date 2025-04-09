@@ -22,11 +22,10 @@ const FindPassWordScreen = ({ navigation }) => {
               source={require('../../assets/icons/backArrowWrapper.png')}
           />
         </TouchableOpacity>
-        <Text style={LoginScreenStyles.loginTextForFinding}>비밀번호 재설정</Text>
+        <Text style={LoginScreenStyles.loginText}>비밀번호 재설정</Text>
         <Text style={LoginScreenStyles.findPassWordDescription}>이메일에 임시 비밀번호를{'\n'}보내드릴게요!</Text>
 
-        <InputText title="이메일" style={LoginScreenStyles.inputText}/>
-        <View style={LoginScreenStyles.spacingVertical} />
+        <InputText title="이메일" style={LoginScreenStyles.findPadding} />
         <CommonButton
           title="로그인"
           onPress={() => navigation.navigate('Login')}

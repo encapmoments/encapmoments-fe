@@ -19,11 +19,11 @@ const MissionScreen = ({ navigation }) => {
 
         <Text style={MissionScreenStyles.missionText}>일일 미션</Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
-          <DailyMission navigation={navigation} />
-          <DailyMission navigation={navigation} />
-          <DailyMission navigation={navigation} />
-          <DailyMission navigation={navigation} />
-          <DailyMission navigation={navigation} />
+          <DailyMission navigation={navigation} title={'하이'} />
+          <DailyMission navigation={navigation} title={'하삼'} />
+          <DailyMission navigation={navigation} title={'하사'} />
+          <DailyMission navigation={navigation} title={'하오'} />
+          <DailyMission navigation={navigation} title={'하육'} />
           <TouchableOpacity onPress={() => navigation.navigate('MissionSelect')} style={MissionScreenStyles.example}>
             <Text>미션 선택</Text>
           </TouchableOpacity>

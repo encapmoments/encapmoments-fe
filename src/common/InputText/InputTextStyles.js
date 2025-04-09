@@ -1,0 +1,20 @@
+import { Dimensions } from 'react-native';
+import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
+
+const { width, height } = Dimensions.get('window');
+
+const InputTextStyles = {
+    inputText: {
+        ...Typography.sf,
+        backgroundColor: Colors.missionInput,
+        paddingVertical: Spacing.input,
+        borderRadius: Spacing.input, // 완전 둥글게
+        alignItems: 'center',
+        fontSize: Fontsizes.md,
+        marginTop: height * 0.02,
+
+    },
+
+};
+
+export default InputTextStyles;

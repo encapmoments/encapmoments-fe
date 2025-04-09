@@ -5,13 +5,16 @@ import LoginScreen from '../screens/Login/LoginScreen';
 import SignUpScreen from '../screens/Login/SignUpScreen';
 import FindPassWordScreen from '../screens/Login/FindPassWordScreen';
 import SetProfileImageScreen from '../screens/Login/SetProfileImageScreen';
-import ProfileScreen from '../screens/Profile/ProfileScreen';
 import MissionScreen from '../screens/Mission/MissionScreen';
 import MissionCreateScreen from '../screens/Mission/MissionCreateScreen';
 import MissionSelectScreen from '../screens/Mission/MissionSelectScreen';
 import AlbumScreen from '../screens/Album/AlbumScreen';
 import AlbumSelectScreen from '../screens/Album/AlbumSelectScreen';
 import MissionPostScreen from '../screens/Mission/MissionPostScreen';
+import ProfileScreen from '../screens/Profile/ProfileScreen';
+import ProfileAccountScreen from '../screens/Profile/ProfileAccountScreen';
+// import ProfileMissionScreen from '../screens/Profile/ProfileMissionScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -24,10 +27,6 @@ const StackNavigator = () => {
             />
             <Stack.Screen name="Mission"
                 component={MissionScreen}
-                options={{ headerShown: false, animation: 'none'}}
-            />
-            <Stack.Screen name="Profile"
-                component={ProfileScreen}
                 options={{ headerShown: false, animation: 'none'}}
             />
             <Stack.Screen name="SignUp"
@@ -62,6 +61,18 @@ const StackNavigator = () => {
                 component={AlbumSelectScreen}
                 options={{ headerShown: false, animation: 'none'}}
             />
+             <Stack.Screen name="Profile"
+                component={ProfileScreen}
+                options={{ headerShown: false, animation: 'none'}}
+            />
+            <Stack.Screen name="ProfileAccount"
+                component={ProfileAccountScreen}
+                options={{ headerShown: false, animation: 'none'}}
+            />
+            {/* <Stack.Screen name="ProfileMission"
+                component={ProfileMissionScreen}
+                options={{ headerShown: false, animation: 'none'}}
+            /> */}
         </Stack.Navigator>
     );
 };

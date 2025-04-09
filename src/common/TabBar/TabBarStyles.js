@@ -13,7 +13,7 @@ const TabBarStyles = StyleSheet.create({
     },
     tabBarWrapper: {
       width: '100%',
-      height: height * 0.13,
+      height: height * 0.1,
       borderTopLeftRadius: 50,
       borderTopRightRadius: 50,
       backgroundColor: Colors.white,
@@ -27,7 +27,7 @@ const TabBarStyles = StyleSheet.create({
       justifyContent: 'space-around',
       alignItems: 'center',
       width: '100%',
-      height: height * 0.13,
+      height: height * 0.1,
       zIndex: 1,
     },
     tabBarMissionIcon: {

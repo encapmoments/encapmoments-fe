@@ -1,11 +1,11 @@
 import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
-import { Colors, Typography} from '../../styles/stylesIndex';
+import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 
 const CommonButtonStyles = {
     commonButton: {
         backgroundColor: '#4A4434',
-        paddingVertical: height * 0.02,
+        paddingVertical: Spacing.sm,
         borderRadius: 999,
         alignItems: 'center',
         justifyContent: 'center',
@@ -13,7 +13,7 @@ const CommonButtonStyles = {
 
     commonButtonText: {
         color: 'white',
-        fontSize: 14,
+        fontSize: Fontsizes.md,
         ...Typography.bamin2,
     },
 };

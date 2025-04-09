@@ -25,7 +25,7 @@ const SetProfileImageScreen = ({ navigation }) => {
         <View style={LoginScreenStyles.setProfileImageWrapper}>
                 <Image style={LoginScreenStyles.setProfileImage} source={require('../../assets/AppBarImages/person.png')} />
             </View>
-        <Text style={LoginScreenStyles.donthaveAccount}>프로필 이미지를 설정하세요!</Text>
+        <Text style={LoginScreenStyles.setProfileImageDescription}>프로필 이미지를 설정하세요!</Text>
         <CommonButton
           title="회원가입하기"
           onPress={() => navigation.navigate('Login')}
