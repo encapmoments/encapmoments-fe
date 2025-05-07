@@ -29,7 +29,7 @@ const MissionSelectScreen = ({ navigation }) => {
                 <View style={MissionSelectScreenStyles.paddings}>
                     <CommonButton
                     title="수행하러 가기"
-                    onPress={() => navigation.navigate('Mission')}
+                    onPress={() => navigation.navigate('MissionPost')}
                     style={MissionSelectScreenStyles.commonButton}
                 />
                 </View>

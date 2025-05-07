@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
+import { Fontsizes } from '../../styles/stylesIndex';
 
 import { Colors, Typography } from '../../styles/stylesIndex';
 
@@ -38,7 +39,7 @@ const TabBarStyles = StyleSheet.create({
     tabBarText: {
         ...Typography.bamin1,
         alignSelf: 'center',
-        fontSize: 12,
+        fontSize: Fontsizes.sm,
         marginTop: height * 0.01,
         color: Colors.graytext,
     },

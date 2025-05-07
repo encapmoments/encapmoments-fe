@@ -27,7 +27,7 @@ const MissionCreateScreenStyles = StyleSheet.create({
     },
     missionText: {
         ...Typography.bamin1,
-        fontSize: 24,
+        fontSize: Fontsizes.lg,
         alignItems: 'center',
         alignSelf: 'center',
         marginTop: height * 0.12,

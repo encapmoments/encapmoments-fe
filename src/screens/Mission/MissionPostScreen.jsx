@@ -4,6 +4,8 @@ import CommentCreate from '../../components/Mission/CommentCreate';
 import Colors from '../../styles/colors';
 import { CommonButton } from '../../common/commonIndex';
 
+import { PixelRatio } from 'react-native';
+
 const MissionPostScreen = ({ navigation }) => {
 
     return (
@@ -31,7 +33,12 @@ const MissionPostScreen = ({ navigation }) => {
                         <CommentCreate />
                     {/* 여기까지 */}
 
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={() => {
+                        const scale = PixelRatio.getFontScale();
+                        console.log('🔥 Font Scale 눌림:', scale);
+                      }}
+                    >
                     <Image
                         style={MissionPostScreenStyles.plusIconForComments}
                         source={require('../../assets/icons/plusIcon.png')}

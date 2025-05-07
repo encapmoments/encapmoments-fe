@@ -27,7 +27,7 @@ const FindPassWordScreen = ({ navigation }) => {
 
         <InputText title="이메일" style={LoginScreenStyles.findPadding} />
         <CommonButton
-          title="로그인"
+          title="재설정하기"
           onPress={() => navigation.navigate('Login')}
           style={LoginScreenStyles.commonButton}
         />

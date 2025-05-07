@@ -51,6 +51,7 @@ const LoginScreenStyles = StyleSheet.create({
         marginBottom: height * 0.04,
         textAlign: 'center',
         marginTop: height * -0.04,
+        fontSize: Fontsizes.sm,
     },
     findPadding: {
         marginBottom: height * -0.02,

@@ -1,8 +1,8 @@
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 import { StyleSheet, Dimensions } from 'react-native';
 
-const ProfileSetMemberScreenStyles = StyleSheet.create({
+const ProfileMyMissionsScreenStyles = StyleSheet.create({
 
 });
 
-export default ProfileSetMemberScreenStyles;
+export default ProfileMyMissionsScreenStyles;

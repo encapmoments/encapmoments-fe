@@ -21,6 +21,7 @@ const MissionScreenStyles = StyleSheet.create({
         ...Typography.bamin1,
         color: Colors.black,
         marginLeft:width * 0.65,
+        fontSize: Fontsizes.sm,
     },
     dailyMissionTimeRemains: {
         ...Typography.bamin1,
@@ -28,6 +29,7 @@ const MissionScreenStyles = StyleSheet.create({
         marginLeft:width * 0.7,
         bottom: height * 0.026,
         marginBottom: height * -0.03,
+        fontSize: Fontsizes.sm,
     },
 
     example: {
