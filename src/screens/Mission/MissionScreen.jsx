@@ -1,14 +1,18 @@
 import React from 'react';
-import { View, Text,ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text,ScrollView, ActivityIndicator } from 'react-native';
 
 import { AppBar, TabBar } from '../../common/commonIndex';
 import MissionScreenStyles from './MissionScreenStyles';
 import { AddWeeklyMissions, DailyMission } from '../../components/Mission/missionIndex';
+import { useGetDailyMissions } from '../../viewmodels/missionViewModels';
+import Colors from '../../styles/colors';
 
 const MissionScreen = ({ navigation }) => {
+  // const accessToken = useAuthStore((state) => state.accessToken);
+  const accessToken = 'mock-access-token';
+  const { dailyMissions, loading } = useGetDailyMissions(accessToken);
 
   return (
-
     <>
       <AppBar />
       <View style={MissionScreenStyles.backgroundStyle}>
@@ -19,13 +23,20 @@ const MissionScreen = ({ navigation }) => {
 
         <Text style={MissionScreenStyles.missionText}>일일 미션</Text>
         <Text style={MissionScreenStyles.dailyMissionTimeRemains}>11:09:19</Text>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
-          <DailyMission navigation={navigation} title={'하이'} />
-          <DailyMission navigation={navigation} title={'하삼'} />
-          <DailyMission navigation={navigation} title={'하사'} />
-          <DailyMission navigation={navigation} title={'하오'} />
-          <DailyMission navigation={navigation} title={'하육'} />
-        </ScrollView>
+        {loading ? (
+          <ActivityIndicator size="small" color={Colors.orange} />
+        ) : (
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
+            {dailyMissions.map((mission, index) => (
+              <DailyMission
+                key={index}
+                navigation={navigation}
+                title={mission.mission_title}
+                daily_id={mission.daily_id}
+              />
+            ))}
+          </ScrollView>
+        )}
       </View>
       <TabBar navigation={navigation}/>
 
