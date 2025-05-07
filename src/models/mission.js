@@ -36,7 +36,7 @@ export const getWeeklyMissions = async (accessToken) => {
     return useMissionStore.getState().weeklyMissions;
   }
 
-  const res = await axios.get('https://api.encapmoments.com/mission/weekly', {
+  const res = await axios.get('https://api.encapmoments.com/weekly', {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
   });

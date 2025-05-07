@@ -1,76 +1,68 @@
 import { useState, useEffect } from 'react';
-import { getDailyMissions, getDailyMissionDetail, getWeeklyMissions, getWeeklyMissionDetail } from '../models/mission';
+import {
+  getDailyMissions,
+  getWeeklyMissions,
+  getDailyMissionDetail,
+  getWeeklyMissionDetail,
+} from '../models/mission';
 
-// 일일 앨범 모두 조회
-export const useGetDailyMissions = (accessToken) => {
-    const [dailyMissions, setDailyMissions] = useState([]);
-    const [loading, setLoading] = useState(true);
+// 전체 미션 조회
+export const useGetMissions = (type, accessToken) => {
+  const [missions, setMissions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-      const fetchDailyMissions = async () => {
-        try {
+  useEffect(() => {
+    const fetchMissions = async () => {
+      try {
+        if (type === 'daily') {
           const data = await getDailyMissions(accessToken);
-          setDailyMissions(data);
-        } catch (error) {
-          console.error('일일 미션 가져오기 실패:', error);
-        } finally {
-          setLoading(false);
+          setMissions(data);
+        } else if (type === 'weekly') {
+          const data = await getWeeklyMissions(accessToken);
+          setMissions(data);
+        } else {
+          throw new Error(`Invalid mission type: ${type}`);
         }
-      };
+      } catch (error) {
+        console.error(`${type} 미션 가져오기 실패:`, error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      fetchDailyMissions();
-    }, [accessToken]);
+    fetchMissions();
+  }, [type, accessToken]);
 
-    return { dailyMissions, loading };
-  };
-
-// 주간 앨범 모두 조회
-export const useGetWeeklyMissions = async (accessToken) => {
-    const [ weeklyMissions, setDailyMissions ] = useState([]);
-    const [ loading, setLoading ] = useState(true);
-
-     useEffect(() => {
-            const fetchWeeklyMissions = async () => {
-                try {
-                    const weekly = await getWeeklyMissions(accessToken);
-                    setDailyMissions(weekly);
-                } catch (error) {
-                    console.error('주간 미션 가져오기 실패:', error);
-                } finally {
-                    setLoading(false);
-                }
-            };
-
-            fetchWeeklyMissions();
-
-        }, [accessToken]);
-
-    return { weeklyMissions, loading };
+  return { missions, loading };
 };
 
-// 일일 미션 상세 조회
-export const useGetDailyMissionDetail = (daily_id, accessToken) => {
-    const [mission, setMission] = useState(null);
-    const [loading, setLoading] = useState(true);
+// 상세 미션 조회
+export const useGetMissionDetail = (type, id, accessToken) => {
+  const [mission, setMission] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-      const fetchDetail = async () => {
-        try {
-          if (daily_id) {
-            const data = await getDailyMissionDetail(daily_id, accessToken);
-            setMission(data);
-          }
-        } catch (error) {
-          console.error('일일 미션 상세 조회 실패:', error);
-        } finally {
-          setLoading(false);
+  useEffect(() => {
+    const fetchDetail = async () => {
+      try {
+        if (!id) { return; }
+        if (type === 'daily') {
+          const data = await getDailyMissionDetail(id, accessToken);
+          setMission(data);
+        } else if (type === 'weekly') {
+          const data = await getWeeklyMissionDetail(id, accessToken);
+          setMission(data);
+        } else {
+          throw new Error(`Invalid mission type: ${type}`);
         }
-      };
+      } catch (error) {
+        console.error(`${type} 미션 상세 조회 실패:`, error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      fetchDetail();
-    }, [daily_id, accessToken]);
+    fetchDetail();
+  }, [type, id, accessToken]);
 
-    return { mission, loading };
-  };
-
-// 주간 미션 상세 조회
+  return { mission, loading };
+};

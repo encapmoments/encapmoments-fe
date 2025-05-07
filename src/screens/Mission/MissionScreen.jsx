@@ -4,13 +4,14 @@ import { View, Text,ScrollView, ActivityIndicator } from 'react-native';
 import { AppBar, TabBar } from '../../common/commonIndex';
 import MissionScreenStyles from './MissionScreenStyles';
 import { AddWeeklyMissions, DailyMission } from '../../components/Mission/missionIndex';
-import { useGetDailyMissions } from '../../viewmodels/missionViewModels';
+import { useGetMissions } from '../../viewmodels/missionViewModels';
 import Colors from '../../styles/colors';
 
 const MissionScreen = ({ navigation }) => {
   // const accessToken = useAuthStore((state) => state.accessToken);
   const accessToken = 'mock-access-token';
-  const { dailyMissions, loading } = useGetDailyMissions(accessToken);
+  const { missions: dailyMissions, loading: dailyLoading } = useGetMissions('daily', accessToken);
+  const { missions: weeklyMissions, loading: weeklyLoading } = useGetMissions('weekly', accessToken);
 
   return (
     <>
@@ -23,7 +24,7 @@ const MissionScreen = ({ navigation }) => {
 
         <Text style={MissionScreenStyles.missionText}>일일 미션</Text>
         <Text style={MissionScreenStyles.dailyMissionTimeRemains}>11:09:19</Text>
-        {loading ? (
+        {dailyLoading ? (
           <ActivityIndicator size="small" color={Colors.orange} />
         ) : (
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
@@ -34,6 +35,7 @@ const MissionScreen = ({ navigation }) => {
                 title={mission.mission_title}
                 reward={mission.reward}
                 daily_id={mission.daily_id}
+                type="daily"
               />
             ))}
           </ScrollView>

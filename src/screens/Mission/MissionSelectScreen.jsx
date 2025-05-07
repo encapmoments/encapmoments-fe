@@ -3,13 +3,13 @@ import MissionSelectScreenStyles from './MissionSelectScreenStyles';
 import Colors from '../../styles/colors';
 import { CommonButton } from '../../common/commonIndex';
 
-import { useGetDailyMissionDetail } from '../../viewmodels/missionViewModels';
+import { useGetMissionDetail } from '../../viewmodels/missionViewModels';
 
 const MissionSelectScreen = ({ navigation, route }) => {
-  const { daily_id } = route.params || {};
+  const { id, type } = route.params || {};
   const accessToken = 'mock-access-token';
 
-  const { mission, loading } = useGetDailyMissionDetail(daily_id, accessToken);
+  const { mission, loading } = useGetMissionDetail(type, id, accessToken);
 
   if (loading) {
     return (
