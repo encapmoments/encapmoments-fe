@@ -19,17 +19,9 @@
 colors, spacing, typography 등 스타일 상수를 변수로 정의
 ```
 
-### 하단 bar 없애기
+### USE_MOCK
 ```
-// ✅ immersive 설정 추가
-override fun onCreate(savedInstanceState: Bundle?) {
-  super.onCreate(savedInstanceState)
-
-  // 하단 네비게이션 바 자동 숨김 (스와이프 시 다시 나타남)
-  window.decorView.systemUiVisibility = (
-    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-    or View.SYSTEM_UI_FLAG_FULLSCREEN
-  )
-}
+src/models/useMock.js
+const useMock = true; // 목데이터 사용 => 백엔드 서버가 아닌 임시 목데이터로 어플 실행 가능
+const useMock = flase; // 서버와 연결
 ```
