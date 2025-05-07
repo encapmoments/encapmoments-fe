@@ -7,7 +7,7 @@ import AlbumScreenStyles from './AlbumScreenStyles';
 import Card from '../../components/Album/Card';
 
 import { useGetAlbum } from '../../viewmodels/albumViewModels';
-import useAuthStore from '../../store/authStore'; // Zustand 사용
+import useAuthStore from '../../store/store'; // Zustand 사용
 
 const AlbumScreen = ({ navigation }) => {
   const accessToken = 'mock-access-token'; // TODO: 실제 accessToken 적용 시에는 이거 X (ex. user.accessToken -> 상태 관리 라이브러리로 받아오기)

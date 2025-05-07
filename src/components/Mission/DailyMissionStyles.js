@@ -20,6 +20,18 @@ const DailyMissionStyles = StyleSheet.create({
         alignSelf: 'center',
 
     },
+    dailyMissionPoint: {
+        ...Typography.bamin1,
+        marginLeft: width * 0.27,
+        marginBottom: height * -0.01,
+        fontSize: Fontsizes.xs,
+
+    },
+    dailyMissionPointP: {
+        ...Typography.bamin1,
+        color: Colors.orange,
+        fontSize: Fontsizes.xs,
+    },
 });
 
 export default DailyMissionStyles;

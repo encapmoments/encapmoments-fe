@@ -11,7 +11,7 @@ const Fontsizes = {
     // xl: scaleFont(24),
     // xxl: scaleFont(32),
 
-    // xs: scaleFont(18),
+    xs: scaleFont(15),
     sm: scaleFont(18),
     md: scaleFont(22),
     mm: scaleFont(28),

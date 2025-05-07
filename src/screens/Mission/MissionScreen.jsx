@@ -32,6 +32,7 @@ const MissionScreen = ({ navigation }) => {
                 key={index}
                 navigation={navigation}
                 title={mission.mission_title}
+                reward={mission.reward}
                 daily_id={mission.daily_id}
               />
             ))}

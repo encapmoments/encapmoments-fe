@@ -49,7 +49,7 @@ const MissionPostScreen = ({ navigation }) => {
                 <View style={MissionPostScreenStyles.commonButton}>
                     <CommonButton
                         title="완료"
-                        onPress={() => navigation.navigate('AlbumSelect')}
+                        onPress={() => navigation.navigate('Album')}
                     />
                 </View>
             </View>
