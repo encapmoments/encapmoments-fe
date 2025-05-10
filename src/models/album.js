@@ -28,7 +28,7 @@ if (useMock) {
     };
 }
 
-const res = await axios.post('https://api.encapmoments.com/album',
+const res = await axios.post('https://api.encapmoments.com/album/generate',
     { album_title, album_tag, album_image, location },
     {
         headers: { Authorization: `Bearer ${accessToken}` },

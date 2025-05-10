@@ -27,6 +27,21 @@ const MissionSelectScreen = ({ navigation, route }) => {
     );
   }
 
+  // type에 따라 필드 분기
+  let mission_image, mission_title, mission_description, mission_reward;
+
+  if (type === 'daily') {
+    mission_image = mission.daily_image;
+    mission_title = mission.daily_title;
+    mission_description = mission.daily_description;
+    mission_reward = mission.reward;
+  } else if (type === 'weekly') {
+    mission_image = mission.weekly_image;
+    mission_title = mission.weekly_title;
+    mission_description = mission.weekly_description;
+    mission_reward = mission.reward;
+  }
+
   return (
     <View style={MissionSelectScreenStyles.backgroundStyle}>
       <TouchableOpacity onPress={() => navigation.pop()} style={MissionSelectScreenStyles.touchBackArrow}>
@@ -39,20 +54,20 @@ const MissionSelectScreen = ({ navigation, route }) => {
       <Image
         style={MissionSelectScreenStyles.missionImage}
         source={
-          typeof mission.mission_image === 'number'
-            ? mission.mission_image
-            : { uri: mission.mission_image }
+          typeof mission_image === 'number'
+            ? mission_image
+            : { uri: mission_image }
         }
       />
       <View style={MissionSelectScreenStyles.missionInfo}>
-        <Text style={MissionSelectScreenStyles.missionTitle}>{mission.mission_title}</Text>
+        <Text style={MissionSelectScreenStyles.missionTitle}>{mission_title}</Text>
 
         <Text style={MissionSelectScreenStyles.missionPoint}>
-          {mission.reward} <Text style={MissionSelectScreenStyles.missionPointP}>p</Text>
+          {mission_reward} <Text style={MissionSelectScreenStyles.missionPointP}>p</Text>
         </Text>
 
         <Text style={MissionSelectScreenStyles.missionTitle}>설명</Text>
-        <Text style={MissionSelectScreenStyles.missionDescription}>{mission.mission_description}</Text>
+        <Text style={MissionSelectScreenStyles.missionDescription}>{mission_description}</Text>
 
         <Text style={MissionSelectScreenStyles.missionTitle}>인증 방식</Text>
         <Text style={MissionSelectScreenStyles.missionDescription}>

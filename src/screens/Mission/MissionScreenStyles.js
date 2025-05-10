@@ -22,6 +22,8 @@ const MissionScreenStyles = StyleSheet.create({
         color: Colors.black,
         marginLeft:width * 0.65,
         fontSize: Fontsizes.sm,
+        bottom: height * 0.026,
+
     },
     dailyMissionTimeRemains: {
         ...Typography.bamin1,
@@ -30,6 +32,17 @@ const MissionScreenStyles = StyleSheet.create({
         bottom: height * 0.026,
         marginBottom: height * -0.03,
         fontSize: Fontsizes.sm,
+    },
+    weeklyMissionWrapper: {
+        marginTop: height * -0.07,
+    },
+    weeklyMissionsWraapper: {
+        height: height * 0.45,
+        marginTop: height * 0.07,
+        marginBottom: height * -0.04,
+    },
+    AddWeeklyMissionsWrapper: {
+        marginTop: height * -0.07,
     },
 
     example: {

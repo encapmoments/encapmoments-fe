@@ -27,13 +27,13 @@ const TabBarStyles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
-      width: '100%',
+      width: '90%',
       height: height * 0.1,
       zIndex: 1,
     },
     tabBarMissionIcon: {
-      width: width * 0.1,
-      height: width * 0.1,
+      width: width * 0.07,
+      height: width * 0.07,
       resizeMode: 'contain',
     },
     tabBarText: {

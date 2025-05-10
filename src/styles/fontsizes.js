@@ -1,4 +1,5 @@
 import { PixelRatio } from 'react-native';
+import { scale } from 'react-native-size-matters';
 
 const scaleFont = (size) => size * PixelRatio.getFontScale();
 
@@ -14,6 +15,7 @@ const Fontsizes = {
     xs: scaleFont(15),
     sm: scaleFont(18),
     md: scaleFont(22),
+    mdm: scaleFont(25),
     mm: scaleFont(28),
     lg: scaleFont(32),
     // xl: scaleFont(24),

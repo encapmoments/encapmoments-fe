@@ -3,7 +3,7 @@ import { View, Text,ScrollView, ActivityIndicator } from 'react-native';
 
 import { AppBar, TabBar } from '../../common/commonIndex';
 import MissionScreenStyles from './MissionScreenStyles';
-import { AddWeeklyMissions, DailyMission } from '../../components/Mission/missionIndex';
+import { AddWeeklyMissions, DailyMission, WeeklyMission } from '../../components/Mission/missionIndex';
 import { useGetMissions } from '../../viewmodels/missionViewModels';
 import Colors from '../../styles/colors';
 
@@ -13,14 +13,45 @@ const MissionScreen = ({ navigation }) => {
   const { missions: dailyMissions, loading: dailyLoading } = useGetMissions('daily', accessToken);
   const { missions: weeklyMissions, loading: weeklyLoading } = useGetMissions('weekly', accessToken);
 
+  const hasMissions = true; // weekly_time 조건 불충족시 false, 충족 시 true
+
   return (
     <>
       <AppBar />
       <View style={MissionScreenStyles.backgroundStyle}>
         <Text style={MissionScreenStyles.missionText}>주간 미션</Text>
         <Text style={MissionScreenStyles.weeklyMissionTimeRemains}>6:13:20:19</Text>
-        <AddWeeklyMissions navigation={navigation} />
-        {/* 미션이 없으면 AddWeeklyMissions만, 미션이 있으면 ScrollView에 씌워서 위치 조정 후 3개 만들기*/}
+
+        <View style={MissionScreenStyles.weeklyMissionsWraapper}>
+          {!hasMissions ? (
+              <View style={MissionScreenStyles.AddWeeklyMissionsWrapper}>
+                <AddWeeklyMissions navigation={navigation} />
+              </View>
+          ) : (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={MissionScreenStyles.weeklyMissionWrapper}
+            >
+              {weeklyMissions.map((mission, index) => (
+                <WeeklyMission
+                  key={index}
+                  navigation={navigation}
+                  image={
+                    typeof mission.weekly_image === 'string'
+                      ? { uri: mission.weekly_image }
+                      : mission.weekly_image
+                  }
+                  title={mission.weekly_title}
+                  reward={mission.reward}
+                  weekly_id={mission.weekly_id}
+                  is_completed={mission.is_completed}
+                  type="weekly"
+                />
+              ))}
+            </ScrollView>
+          )}
+        </View>
 
         <Text style={MissionScreenStyles.missionText}>일일 미션</Text>
         <Text style={MissionScreenStyles.dailyMissionTimeRemains}>11:09:19</Text>
@@ -32,9 +63,10 @@ const MissionScreen = ({ navigation }) => {
               <DailyMission
                 key={index}
                 navigation={navigation}
-                title={mission.mission_title}
+                title={mission.daily_title}
                 reward={mission.reward}
                 daily_id={mission.daily_id}
+                is_completed={mission.is_completed}
                 type="daily"
               />
             ))}

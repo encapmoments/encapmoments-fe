@@ -2,6 +2,13 @@ import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex
 import { Dimensions, StyleSheet } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
+const boxText = {
+    ...Typography.bamin2,
+    color: Colors.orange,
+    alignSelf: 'center',
+    justifyContent: 'center',
+};
+
 const ProfileScreenStyles = StyleSheet.create({
     backgroundStyle: {
         backgroundColor: Colors.basic,
@@ -63,12 +70,19 @@ const ProfileScreenStyles = StyleSheet.create({
         justifyContent: 'center',
         marginBotton: height * 0.02,
     },
+
     boxText2: {
-        ...Typography.bamin2,
+        ...boxText,
+        fontSize: Fontsizes.mdm,
+
+    },
+    boxText2_2: {
+        ...boxText,
         fontSize: Fontsizes.md,
-        color: Colors.orange,
+    },
+    box: {
+        flexDirection: 'row',
         alignSelf: 'center',
-        justifyContent: 'center',
     },
 });
 

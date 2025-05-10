@@ -13,21 +13,21 @@ const TabBar = ({ navigation }) => {
                 <TouchableOpacity onPress={() => navigation.navigate('Mission')}>
                     <Image
                         style={TabBarStyles.tabBarMissionIcon}
-                        source={require('../../assets/icons/plusIcon.png')}
+                        source={require('../../assets/icons/home.png')}
                     />
                     <Text style={TabBarStyles.tabBarText}>미션</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Album')}>
                     <Image
                         style={TabBarStyles.tabBarMissionIcon}
-                        source={require('../../assets/icons/plusIcon.png')}
+                        source={require('../../assets/icons/calendar.png')}
                     />
                     <Text style={TabBarStyles.tabBarText}>앨범</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                     <Image
                         style={TabBarStyles.tabBarMissionIcon}
-                        source={require('../../assets/icons/plusIcon.png')}
+                        source={require('../../assets/icons/profile.png')}
                     />
                     <Text style={TabBarStyles.tabBarText}>프로필</Text>
                 </TouchableOpacity>

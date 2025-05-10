@@ -1,40 +1,21 @@
 import axios from 'axios';
 import useMock from './useMock';
-
-// mock data
-const mockUsers = [
-  {
-    email: 'a@a.com',
-    password: '1234',
-    nickname: '이강룡',
-    profile_image: 'https://example.com/kang.png',
-  },
-  {
-    email: 'b@b.com',
-    password: 'abcd',
-    nickname: '정연웅',
-    profile_image: 'https://example.com/yeon.png',
-  },
-  {
-    email: 'c@c.com',
-    password: 'pass123',
-    nickname: '민재영',
-    profile_image: 'https://example.com/jae.png',
-  },
-];
+import { useUserStore } from '../store/store';
 
 // 로그인
 export const loginAPI = async (email, password) => {
   if (useMock) {
     console.log('MOCK LOGIN');
 
-    const user = mockUsers.find((u) => u.email === email && u.password === password);
-    if (!user) {
-      return {
-        success: false,
-        message: '이메일 또는 비밀번호가 올바르지 않습니다.',
-      };
-    }
+    const user = useUserStore.getState().users;
+
+    // const user = mockUsers.find((u) => u.email === email && u.password === password);
+    // if (!user) {
+    //   return {
+    //     success: false,
+    //     message: '이메일 또는 비밀번호가 올바르지 않습니다.',
+    //   };
+    // }
 
     return {
       success: true,
@@ -73,26 +54,26 @@ export const logoutAPI = async () => {
 
 // 회원가입
 export const registerAPI = async (email, password, nickname, profile_image) => {
-  if (useMock) {
-    console.log('MOCK REGISTER');
+  // if (useMock) {
+  //   console.log('MOCK REGISTER');
 
-    const exists = mockUsers.find((u) => u.email === email);
-    if (exists) {
-      return { success: false, message: '이미 존재하는 이메일입니다.' };
-    }
+  //   // const exists = mockUsers.find((u) => u.email === email);
+  //   // if (exists) {
+  //   //   return { success: false, message: '이미 존재하는 이메일입니다.' };
+  //   // }
 
-    const newUser = { email, password, nickname, profile_image };
-    mockUsers.push(newUser);
+  //   const newUser = { email, password, nickname, profile_image };
+  //   mockUsers.push(newUser);
 
-    return {
-      success: true,
-      user: {
-        email,
-        nickname,
-        profile_image,
-      },
-    };
-  }
+  //   return {
+  //     success: true,
+  //     user: {
+  //       email,
+  //       nickname,
+  //       profile_image,
+  //     },
+  //   };
+  // }
 
   const res = await axios.post('https://api.encapmoments.com/auth/register', {
     email,

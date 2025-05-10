@@ -46,7 +46,7 @@ const AlbumScreenStyles = StyleSheet.create({
         backgroundColor: Colors.inputtextarea,
         borderRadius: Spacing.lg,
         alignSelf:'center',
-        width:width * 0.7,
+        width:width * 0.8,
         height: height * 0.5,
         marginTop: height * 0.02,
     },

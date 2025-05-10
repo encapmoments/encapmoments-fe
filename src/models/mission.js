@@ -8,7 +8,7 @@ export const getDailyMissions = async (accessToken) => {
     return useMissionStore.getState().dailyMissions;
   }
 
-  const res = await axios.get('https://api.encapmoments.com/mission/daily', {
+  const res = await axios.get('https://api.encapmoments.com/daily_mission', {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
   });
@@ -22,7 +22,7 @@ export const getDailyMissionDetail = async (daily_id, accessToken) => {
     return useMissionStore.getState().getDailyDetail(daily_id);
   }
 
-  const res = await axios.get(`https://api.encapmoments.com/mission/daily_detail/${daily_id}`, {
+  const res = await axios.get(`https://api.encapmoments.com/daily_mission/${daily_id}`, {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
   });
@@ -36,7 +36,7 @@ export const getWeeklyMissions = async (accessToken) => {
     return useMissionStore.getState().weeklyMissions;
   }
 
-  const res = await axios.get('https://api.encapmoments.com/weekly', {
+  const res = await axios.get('https://api.encapmoments.com/weekly_mission', {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
   });
@@ -50,7 +50,7 @@ export const getWeeklyMissionDetail = async (weekly_id, accessToken) => {
     return useMissionStore.getState().getWeeklyDetail(weekly_id);
   }
 
-  const res = await axios.get(`https://api.encapmoments.com/mission/weekly_detail/${weekly_id}`, {
+  const res = await axios.get(`https://api.encapmoments.com/weekly_mission/${weekly_id}`, {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
   });

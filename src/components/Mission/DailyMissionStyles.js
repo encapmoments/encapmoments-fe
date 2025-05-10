@@ -4,6 +4,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 const DailyMissionStyles = StyleSheet.create({
+
     dailyMissionWrapper: {
         backgroundColor: Colors.white,
         marginTop: height * 0.03,
@@ -31,6 +32,30 @@ const DailyMissionStyles = StyleSheet.create({
         ...Typography.bamin1,
         color: Colors.orange,
         fontSize: Fontsizes.xs,
+    },
+    completedWrapper: {
+        opacity: 0.3,
+      },
+    wrapper: {
+        position: 'relative',
+    },
+    overlay: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: Spacing.sm,
+        pointerEvents: 'none',
+    },
+    overlayText: {
+        ...Typography.bamin1,
+        fontSize: Fontsizes.mdm,
+        color: Colors.red,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginLeft: width * 0.03,
+        marginTop: height * 0.035,
     },
 });
 

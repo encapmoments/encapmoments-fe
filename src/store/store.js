@@ -31,3 +31,9 @@ export const useMissionStore = create((set) => ({
   getDailyDetail: (id) => mockDailyDetails[id],
   getWeeklyDetail: (id) => mockWeeklyDetails[id],
 }));
+
+// 유저 mock data
+export const useUserStore = create((set) => ({
+  users: [...mockUsers],
+
+}));

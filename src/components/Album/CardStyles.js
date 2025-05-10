@@ -8,7 +8,7 @@ const CardStyles = StyleSheet.create({
         paddingLeft: width * 0.02,
         paddingRight: width * 0.02,
         backgroundColor: Colors.white,
-        width: width * 0.3,
+        width: width * 0.35,
         borderRadius: 14,
         height: height * 0.25,
     },
@@ -20,8 +20,8 @@ const CardStyles = StyleSheet.create({
     },
     albumImage: {
         marginTop : height * 0.02,
-        width : width * 0.2,
-        height : height * 0.12,
+        width : width * 0.25,
+        height : height * 0.15,
         alignSelf: 'center',
         borderRadius: Spacing.sm,
         resizeMode: 'cover',
@@ -38,15 +38,15 @@ const CardStyles = StyleSheet.create({
     locationText: {
         color: Colors.graytext,
         ...Typography.bamin1,
-        fontSize: Fontsizes.sm,
+        fontSize: Fontsizes.xs,
         marginLeft: width * 0.01,
     },
     tagText: {
         color: Colors.graytext,
         ...Typography.bamin1,
-        fontSize: Fontsizes.sm,
+        fontSize: Fontsizes.xs,
         marginLeft: width * 0.025,
-        marginTop: height * 0.01,
+        marginTop: height * 0.005,
     },
 });
 

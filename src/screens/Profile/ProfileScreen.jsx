@@ -4,6 +4,7 @@ import { View, Text, Image } from 'react-native';
 import { ProfileBox } from '../../components/Profile/profileIndex';
 import { TabBar } from '../../common/commonIndex';
 import ProfileScreenStyles from './ProfileScreenStyles';
+import { useUserStore } from '../../store/store';
 
 const ProfileScreen = ({ navigation }) => {
 
@@ -19,7 +20,9 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={ProfileScreenStyles.nicknameText}>우리가족</Text>
         <View style={ProfileScreenStyles.boxWrapper}>
           <Text style={ProfileScreenStyles.boxText1}>내 추억 점수</Text>
-          <Text style={ProfileScreenStyles.boxText2}>360 points</Text>
+          <View style={ProfileScreenStyles.box}>
+            <Text style={ProfileScreenStyles.boxText2}>360</Text><Text style={ProfileScreenStyles.boxText2_2}> points</Text>
+          </View>
         </View>
         <ProfileBox title={'개인정보 수정'} navigation={navigation} route="ProfileAccount" />
         <ProfileBox title={'내 미션 확인'} navigation={navigation} route="ProfileAccount" />
