@@ -43,7 +43,7 @@ const AlbumScreenStyles = StyleSheet.create({
         marginLeft: width * 0.05,
     },
     albumListsWrapper: {
-        backgroundColor: Colors.inputtextarea,
+        backgroundColor: Colors.basic,
         borderRadius: Spacing.lg,
         alignSelf:'center',
         width:width * 0.8,

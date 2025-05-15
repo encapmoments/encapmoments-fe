@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { mockAlbums, mockUsers, mockDailyMissions, mockDailyDetails, mockWeeklyMissions, mockWeeklyDetails } from './mock';
+import { mockAlbums, mockUsers, mockDailyMissions, mockDailyDetails, mockWeeklyMissions, mockWeeklyDetails, mockProfileWeeklyMissions, mockProfileDailyMissions } from './mock';
 
 // accessToken 발급
 const useAuthStore = create((set) => ({
@@ -32,8 +32,16 @@ export const useMissionStore = create((set) => ({
   getWeeklyDetail: (id) => mockWeeklyDetails[id],
 }));
 
-// 유저 mock data
-export const useUserStore = create((set) => ({
-  users: [...mockUsers],
+// // 유저 mock data
+// export const useUserStore = create((set) => ({
+//   users: [...mockUsers],
 
-}));
+// }));
+
+// // 프로필 mock data
+// export const useProfileMissionsStore = create((set) => ({
+//   // TODO: 개인 정보
+
+//   profileWeeklyMissions: [...mockProfileWeeklyMissions],
+//   profileDailyMissions: [...mockProfileDailyMissions],
+// }));

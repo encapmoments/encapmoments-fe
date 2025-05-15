@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import CreateMissionMembersStyles from './CreateMissionMembersStyles';
 
-const CreateMissionMembers = () => {
-  const [members, setMembers] = useState([{ age: '', gender: '' }]);
-
+const CreateMissionMembers = ({ members, setMembers }) => {
   const handleAdd = () => {
     setMembers([...members, { age: '', gender: '' }]);
   };
@@ -24,7 +22,7 @@ const CreateMissionMembers = () => {
               <Text style={CreateMissionMembersStyles.memberText}>나이</Text>
               <TextInput
                 style={CreateMissionMembersStyles.memberAge}
-                placeholder="입력"
+                placeholder="나이"
                 keyboardType="numeric"
                 value={member.age}
                 onChangeText={(text) => {
@@ -51,6 +49,7 @@ const CreateMissionMembers = () => {
               >
                 <Text style={CreateMissionMembersStyles.memberSexText}>남자</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
                 style={[
                   CreateMissionMembersStyles.memberSex,

@@ -25,7 +25,7 @@ const ProfileScreen = ({ navigation }) => {
           </View>
         </View>
         <ProfileBox title={'개인정보 수정'} navigation={navigation} route="ProfileAccount" />
-        <ProfileBox title={'내 미션 확인'} navigation={navigation} route="ProfileAccount" />
+        <ProfileBox title={'내 미션 확인'} navigation={navigation} route="ProfileMyMissions" />
         <ProfileBox title={'로그아웃'} navigation={navigation} route="Login" />
       </View>
       <TabBar navigation={navigation}/>

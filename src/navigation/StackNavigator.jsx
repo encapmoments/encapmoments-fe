@@ -69,10 +69,6 @@ const StackNavigator = () => {
                 component={ProfileAccountScreen}
                 options={{ headerShown: false, animation: 'none'}}
             />
-            {/* <Stack.Screen name="ProfileMission"
-                component={ProfileMissionScreen}
-                options={{ headerShown: false, animation: 'none'}}
-            /> */}
              <Stack.Screen name="ProfileMyMissions"
                 component={ProfileMyMissionsScreen}
                 options={{ headerShown: false, animation: 'none'}}

@@ -50,21 +50,21 @@ const mockUsers = [
     email: 'a@a.com',
     password: '1234',
     nickname: '이강룡',
-    profile_image: 'https://example.com/kang.png',
+    profile_image: require('../assets/mock/album/album1.jpg'),
     points: 100,
   },
   {
     email: 'b@b.com',
     password: 'abcd',
     nickname: '정연웅',
-    profile_image: 'https://example.com/yeon.png',
+    profile_image: require('../assets/mock/album/album2.jpg'),
     points: 200,
   },
   {
     email: 'c@c.com',
     password: 'pass123',
     nickname: '민재영',
-    profile_image: 'https://example.com/jae.png',
+    profile_image: require('../assets/mock/album/album3.png'),
     points: 300,
   },
 ];
@@ -152,6 +152,67 @@ const mockWeeklyDetails = {
     },
 };
 
+// 프로필 mock data
+const mockProfileWeeklyMissions = { // is_completed==true 인 것만
+  1: {
+      weekly_image: require('../assets/mock/mission/mission1.jpg'),
+      weekly_title: '주간미션1',
+      reward: 300,
+  },
+  2: {
+      weekly_image: require('../assets/mock/mission/mission2.jpg'),
+      weekly_title: '주간미션2',
+      reward: 300,
+  },
+  3: {
+    weekly_image: require('../assets/mock/mission/mission3.jpg'),
+    weekly_title: '주간미션3',
+    reward: 300,
+  },
+  4: {
+    weekly_image: require('../assets/mock/mission/mission4.jpg'),
+    weekly_title: '주간미션4',
+    reward: 300,
+  },
+  5: {
+      weekly_image: require('../assets/mock/mission/mission5.jpg'),
+      weekly_title: '주간미션5',
+      reward: 300,
+  },
+  6: {
+    weekly_image: require('../assets/mock/mission/mission6.jpg'),
+    weekly_title: '주간미션6',
+    reward: 300,
+  },
+};
+
+const mockProfileDailyMissions = { // is_completed==true 인 것만
+  1: {
+      daily_title: '일일미션1',
+      reward: 100,
+  },
+  2: {
+      daily_title: '일일미션2',
+      reward: 100,
+  },
+  3: {
+    daily_title: '일일미션3',
+    reward: 100,
+  },
+  4: {
+      daily_title: '일일미션4',
+      reward: 100,
+  },
+  5: {
+      daily_title: '일일미션5',
+      reward: 100,
+  },
+  6: {
+    daily_title: '일일미션6',
+    reward: 100,
+  },
+};
+
 export {
 mockAlbums,
 mockUsers,
@@ -159,4 +220,6 @@ mockDailyMissions,
 mockDailyDetails,
 mockWeeklyMissions,
 mockWeeklyDetails,
+mockProfileWeeklyMissions,
+mockProfileDailyMissions,
 };

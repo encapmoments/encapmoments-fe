@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native';
 
 import { InputText, CommonButton } from '../../common/commonIndex';
 import ProfileAccountScreenStyles from './ProfileAccountScreenStyles';
@@ -8,7 +8,7 @@ const ProfileAccountScreen = ({ navigation }) => {
 
   return (
     <>
-        <View style={ProfileAccountScreenStyles.backgroundStyle} behavior="height" keyboardVerticalOffset={0} >
+        <KeyboardAvoidingView style={ProfileAccountScreenStyles.backgroundStyle} behavior="height" keyboardVerticalOffset={20} >
             <TouchableOpacity onPress={() => navigation.pop()} style={ProfileAccountScreenStyles.touchBackArrow}>
                 <Image
                     style={ProfileAccountScreenStyles.backArrow}
@@ -40,7 +40,7 @@ const ProfileAccountScreen = ({ navigation }) => {
                 style={ProfileAccountScreenStyles.commonButton}
                 title={'완료'}
             />
-        </View>
+        </KeyboardAvoidingView>
     </>
     );
 };

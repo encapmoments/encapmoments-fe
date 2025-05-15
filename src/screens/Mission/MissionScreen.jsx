@@ -13,7 +13,7 @@ const MissionScreen = ({ navigation }) => {
   const { missions: dailyMissions, loading: dailyLoading } = useGetMissions('daily', accessToken);
   const { missions: weeklyMissions, loading: weeklyLoading } = useGetMissions('weekly', accessToken);
 
-  const hasMissions = false; // weekly_time 조건 불충족시 false, 충족 시 true
+  const hasMissions = true; // weekly_time 조건 불충족시 false, 충족 시 true
 
   return (
     <>
