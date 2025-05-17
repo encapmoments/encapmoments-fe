@@ -8,6 +8,10 @@ const LoginScreenStyles = StyleSheet.create({
     commonButton: {
         marginTop: height * 0.06,
     },
+    backgroundStyle: {
+        backgroundColor: Colors.basic,
+        flex: 1,
+    },
 
     loginText: {
         ...Typography.bamin1,
@@ -62,7 +66,7 @@ const LoginScreenStyles = StyleSheet.create({
         width: width * 0.5,
         height: width * 0.5,
         borderRadius: width * 0.5,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.missionInput,
         borderColor: Colors.white,
         borderWidth: 1,
         overflow: 'hidden',
@@ -73,6 +77,25 @@ const LoginScreenStyles = StyleSheet.create({
         width: width * 0.5,
         height: width * 0.5,
         resizeMode: 'cover',
+    },
+    pencilIconWrapper: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: [
+            { translateX: -((width * 0.08) / 2) },
+            { translateY: -((width * 0.08) / 2) },
+        ],
+        width: width * 0.08,
+        height: width * 0.08,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: Spacing.md,
+    },
+    pencilIcon: {
+        width: width * 0.08,
+        height: width * 0.08,
+        opacity: 0.5,
     },
     setProfileImageDescription : {
         ...Typography.bamin1,
@@ -99,8 +122,11 @@ const LoginScreenStyles = StyleSheet.create({
         height: width * 0.12,
         zIndex: 10,
     },
-
-
+    plusIcon: {
+        opacity: 0.5,
+        width: width * 0.15,
+        height: width * 0.15,
+    },
 });
 
 export default LoginScreenStyles;

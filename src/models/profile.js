@@ -8,7 +8,7 @@ export const getProfileUser = async (accessToken) => {
         return useProfileStore.getState().profileUser;
     }
 
-    const res = await axios.get('https://api.encapmoments.com/mypage', {
+    const res = await axios.get('https://api.encapmoments.com/profile/me', {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
     });
@@ -17,6 +17,15 @@ export const getProfileUser = async (accessToken) => {
 };
 
 // 프로필 수정
+/*
+https://api.encapmoments.com/profile
+PUT
+
+request
+{ "nickname": "변경닉", "profile_image": "url", "email": "new@a.com", "password": "newpass123" }
+
+백엔드 함수 작동
+*/
 
 // 내 미션 확인
 export const getProfileMissions = async (accessToken) => {
@@ -28,7 +37,7 @@ export const getProfileMissions = async (accessToken) => {
     };
   }
 
-  const res = await axios.get('https://api.encapmoments.com/mypage/missions', {
+  const res = await axios.get('https://api.encapmoments.com/profile/missions', {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
   });

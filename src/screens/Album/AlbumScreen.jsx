@@ -33,10 +33,11 @@ const AlbumScreen = ({ navigation }) => {
               renderItem={({ item }) => (
                 <Card
                   navigation={navigation}
-                  title={item.album_title}
+                  album_id={item.album_id}
+                  album_title={item.album_title}
                   location={item.location}
-                  tag={item.album_tag}
-                  image={
+                  album_tag={item.album_tag}
+                  album_image={
                     typeof item.album_image === 'string'
                       ? { uri: item.album_image }
                       : item.album_image

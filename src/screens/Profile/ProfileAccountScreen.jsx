@@ -31,7 +31,7 @@ const ProfileAccountScreen = ({ navigation }) => {
                     <Text style={ProfileAccountScreenStyles.options}>비밀번호</Text>
                     <InputText />
                     <Text style={ProfileAccountScreenStyles.options}>구성원</Text>
-                    <InputText
+                    <InputText placeholder="엄마 아빠 철수 유리"
                         // 여기에 구성원 추가 하는거 구현해야 함. ViewModel 할 때 하자
                     />
                 </View>

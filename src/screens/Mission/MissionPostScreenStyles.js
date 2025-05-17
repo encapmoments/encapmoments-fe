@@ -31,11 +31,28 @@ const MissionPostScreenStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    uploadedImage: {
+        width: '100%',
+        height: '100%',
+    },
     plusIcon: {
         width: width * 0.2,
         height: width * 0.2,
         opacity: 0.7,
    },
+    pencilIconWrapper: {
+    position: 'absolute',
+    width: width * 0.1,
+    height: width * 0.1,
+    borderRadius: Spacing.md,
+
+    },
+    pencilIcon: {
+        width: width * 0.1,
+        height: height * 0.1,
+        resizeMode: 'center',
+        opacity: 0.5,
+    },
     missionInfo: {
         height:height * 0.5,
     },
@@ -65,6 +82,19 @@ const MissionPostScreenStyles = StyleSheet.create({
         color: Colors.white,
         marginLeft: width * 0.05,
     },
+    locationInput: {
+        ...Typography.bamin2,
+        marginTop: height * 0.02,
+        backgroundColor: Colors.inputtext,
+        width: width * 0.5,
+        height: height * 0.06,
+        borderRadius: Spacing.lg,
+        textAlignVertical: 'center',
+        paddingLeft: Spacing.sm,
+        fontSize: Fontsizes.md,
+        color: Colors.white,
+        marginLeft: width * 0.05,
+    },
     plusIconForComments: {
         width: width * 0.1,
         height: width * 0.1,
@@ -79,6 +109,24 @@ const MissionPostScreenStyles = StyleSheet.create({
     scroll: {
         flex: 1,
         paddingBottom: 80,
+    },
+    commentWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginHorizontal: width * 0.05,
+    },
+    deleteButtonWrapper: {
+        position: 'absolute',
+        marginTop: height * 0.015,
+        marginLeft: width * 0.4,
+    },
+    deleteButton: {
+        ...Typography.bamin1,
+        color: Colors.red,
+        fontSize: Fontsizes.sm,
+        marginTop: height * 0.055,
+        marginLeft: width * 0.4,
     },
 });
 

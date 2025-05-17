@@ -27,8 +27,8 @@ const SignUpScreen = ({ navigation }) => {
         <InputText title="이메일"/>
         <InputText title="비밀번호" secureTextEntry={true}/>
         <CommonButton
-          title="완료"
-          onPress={() => navigation.navigate('SetProfileImage')}
+          title="회원가입하기"
+          onPress={() => navigation.navigate('Login')}
           style={LoginScreenStyles.commonButton}
         />
         <Text style={LoginScreenStyles.donthaveAccount}>계정이 이미 있으신가요?{'    '}

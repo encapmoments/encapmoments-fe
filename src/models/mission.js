@@ -59,3 +59,30 @@ export const getWeeklyMissionDetail = async (weekly_id, accessToken) => {
 };
 
 // 주간 미션 생성
+export const generateWeeklyMission = async (data, accessToken) => {
+
+  if (useMock) {
+    const newMission = {
+      weekly_id: Math.floor(Math.random() * 10000),
+      weekly_title: 'AI 생성 미션',
+      weekly_description: data.text,
+      weekly_image: require('../assets/mock/mission/mission1.jpg'),
+      reward: 300,
+      is_completed: false,
+    };
+
+    useMissionStore.getState().addWeeklyMission(newMission);
+
+    return newMission;
+  }
+  const res = await axios.post('https://api.encapmoments.com/weekly_mission/generate', data,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      withCredentials: true,
+    }
+  );
+
+  return res.data;
+};

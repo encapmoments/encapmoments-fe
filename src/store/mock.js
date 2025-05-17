@@ -51,31 +51,6 @@ const mockAlbums = [
   },
 ];
 
-// 유저 mock data
-const mockUsers = [
-  {
-    email: 'a@a.com',
-    password: '1234',
-    nickname: '이강룡',
-    profile_image: require('../assets/mock/album/album1.jpg'),
-    points: 100,
-  },
-  {
-    email: 'b@b.com',
-    password: 'abcd',
-    nickname: '정연웅',
-    profile_image: require('../assets/mock/album/album2.jpg'),
-    points: 200,
-  },
-  {
-    email: 'c@c.com',
-    password: 'pass123',
-    nickname: '민재영',
-    profile_image: require('../assets/mock/album/album3.png'),
-    points: 300,
-  },
-];
-
 // 미션 mock data
 const mockDailyMissions = [
   {
@@ -156,9 +131,12 @@ const mockWeeklyMissions = [
 ];
 
 // 프로필 mock data
-
-const mockProfileUser = {
-  profile_image: require('../assets/mock/mission/mission3.jpg'), points: 100, nickname: '우리가족1',
+const mockUser = {
+  email: 'a@a.com',
+  password: '1234',
+  nickname: '이강룡',
+  profile_image: require('../assets/mock/album/album1.jpg'),
+  points: 100,
 };
 
 const mockProfileWeeklyMissions = [ // is_completed==true 인 것만
@@ -235,10 +213,9 @@ const mockProfileDailyMissions = [ // is_completed==true 인 것만
 
 export {
 mockAlbums,
-mockUsers,
+mockUser,
 mockDailyMissions,
 mockWeeklyMissions,
-mockProfileUser,
 mockProfileWeeklyMissions,
 mockProfileDailyMissions,
 };

@@ -26,7 +26,7 @@ const LoginScreen = ({ navigation }) => {
           style={LoginScreenStyles.commonButton}
         />
         <Text style={LoginScreenStyles.donthaveAccount}>계정이 없으신가요?{'    '}
-          <Text style={LoginScreenStyles.signUp} onPress={() => navigation.navigate('SignUp')}>Sign Up</Text>
+          <Text style={LoginScreenStyles.signUp} onPress={() => navigation.navigate('SetProfileImage')}>Sign Up</Text>
         </Text>
         <Text style={LoginScreenStyles.orConnect}>Or Connect</Text>
       </View>
