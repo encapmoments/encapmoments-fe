@@ -13,7 +13,7 @@ const MissionScreen = ({ navigation }) => {
   const { missions: dailyMissions, loading: dailyLoading } = useGetMissions('daily', accessToken);
   const { missions: weeklyMissions, loading: weeklyLoading } = useGetMissions('weekly', accessToken);
 
-  const hasMissions = false; // weekly_time 조건 불충족시 false, 충족 시 true
+  const hasMissions = true; // weekly_time 조건 불충족시 false, 충족 시 true
 
   return (
     <>
@@ -22,7 +22,7 @@ const MissionScreen = ({ navigation }) => {
         <Text style={MissionScreenStyles.missionText}>주간 미션</Text>
         <Text style={MissionScreenStyles.weeklyMissionTimeRemains}>6:13:20:19</Text>
 
-       <View style={MissionScreenStyles.weeklyMissionsWraapper}>
+      <View style={MissionScreenStyles.weeklyMissionsWraapper}>
           {weeklyLoading ? (
             <ActivityIndicator size="small" color={Colors.orange} />
           ) : !hasMissions ? (
@@ -39,16 +39,7 @@ const MissionScreen = ({ navigation }) => {
                 <WeeklyMission
                   key={mission.weekly_id ?? index}
                   navigation={navigation}
-                  image={
-                    typeof mission.weekly_image === 'string'
-                      ? { uri: mission.weekly_image }
-                      : mission.weekly_image
-                  }
-                  title={mission.weekly_title}
-                  reward={mission.reward}
-                  weekly_id={mission.weekly_id}
-                  is_completed={mission.is_completed}
-                  type="weekly"
+                  {...mission}
                 />
               ))}
             </ScrollView>
@@ -61,17 +52,13 @@ const MissionScreen = ({ navigation }) => {
           <ActivityIndicator size="small" color={Colors.orange} />
         ) : (
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
-            {dailyMissions.map((mission, index) => (
+              {dailyMissions.map((mission) => (
               <DailyMission
-                key={index}
+                key={mission.daily_id}
                 navigation={navigation}
-                title={mission.daily_title}
-                reward={mission.reward}
-                daily_id={mission.daily_id}
-                is_completed={mission.is_completed}
-                type="daily"
+                {...mission}
               />
-            ))}
+              ))}
           </ScrollView>
         )}
       </View>

@@ -1,31 +1,9 @@
-import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import MissionSelectScreenStyles from './MissionSelectScreenStyles';
-import Colors from '../../styles/colors';
 import { CommonButton } from '../../common/commonIndex';
 
-import { useGetMissionDetail } from '../../viewmodels/missionViewModels';
-
 const MissionSelectScreen = ({ navigation, route }) => {
-  const { id, type } = route.params || {};
-  const accessToken = 'mock-access-token';
-
-  const { mission, loading } = useGetMissionDetail(type, id, accessToken);
-
-  if (loading) {
-    return (
-      <View style={MissionSelectScreenStyles.backgroundStyle}>
-        <ActivityIndicator size="large" color={Colors.orange} />
-      </View>
-    );
-  }
-
-  if (!mission) {
-    return (
-      <View style={MissionSelectScreenStyles.backgroundStyle}>
-        <Text>미션을 불러오지 못했습니다.</Text>
-      </View>
-    );
-  }
+  const { mission, type } = route.params;
 
   // type에 따라 필드 분기
   let mission_image, mission_title, mission_description, mission_reward;

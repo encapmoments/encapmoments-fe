@@ -35,7 +35,7 @@ const MissionCreateScreen = ({ navigation }) => {
                 </View>
                 <CommonButton
                 title="미션 만들기"
-                onPress={() => navigation.navigate('Mission')}
+                onPress={() => navigation.navigate('Mission')} // 여기에 post 함수 작동
                 style={MissionCreateScreenStyles.commonButton}
                 />
             </View>
