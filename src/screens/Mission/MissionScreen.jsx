@@ -13,7 +13,7 @@ const MissionScreen = ({ navigation }) => {
   const { missions: dailyMissions, loading: dailyLoading } = useGetMissions('daily', accessToken);
   const { missions: weeklyMissions, loading: weeklyLoading } = useGetMissions('weekly', accessToken);
 
-  const hasMissions = true; // weekly_time 조건 불충족시 false, 충족 시 true
+  const hasMissions = false; // weekly_time 조건 불충족시 false, 충족 시 true
 
   return (
     <>
@@ -22,11 +22,13 @@ const MissionScreen = ({ navigation }) => {
         <Text style={MissionScreenStyles.missionText}>주간 미션</Text>
         <Text style={MissionScreenStyles.weeklyMissionTimeRemains}>6:13:20:19</Text>
 
-        <View style={MissionScreenStyles.weeklyMissionsWraapper}>
-          {!hasMissions ? (
-              <View style={MissionScreenStyles.AddWeeklyMissionsWrapper}>
-                <AddWeeklyMissions navigation={navigation} />
-              </View>
+       <View style={MissionScreenStyles.weeklyMissionsWraapper}>
+          {weeklyLoading ? (
+            <ActivityIndicator size="small" color={Colors.orange} />
+          ) : !hasMissions ? (
+            <View style={MissionScreenStyles.AddWeeklyMissionsWrapper}>
+              <AddWeeklyMissions navigation={navigation} />
+            </View>
           ) : (
             <ScrollView
               horizontal
@@ -35,7 +37,7 @@ const MissionScreen = ({ navigation }) => {
             >
               {weeklyMissions.map((mission, index) => (
                 <WeeklyMission
-                  key={index}
+                  key={mission.weekly_id ?? index}
                   navigation={navigation}
                   image={
                     typeof mission.weekly_image === 'string'

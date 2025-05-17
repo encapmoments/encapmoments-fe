@@ -45,7 +45,7 @@ const ProfileMyMissionsScreenStyles = StyleSheet.create({
             backgroundColor: Colors.basic,
         },
         weeklyMissionWrapper: {
-            marginTop: height * 0.02,
+            marginTop: height * 0.01,
             // backgroundColor: Colors.white,
             width: width * 0.8,
             height: height * 0.3,

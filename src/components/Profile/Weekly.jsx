@@ -1,12 +1,12 @@
 import { View, Text, Image } from 'react-native';
 import WeeklyStyles from './WeeklyStyles';
 
-const Weekly = () => {
+const Weekly = ({ weekly_id, weekly_title, weekly_image, reward }) => {
     return (
         <View style={WeeklyStyles.backgroundStyle}>
-        <Image style={WeeklyStyles.weeklyImage} resizeMode="cover" source={require('../../assets/images/example_image.png')}/>
-        <Text style={WeeklyStyles.weeklyTitle}>기린이랑 사진 찍기</Text>
-        <Text style={WeeklyStyles.weeklyPoint}>300<Text style={WeeklyStyles.weeklyPointP}> p</Text></Text>
+        <Image style={WeeklyStyles.weeklyImage} resizeMode="cover" source={ weekly_image }/>
+        <Text style={WeeklyStyles.weeklyTitle}>{ weekly_title }</Text>
+        <Text style={WeeklyStyles.weeklyPoint}>{ reward }<Text style={WeeklyStyles.weeklyPointP}> p</Text></Text>
         </View>
     );
 };

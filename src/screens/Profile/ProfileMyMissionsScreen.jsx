@@ -1,9 +1,20 @@
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import ProfileMyMissionsScreenStyles from './ProfileMyMissionsScreenStyles';
 import { TabBar } from '../../common/commonIndex';
 import { Weekly, Daily } from '../../components/Profile/profileIndex';
+import { useGetProfileMissions } from '../../viewmodels/profileViewModels';
 
 const ProfileMyMissionsScreen = ({ navigation }) => {
+
+    const accessToken = 'mock-access-token';
+    const { profileDailyMissions, profileWeeklyMissions, loading  } = useGetProfileMissions(accessToken);
+
+    if (loading) {
+        return (
+            <ActivityIndicator size="large" />
+        );
+    }
+
     return (
         <>
             <View style={ProfileMyMissionsScreenStyles.backgroundStyle} behavior="height" keyboardVerticalOffset={0} >
@@ -21,25 +32,30 @@ const ProfileMyMissionsScreen = ({ navigation }) => {
             <View style={ProfileMyMissionsScreenStyles.missionWrapper}>
                 <Text style={ProfileMyMissionsScreenStyles.text}>주간 미션</Text>
                 <ScrollView showsHorizontalScrollIndicator={false} style={ProfileMyMissionsScreenStyles.weeklyMissionWrapper}>
-                    {/* Weekly map */}
-                    <Weekly />
-                    <Weekly />
-                    <Weekly />
-                    <Weekly />
-                    <Weekly />
+                    {profileWeeklyMissions.map((weekly) => (
+                        <Weekly
+                            key={weekly.weekly_id}
+                            weekly_id={weekly.weekly_id}
+                            weekly_image={
+                                typeof weekly.weekly_image === 'string'
+                                ? { uri: weekly.weekly_image }
+                                : weekly.weekly_image
+                            }
+                            weekly_title={weekly.weekly_title}
+                            reward={weekly.reward}
+                        />
+                    ))}
                 </ScrollView>
                 <Text style={ProfileMyMissionsScreenStyles.text}>일일 미션</Text>
                 <ScrollView showsHorizontalScrollIndicator={false} style={ProfileMyMissionsScreenStyles.dailyMissionWrapper}>
-                    {/* Daily map */}
-                    <Daily />
-                    <Daily />
-                    <Daily />
-                    <Daily />
-                    <Daily />
-                    <Daily />
-                    <Daily />
-                    <Daily />
-                    <Daily />
+                    {profileDailyMissions.map((daily) => (
+                        <Daily
+                            key={daily.daily_id}
+                            daily_id={daily.daily_id}
+                            daily_title={daily.daily_title}
+                            reward={daily.reward}
+                        />
+                    ))}
                 </ScrollView>
             </View>
             <TabBar navigation={navigation} />
