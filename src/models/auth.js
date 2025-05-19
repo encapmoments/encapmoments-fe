@@ -1,21 +1,16 @@
 import axios from 'axios';
 import useMock from './useMock';
-import { useUserStore } from '../store/store';
+import { useAuthStore, useUserStore } from '../store/store';
+import baseUrl from './baseUrl';
 
 // 로그인
-export const loginAPI = async (email, password) => {
+export const login = async (email, password) => {
   if (useMock) {
-    console.log('MOCK LOGIN');
-
     const user = useUserStore.getState().users;
 
-    // const user = mockUsers.find((u) => u.email === email && u.password === password);
-    // if (!user) {
-    //   return {
-    //     success: false,
-    //     message: '이메일 또는 비밀번호가 올바르지 않습니다.',
-    //   };
-    // }
+    useAuthStore.getState().setAccessToken('mock-access-token');
+    useUserStore.getState().setUser(user);
+
 
     return {
       success: true,
@@ -30,56 +25,97 @@ export const loginAPI = async (email, password) => {
   }
 
   const res = await axios.post(
-    'https://api.encapmoments.com/auth/login',
+    `${baseUrl}/auth/login`,
     { email, password },
-    { withCredentials: true }
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    }
   );
   return res.data;
 };
 
 // 로그아웃
-export const logoutAPI = async () => {
+export const logout = async () => {
   if (useMock) {
-    console.log('MOCK LOGOUT');
+    useAuthStore.getState().resetAccessToken();
+    useUserStore.getState().resetUser();
     return { success: true };
   }
 
+  try {
+      const accessToken = useAuthStore.getState().accessToken;
+
+    const res = await axios.post(
+      `${baseUrl}/auth/logout`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+         },
+
+        withCredentials: true,
+      }
+    );
+
+    useAuthStore.getState().resetAccessToken();
+    useUserStore.getState().resetUser();
+    // localStorage.removeItem('refreshToken'); // 우리는 DB에서 refresh token 관리
+
+    return res.data;
+  } catch (err) {
+    console.error('Logout error:', err);
+    throw err;
+  }
+};
+
+// 회원가입
+export const register = async (email, password, nickname, profile_image) => {
   const res = await axios.post(
-    'https://api.encapmoments.com/auth/logout',
-    {},
-    { withCredentials: true }
+    `${baseUrl}/auth/register`,
+    {
+      email,
+      password,
+      nickname,
+      profile_image,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    }
   );
   return res.data;
 };
 
-// 회원가입
-export const registerAPI = async (email, password, nickname, profile_image) => {
-  // if (useMock) {
-  //   console.log('MOCK REGISTER');
+// 프로필 이미지 업로드
+export const uploadImage = async (imageUri) => {
 
-  //   // const exists = mockUsers.find((u) => u.email === email);
-  //   // if (exists) {
-  //   //   return { success: false, message: '이미 존재하는 이메일입니다.' };
-  //   // }
+  const uriParts = imageUri.split('.');
+  const fileType = uriParts[uriParts.length - 1].toLowerCase();
 
-  //   const newUser = { email, password, nickname, profile_image };
-  //   mockUsers.push(newUser);
+  const supportedTypes = ['jpg', 'jpeg', 'png'];
+  const validType = supportedTypes.includes(fileType) ? `image/${fileType}` : 'image/jpeg';
 
-  //   return {
-  //     success: true,
-  //     user: {
-  //       email,
-  //       nickname,
-  //       profile_image,
-  //     },
-  //   };
-  // }
-
-  const res = await axios.post('https://api.encapmoments.com/auth/register', {
-    email,
-    password,
-    nickname,
-    profile_image,
+  const formData = new FormData();
+  formData.append('profile_image', {
+    uri: imageUri,
+    type: validType,
+    name: `profile.${fileType}`,
   });
+
+  if (useMock) {return { success: true };}
+
+  const res = await axios.post(`${baseUrl}/auth/uploadImage`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    withCredentials: true,
+  });
+
   return res.data;
 };

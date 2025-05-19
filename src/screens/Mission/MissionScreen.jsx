@@ -1,28 +1,90 @@
-import React from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { View, Text,ScrollView, ActivityIndicator } from 'react-native';
 
 import { AppBar, TabBar } from '../../common/commonIndex';
 import MissionScreenStyles from './MissionScreenStyles';
 import { AddWeeklyMissions, DailyMission, WeeklyMission } from '../../components/Mission/missionIndex';
 import { useGetMissions } from '../../viewmodels/missionViewModels';
+import useAccessToken from '../../models/accessToken';
 import Colors from '../../styles/colors';
 
 const MissionScreen = ({ navigation }) => {
-  // const accessToken = useAuthStore((state) => state.accessToken);
-  const accessToken = 'mock-access-token';
+  const accessToken = useAccessToken();
+
   const { missions: dailyMissions, loading: dailyLoading } = useGetMissions('daily', accessToken);
   const { missions: weeklyMissions, loading: weeklyLoading } = useGetMissions('weekly', accessToken);
+  const [weeklyRemainTime, setWeeklyRemainTime] = useState('');
+  const [dailyRemainTime, setDailyRemainTime] = useState('');
 
-  const hasMissions = true; // weekly_time 조건 불충족시 false, 충족 시 true
+  // const hasMissions = true; // weekly_time 조건 불충족시 false, 충족 시 true
+  const hasMissions = useMemo(() => {
+    if (weeklyLoading) {return true;} // 로딩 중엔 true 처리
+    const now = new Date();
+
+    return weeklyMissions.some((mission) => {
+      if (!mission.expires_at) {return false;}
+      return new Date(mission.expires_at) > now;
+    });
+  }, [weeklyMissions, weeklyLoading]);
+
+  const getTimeDiffString = (futureDate) => {
+    const now = new Date();
+    const diff = new Date(futureDate) - now;
+
+    if (diff <= 0) {return '0:00:00:00';}
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    return `${days}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  };
+
+  useEffect(() => {
+    if (weeklyMissions.length === 0) {return;}
+
+    const validMissions = weeklyMissions.filter(m => m.expires_at);
+    if (validMissions.length === 0) {return;}
+
+    const latestExpire = new Date(Math.max(...validMissions.map(m => new Date(m.expires_at))));
+
+    const interval = setInterval(() => {
+      setWeeklyRemainTime(getTimeDiffString(latestExpire));
+    }, 1000);
+
+    // 초기 값 한번 세팅
+    setWeeklyRemainTime(getTimeDiffString(latestExpire));
+
+    return () => clearInterval(interval);
+  }, [weeklyMissions]);
+
+  useEffect(() => {
+    if (dailyMissions.length === 0) {return;}
+
+    const firstValid = dailyMissions.find(m => m.expires_at);
+    if (!firstValid) {return;}
+
+    const expireAt = new Date(firstValid.expires_at);
+
+    const interval = setInterval(() => {
+      setDailyRemainTime(getTimeDiffString(expireAt));
+    }, 1000);
+
+    setDailyRemainTime(getTimeDiffString(expireAt));
+
+    return () => clearInterval(interval);
+  }, [dailyMissions]);
 
   return (
     <>
       <AppBar />
       <View style={MissionScreenStyles.backgroundStyle}>
         <Text style={MissionScreenStyles.missionText}>주간 미션</Text>
-        <Text style={MissionScreenStyles.weeklyMissionTimeRemains}>6:13:20:19</Text>
-
-      <View style={MissionScreenStyles.weeklyMissionsWraapper}>
+        <Text style={MissionScreenStyles.weeklyMissionTimeRemains}>
+          {weeklyRemainTime || '로딩 중...'}
+        </Text>
+        <View style={MissionScreenStyles.weeklyMissionsWraapper}>
           {weeklyLoading ? (
             <ActivityIndicator size="small" color={Colors.orange} />
           ) : !hasMissions ? (
@@ -47,7 +109,9 @@ const MissionScreen = ({ navigation }) => {
         </View>
 
         <Text style={MissionScreenStyles.missionText}>일일 미션</Text>
-        <Text style={MissionScreenStyles.dailyMissionTimeRemains}>11:09:19</Text>
+        <Text style={MissionScreenStyles.dailyMissionTimeRemains}>
+          {dailyRemainTime || '로딩 중...'}
+        </Text>
         {dailyLoading ? (
           <ActivityIndicator size="small" color={Colors.orange} />
         ) : (

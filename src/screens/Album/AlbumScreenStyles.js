@@ -61,6 +61,13 @@ const AlbumScreenStyles = StyleSheet.create({
         paddingHorizontal: width * 0.02,
         paddingVertical: height * 0.02,
     },
+    searchBar: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        width: width * 0.8,
+        backgroundColor: Colors.white,
+        marginTop: height * 0.03,
+    },
 });
 
 export default AlbumScreenStyles;

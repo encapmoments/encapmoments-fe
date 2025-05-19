@@ -3,10 +3,12 @@ import ProfileMyMissionsScreenStyles from './ProfileMyMissionsScreenStyles';
 import { TabBar } from '../../common/commonIndex';
 import { Weekly, Daily } from '../../components/Profile/profileIndex';
 import { useGetProfileMissions } from '../../viewmodels/profileViewModels';
+import useAccessToken from '../../models/accessToken';
 
 const ProfileMyMissionsScreen = ({ navigation }) => {
 
-    const accessToken = 'mock-access-token';
+    const accessToken = useAccessToken();
+
     const { profileDailyMissions, profileWeeklyMissions, loading  } = useGetProfileMissions(accessToken);
 
     if (loading) {

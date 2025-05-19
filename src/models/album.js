@@ -1,6 +1,7 @@
 import useMock from './useMock';
 import axios from 'axios';
 import { useAlbumStore } from '../store/store';
+import baseUrl from './baseUrl';
 
 // 모든 앨범 조회
 export const getAlbums = async (accessToken) => {
@@ -8,7 +9,7 @@ if (useMock) {
   return useAlbumStore.getState().albums;
 }
 
-const res = await axios.get('https://api.encapmoments.com/album', {
+const res = await axios.get(`${baseUrl}/album`, {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
 });
@@ -28,7 +29,7 @@ if (useMock) {
     };
 }
 
-const res = await axios.post('https://api.encapmoments.com/album/generate',
+const res = await axios.post(`${baseUrl}/album/generate`,
     { album_title, album_tag, album_image, location },
     {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -39,4 +40,13 @@ const res = await axios.post('https://api.encapmoments.com/album/generate',
 return res.data;
 };
 
-// 앨범 상세 조회
+// 앨범 검색
+export const searchAlbums = async (keyword, accessToken) => {
+  const res = await axios.get(`${baseUrl}/album/search`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    params: { keyword },
+    withCredentials: true,
+  });
+
+  return res.data;
+};

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import useMock from './useMock';
 import { useProfileStore } from '../store/store';
+import baseUrl from './baseUrl';
 
 // 프로필 조회
 export const getProfileUser = async (accessToken) => {
@@ -8,7 +9,7 @@ export const getProfileUser = async (accessToken) => {
         return useProfileStore.getState().profileUser;
     }
 
-    const res = await axios.get('https://api.encapmoments.com/profile/me', {
+    const res = await axios.get(`${baseUrl}/profile/me`, {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
     });
@@ -37,7 +38,7 @@ export const getProfileMissions = async (accessToken) => {
     };
   }
 
-  const res = await axios.get('https://api.encapmoments.com/profile/missions', {
+  const res = await axios.get(`${baseUrl}/mypage/missions`, {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
   });

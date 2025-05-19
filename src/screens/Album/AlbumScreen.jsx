@@ -1,35 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 
 import Colors from '../../styles/colors';
 import { AppBar, TabBar } from '../../common/commonIndex';
 import AlbumScreenStyles from './AlbumScreenStyles';
 import Card from '../../components/Album/Card';
+import { Searchbar } from 'react-native-paper';
 
-import { useGetAlbum } from '../../viewmodels/albumViewModels';
+import { useGetAlbum, useSearchAlbum } from '../../viewmodels/albumViewModels'; // 🔹 추가
+import useAccessToken from '../../models/accessToken';
 
 const AlbumScreen = ({ navigation }) => {
-  const accessToken = 'mock-access-token'; // TODO: 실제 accessToken 적용 시에는 이거 X (ex. user.accessToken -> 상태 관리 라이브러리로 받아오기)
-  // const accessToken = useAuthStore((state) => state.accessToken); // 전역 상태에서 가져오기
+  const accessToken = useAccessToken();
+  const [search, setSearch] = useState('');
 
-  const { albums, loading } = useGetAlbum(accessToken);
+  const { albums: defaultAlbums, loading: defaultLoading } = useGetAlbum(accessToken);
+  const { albums: searchedAlbums, loading: searchLoading } = useSearchAlbum(search, accessToken); // 🔹 추가
+
+  const isSearching = search.trim().length > 0;
+  const albumsToDisplay = isSearching ? searchedAlbums : defaultAlbums;
+  const loading = isSearching ? searchLoading : defaultLoading;
 
   return (
     <>
       <AppBar />
       <View style={AlbumScreenStyles.backgroundStyle}>
         <Text style={AlbumScreenStyles.albumText}>내 추억 앨범</Text>
-
+        <Searchbar placeholder="검색" onChangeText={setSearch}
+          value={search} icon="favorite" style={AlbumScreenStyles.searchBar}/>
         <View style={AlbumScreenStyles.albumListsWrapper}>
           {loading ? (
-            <ActivityIndicator size="large" color={Colors.orange} /> // TODO: 나중에 Skeleton으로 Custom 로딩 화면 만들기
+            <ActivityIndicator size="large" color={Colors.orange} />
           ) : (
             <FlatList
               contentContainerStyle={AlbumScreenStyles.albumLists}
               numColumns={2}
               keyExtractor={(item, index) => index.toString()}
               columnWrapperStyle={AlbumScreenStyles.albumListsRowColumn}
-              data={albums}
+              data={albumsToDisplay}
               renderItem={({ item }) => (
                 <Card
                   navigation={navigation}

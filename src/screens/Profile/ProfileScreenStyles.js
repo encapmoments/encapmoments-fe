@@ -29,7 +29,7 @@ const ProfileScreenStyles = StyleSheet.create({
         alignSelf: 'center',
         width: width * 0.24,
         height: width * 0.24,
-        borderRadius: width * 0.5,
+        borderRadius: Spacing.xl,
         marginTop: height * 0.05,
         backgroundColor: Colors.white,
         borderColor: Colors.white,
@@ -68,7 +68,6 @@ const ProfileScreenStyles = StyleSheet.create({
         color: Colors.black,
         alignSelf: 'center',
         justifyContent: 'center',
-        marginBotton: height * 0.02,
     },
 
     boxText2: {

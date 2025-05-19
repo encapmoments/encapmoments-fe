@@ -3,27 +3,33 @@ import { getProfileUser, getProfileMissions } from '../models/profile';
 
 // 프로필 조회
 export const useGetProfileUser = (accessToken) => {
-    const [ profile, setProfile ] = useState([]);
-    const [ loading, setLoading ] = useState(true);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchProfileUser = async () => {
-            try {
-                const profileUser = await getProfileUser(accessToken);
-                setProfile(profileUser);
-            } catch (error) {
-                console.error('앨범 가져오기 실패:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+  useEffect(() => {
+    // ❗ accessToken이 없으면 API 호출하지 않음
+    if (!accessToken) {
+      setLoading(false);
+      return;
+    }
 
-        fetchProfileUser();
+    const fetchProfileUser = async () => {
+      try {
+        const profileUser = await getProfileUser(accessToken);
+        setProfile(profileUser);
+      } catch (error) {
+        console.error('프로필 가져오기 실패:', error); // ← 메시지도 정확히
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    }, [accessToken]);
+    fetchProfileUser();
+  }, [accessToken]);
 
-    return { profile, loading };
+  return { profile, loading };
 };
+
 
 // 프로필 수정
 

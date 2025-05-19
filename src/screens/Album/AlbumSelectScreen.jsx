@@ -5,10 +5,11 @@ import AlbumSelectScreenStyles from './AlbumSelectScreenStyles';
 import { TabBar } from '../../common/commonIndex';
 import Comment from '../../components/Album/Comment';
 import { useGetAlbum } from '../../viewmodels/albumViewModels';
+import useAccessToken from '../../models/accessToken';
 
 const AlbumSelectScreen = ({ navigation }) => {
-  const accessToken = 'mock-access-token';
 
+  const accessToken = useAccessToken();
   const route = useRoute();
   const { album_id } = route.params;
 
