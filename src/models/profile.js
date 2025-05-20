@@ -18,15 +18,17 @@ export const getProfileUser = async (accessToken) => {
 };
 
 // 프로필 수정
-/*
-https://api.encapmoments.com/profile
-PUT
+export const updateProfile = async (accessToken, data) => {
+  if (useMock) {return;}
 
-request
-{ "nickname": "변경닉", "profile_image": "url", "email": "new@a.com", "password": "newpass123" }
+  const res = await axios.put(`${baseUrl}/profile`, data, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    withCredentials: true,
+  });
 
-백엔드 함수 작동
-*/
+  return res.data;
+};
+
 
 // 내 미션 확인
 export const getProfileMissions = async (accessToken) => {

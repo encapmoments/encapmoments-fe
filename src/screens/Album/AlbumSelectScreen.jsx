@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, ActivityIndicator, Alert } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import AlbumSelectScreenStyles from './AlbumSelectScreenStyles';
 import { TabBar } from '../../common/commonIndex';
 import Comment from '../../components/Album/Comment';
 import { useGetAlbum } from '../../viewmodels/albumViewModels';
 import useAccessToken from '../../models/accessToken';
+import { deleteAlbum } from '../../models/album';
+
 
 const AlbumSelectScreen = ({ navigation }) => {
 
@@ -15,6 +17,37 @@ const AlbumSelectScreen = ({ navigation }) => {
 
   const { albums, loading } = useGetAlbum(accessToken);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+
+  const handleDelete = () => {
+    Alert.alert(
+      '앨범 삭제',
+      '정말 이 앨범을 삭제하시겠습니까?',
+      [
+        {
+          text: '취소',
+          style: 'cancel',
+        },
+        {
+          text: '삭제',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const result = await deleteAlbum({ album_id }, accessToken);
+              if (result.success) {
+                Alert.alert('삭제 완료', '앨범이 삭제되었습니다.');
+                navigation.navigate('Album');
+              } else {
+                Alert.alert('삭제 실패', result.message || '다시 시도해주세요.');
+              }
+            } catch (err) {
+              console.error(err);
+              Alert.alert('오류 발생', '삭제 중 문제가 발생했습니다.');
+            }
+          },
+        },
+      ]
+    );
+  };
 
   useEffect(() => {
     if (!loading) {
@@ -58,11 +91,11 @@ const AlbumSelectScreen = ({ navigation }) => {
               <Comment image={require('../../assets/AppBarImages/person.png')} member={'고모'} comment={'재밌어요'} />
               <Comment image={require('../../assets/AppBarImages/person.png')} member={'이모부'} comment={'재미없어요'} />
               <View style={AlbumSelectScreenStyles.commentLastText}>
-                <TouchableOpacity onPress={() => navigation.navigate('MissionPost')}>
-                  <Text style={AlbumSelectScreenStyles.commentLastTextUpdate}>수정</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('MissionPost', {album_id : album_id, mission_type: selectedAlbum?.mission_type})}>
+                  <Text style={AlbumSelectScreenStyles.commentLastTextUpdate}>수정</Text> {/* TODO : MissionPostScreen 으로 넘어가서, 기존 정보 GET해놓기 &  PATCH  */}
                 </TouchableOpacity>
-                <TouchableOpacity>
-                  <Text style={AlbumSelectScreenStyles.commentLastTextDelete}>삭제</Text>
+                <TouchableOpacity onPress={handleDelete}>
+                  <Text style={AlbumSelectScreenStyles.commentLastTextDelete}>삭제</Text> {/* TODO : 해당 album_id 삭제*/}
                 </TouchableOpacity>
               </View>
             </ScrollView>

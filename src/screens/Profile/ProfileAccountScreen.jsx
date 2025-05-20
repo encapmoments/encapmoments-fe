@@ -1,12 +1,41 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image, KeyboardAvoidingView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, Image, KeyboardAvoidingView, Alert } from 'react-native';
 
 import { InputText, CommonButton } from '../../common/commonIndex';
 import ProfileAccountScreenStyles from './ProfileAccountScreenStyles';
+import { useGetProfileUser, useUpdateProfile  } from '../../viewmodels/profileViewModels';
+import useAccessToken from '../../models/accessToken';
 
 const ProfileAccountScreen = ({ navigation }) => {
 
-  return (
+    const accessToken = useAccessToken();
+
+    const [nickname, setNickname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const { profile, profileLoading } = useGetProfileUser(accessToken);
+    const { update, updateLoading } = useUpdateProfile(accessToken);
+
+    const handleUpdateProfile = async () => {
+        try {
+        await update({ nickname, email, password });
+            Alert.alert('성공!');
+            navigation.navigate('Profile');
+        } catch (err) {
+            Alert.alert('수정 실패');
+        }
+    };
+
+    useEffect(() => {
+        if (profile) {
+        setNickname(profile.nickname || '');
+        setEmail(profile.email || '');
+        setPassword('');
+        }
+    }, [profile]);
+
+    return (
     <>
         <KeyboardAvoidingView style={ProfileAccountScreenStyles.backgroundStyle} behavior="height" keyboardVerticalOffset={20} >
             <TouchableOpacity onPress={() => navigation.pop()} style={ProfileAccountScreenStyles.touchBackArrow}>
@@ -25,18 +54,18 @@ const ProfileAccountScreen = ({ navigation }) => {
             <View style={ProfileAccountScreenStyles.optionsWrapper}>
                 <View>
                     <Text style={ProfileAccountScreenStyles.options}>닉네임</Text>
-                    <InputText/>
+                    <InputText title="닉네임" value={nickname} onChangeText={setNickname} />
                     <Text style={ProfileAccountScreenStyles.options}>이메일</Text>
-                    <InputText/>
+                    <InputText title="이메일" value={email} onChangeText={setEmail} />
                     <Text style={ProfileAccountScreenStyles.options}>비밀번호</Text>
-                    <InputText />
+                    <InputText title="비밀번호" value={password} onChangeText={setPassword} />
                     <Text style={ProfileAccountScreenStyles.options}>구성원</Text>
                     <InputText placeholder="엄마 아빠 철수 유리"
-                        // 여기에 구성원 추가 하는거 구현해야 함. ViewModel 할 때 하자
+                        // TODO : 여기에 구성원 추가 하는거 구현해야 함
                     />
                 </View>
             </View>
-            <CommonButton onPress={() => navigation.navigate('Profile')}
+            <CommonButton onPress={handleUpdateProfile}
                 style={ProfileAccountScreenStyles.commonButton}
                 title={'완료'}
             />

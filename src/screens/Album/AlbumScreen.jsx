@@ -7,7 +7,7 @@ import AlbumScreenStyles from './AlbumScreenStyles';
 import Card from '../../components/Album/Card';
 import { Searchbar } from 'react-native-paper';
 
-import { useGetAlbum, useSearchAlbum } from '../../viewmodels/albumViewModels'; // 🔹 추가
+import { useGetAlbum, useSearchAlbum } from '../../viewmodels/albumViewModels';
 import useAccessToken from '../../models/accessToken';
 
 const AlbumScreen = ({ navigation }) => {
@@ -15,7 +15,7 @@ const AlbumScreen = ({ navigation }) => {
   const [search, setSearch] = useState('');
 
   const { albums: defaultAlbums, loading: defaultLoading } = useGetAlbum(accessToken);
-  const { albums: searchedAlbums, loading: searchLoading } = useSearchAlbum(search, accessToken); // 🔹 추가
+  const { albums: searchedAlbums, loading: searchLoading } = useSearchAlbum(search, accessToken);
 
   const isSearching = search.trim().length > 0;
   const albumsToDisplay = isSearching ? searchedAlbums : defaultAlbums;

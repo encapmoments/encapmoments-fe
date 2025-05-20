@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getProfileUser, getProfileMissions } from '../models/profile';
+import { getProfileUser, getProfileMissions, updateProfile } from '../models/profile';
 
 // 프로필 조회
 export const useGetProfileUser = (accessToken) => {
@@ -31,7 +31,23 @@ export const useGetProfileUser = (accessToken) => {
 };
 
 
-// 프로필 수정
+// 프로필 개인정보 조회
+export const useUpdateProfile = (accessToken) => {
+  const [loading, setLoading] = useState(false);
+
+  const update = async (data) => {
+    setLoading(true);
+    try {
+      await updateProfile(accessToken, data);
+    } catch (err) {
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { update, loading };
+};
 
 // 내 미션 확인
 export const useGetProfileMissions = (accessToken) => {

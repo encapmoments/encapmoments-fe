@@ -23,31 +23,31 @@ const StackNavigator = () => {
         <Stack.Navigator initialRouteName="Login">
             <Stack.Screen name="Login"
                 component={LoginScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'slide_from_left'}}
             />
             <Stack.Screen name="Mission"
                 component={MissionScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'fade'}}
             />
             <Stack.Screen name="SignUp"
                 component={SignUpScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'fade'}}
             />
             <Stack.Screen name="FindPW"
                 component={FindPassWordScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'slide_from_left'}}
             />
             <Stack.Screen name="SetProfileImage"
                 component={SetProfileImageScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'slide_from_left'}}
             />
             <Stack.Screen name="MissionCreate"
                 component={MissionCreateScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'fade'}}
             />
             <Stack.Screen name="MissionSelect"
                 component={MissionSelectScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'slide_from_bottom'}}
             />
             <Stack.Screen name="MissionPost"
                 component={MissionPostScreen}
@@ -59,21 +59,23 @@ const StackNavigator = () => {
             />
             <Stack.Screen name="AlbumSelect"
                 component={AlbumSelectScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'slide_from_bottom'}}
             />
-             <Stack.Screen name="Profile"
+            <Stack.Screen name="Profile"
                 component={ProfileScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'fade'}}
             />
             <Stack.Screen name="ProfileAccount"
                 component={ProfileAccountScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'slide_from_left'}}
             />
-             <Stack.Screen name="ProfileMyMissions"
+            <Stack.Screen name="ProfileMyMissions"
                 component={ProfileMyMissionsScreen}
-                options={{ headerShown: false, animation: 'none'}}
+                options={{ headerShown: false, animation: 'slide_from_left'}}
             />
         </Stack.Navigator>
+
+        // navigation.pop() 발생 시 => 자동으로 반대로 됨
     );
 };
 
