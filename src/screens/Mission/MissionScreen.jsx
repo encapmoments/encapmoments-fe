@@ -101,6 +101,7 @@ const MissionScreen = ({ navigation }) => {
                 <WeeklyMission
                   key={mission.weekly_id ?? index}
                   navigation={navigation}
+                  type="weekly"
                   {...mission}
                 />
               ))}
@@ -120,6 +121,7 @@ const MissionScreen = ({ navigation }) => {
               <DailyMission
                 key={mission.daily_id}
                 navigation={navigation}
+                type="daily"
                 {...mission}
               />
               ))}

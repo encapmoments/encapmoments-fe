@@ -9,26 +9,29 @@ const DailyMission = ({ navigation, ...mission }) => {
     is_completed,
   } = mission;
 
+  const completed = Boolean(is_completed);
+
+
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('MissionSelect', { mission, type: 'daily' })}
-      disabled={is_completed}
-      activeOpacity={is_completed ? 1 : 0.5}
+      disabled={completed}
+      activeOpacity={completed ? 1 : 0.5}
     >
       <View style={DailyMissionStyles.wrapper}>
         <View style={[
           DailyMissionStyles.dailyMissionWrapper,
-          is_completed && DailyMissionStyles.completedWrapper,
+          completed && DailyMissionStyles.completedWrapper,
         ]}>
           <Text style={DailyMissionStyles.dailyMissionText}>
-            {!is_completed ? daily_title : ''}
+            {!completed ? daily_title : ''}
           </Text>
           <Text style={DailyMissionStyles.dailyMissionPoint}>
             {reward}<Text style={DailyMissionStyles.dailyMissionPointP}> p</Text>
           </Text>
         </View>
 
-        {is_completed && (
+        {completed && (
           <View style={DailyMissionStyles.overlay}>
             <Text style={DailyMissionStyles.overlayText}>수행 완료!</Text>
           </View>

@@ -28,11 +28,19 @@ const MissionPostScreen = ({ navigation, route }) => {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [commentComponents, setCommentComponents] = useState([{ id: Date.now() }]);
-  const { mission_type, album_id } = route.params;
+  const { mission_type, album_id, mission_id } = route.params;
 
     const { albums, loading } = useGetAlbum(accessToken);
     const [selectedAlbum, setSelectedAlbum] = useState(null);
     const isEditMode = !!album_id;
+
+    useEffect(() => {
+      if (route?.params) {
+        Alert.alert('mission_type', route.params.mission_type ?? '없음');
+        Alert.alert('mission_id', String(route.params.mission_id ?? '없음'));
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
 
@@ -104,6 +112,7 @@ const MissionPostScreen = ({ navigation, route }) => {
             album_image: selectedImage,
             location,
             mission_type,
+            mission_id,
           },
           accessToken
         );
