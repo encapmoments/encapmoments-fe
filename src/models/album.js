@@ -18,7 +18,7 @@ return res.data;
 };
 
 // 앨범 추가 (=미션 수행)
-export const postAlbum = async ({ album_title, album_tag, album_image, location, mission_type }, accessToken) => { // TODO : mission_type 제공
+export const postAlbum = async ({ album_title, album_tag, album_image, location, mission_type, mission_id }, accessToken) => { // TODO : mission_type 제공
   if (useMock) {
       const newAlbum = { album_title, album_tag, album_image, location };
       useAlbumStore.getState().addAlbum(newAlbum);
@@ -37,6 +37,7 @@ export const postAlbum = async ({ album_title, album_tag, album_image, location,
       album_image,
       location,
       mission_type,
+      mission_id,
     },
     {
       headers: { Authorization: `Bearer ${accessToken}` },

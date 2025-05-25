@@ -127,6 +127,9 @@ const LoginScreenStyles = StyleSheet.create({
         width: width * 0.15,
         height: width * 0.15,
     },
+    paddings: {
+        padidng: '5%',
+    },
 });
 
 export default LoginScreenStyles;

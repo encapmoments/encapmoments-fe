@@ -34,13 +34,13 @@ const MissionPostScreen = ({ navigation, route }) => {
     const [selectedAlbum, setSelectedAlbum] = useState(null);
     const isEditMode = !!album_id;
 
-    useEffect(() => {
-      if (route?.params) {
-        Alert.alert('mission_type', route.params.mission_type ?? '없음');
-        Alert.alert('mission_id', String(route.params.mission_id ?? '없음'));
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    // useEffect(() => {
+    //   if (route?.params) {
+    //     Alert.alert('mission_type', route.params.mission_type ?? '없음');
+    //     Alert.alert('mission_id', String(route.params.mission_id ?? '없음'));
+    //   }
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     useEffect(() => {
 

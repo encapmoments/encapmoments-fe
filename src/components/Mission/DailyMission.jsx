@@ -11,6 +11,8 @@ const DailyMission = ({ navigation, ...mission }) => {
 
   const completed = Boolean(is_completed);
 
+  // console.log('[미션]', mission);
+
 
   return (
     <TouchableOpacity

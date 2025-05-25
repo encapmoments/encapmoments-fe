@@ -26,9 +26,10 @@ const SetProfileImageScreen = ({ navigation }) => {
       (msg) => Alert.alert(msg)
     );
   };
-
+const safePadding = '5%';
   return (
     <View style={LoginScreenStyles.backgroundStyle}>
+      <View style={{padding: safePadding}}>
       <TouchableOpacity onPress={() => navigation.pop()} style={LoginScreenStyles.touchBackArrow}>
         <Image style={LoginScreenStyles.backArrow} source={require('../../assets/icons/backArrowWrapper.png')} />
       </TouchableOpacity>
@@ -49,6 +50,7 @@ const SetProfileImageScreen = ({ navigation }) => {
       </View>
       <Text style={LoginScreenStyles.setProfileImageDescription}>프로필 이미지를 설정하세요!</Text>
       <CommonButton title="다음" onPress={onNext} disabled={uploading} style={LoginScreenStyles.commonButton} />
+    </View>
     </View>
   );
 };

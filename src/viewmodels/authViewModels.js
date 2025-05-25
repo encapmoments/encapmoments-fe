@@ -5,7 +5,32 @@ import {
   useUserStore,
   useAuthTempStore,
 } from '../store/store';
-import { useNavigation } from '@react-navigation/native';
+
+// export const useLogin = () => {
+//   const [loading, setLoading] = useState(false);
+//   const setAccessToken = useAuthStore((state) => state.setAccessToken);
+//   const setUser = useUserStore((state) => state.setUser);
+
+//   const handleLogin = async (email, password, onSuccess, onError) => {
+//     setLoading(true);
+//     try {
+//       const res = await login(email, password);
+//       if (res.success) {
+//         setAccessToken(res.accessToken);
+//         setUser(res.user);
+//         onSuccess?.();
+//       } else {
+//         onError?.(res.message || '로그인 실패');
+//       }
+//     } catch (err) {
+//       onError?.('서버 오류');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return { handleLogin, loading };
+// };
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -24,6 +49,7 @@ export const useLogin = () => {
         onError?.(res.message || '로그인 실패');
       }
     } catch (err) {
+      console.error('[로그인 에러]', err?.response?.data || err.message, err); // ✅ 추가
       onError?.('서버 오류');
     } finally {
       setLoading(false);
