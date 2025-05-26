@@ -11,7 +11,10 @@ const WeeklyMission = ({ navigation, ...mission }) => {
   } = mission;
 
   const completed = Boolean(is_completed);
+  // const completed = is_completed === 1 || is_completed === '1';
 
+
+  // console.log(mission);
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('MissionSelect', { mission, type: 'weekly' })}
@@ -43,6 +46,8 @@ const WeeklyMission = ({ navigation, ...mission }) => {
             <Text style={WeeklyMissionStyles.overlayText}>수행 완료!</Text>
           </View>
         )}
+
+
       </View>
     </TouchableOpacity>
   );

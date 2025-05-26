@@ -17,7 +17,7 @@ const DailyMissionStyles = StyleSheet.create({
     },
     dailyMissionText: {
         ...Typography.bamin2,
-        fontSize: Fontsizes.md,
+        fontSize: Fontsizes.sm,
         alignSelf: 'center',
 
     },

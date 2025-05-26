@@ -52,6 +52,9 @@ const WeeklyMissionStyles = StyleSheet.create({
 
       wrapper: {
         marginTop: height * 0.06,
+        position: 'relative',
+
+
       },
 
       completedWrapper: {
@@ -65,7 +68,7 @@ const WeeklyMissionStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: Spacing.md,
-        zIndex: 1,
+        // zIndex: 1,
         pointerEvents: 'none',
       },
 
@@ -75,7 +78,7 @@ const WeeklyMissionStyles = StyleSheet.create({
         color: Colors.red,
         justifyContent: 'center',
         alignSelf: 'center',
-        marginBottom: height * 0.1,
+        // marginBottom: height * 0.1,
       },
 
 });

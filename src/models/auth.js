@@ -93,29 +93,43 @@ export const register = async (email, password, nickname, profile_image) => {
 };
 
 // 프로필 이미지 업로드
+// export const uploadImage = async (imageUri) => {
+
+//   const uriParts = imageUri.split('.');
+//   const fileType = uriParts[uriParts.length - 1].toLowerCase();
+
+//   const supportedTypes = ['jpg', 'jpeg', 'png'];
+//   const validType = supportedTypes.includes(fileType) ? `image/${fileType}` : 'image/jpeg';
+
+//   const formData = new FormData();
+//   formData.append('profile_image', {
+//     uri: imageUri,
+//     type: validType,
+//     name: `profile.${fileType}`,
+//   });
+
+//   if (useMock) {return { success: true };}
+
+//   const res = await axios.post(`${baseUrl}/auth/uploadImage`, formData, {
+//     headers: {
+//       'Content-Type': 'multipart/form-data',
+//     },
+//     withCredentials: true,
+//   });
+
+//   return res.data;
+// };
 export const uploadImage = async (imageUri) => {
-
-  const uriParts = imageUri.split('.');
-  const fileType = uriParts[uriParts.length - 1].toLowerCase();
-
-  const supportedTypes = ['jpg', 'jpeg', 'png'];
-  const validType = supportedTypes.includes(fileType) ? `image/${fileType}` : 'image/jpeg';
-
-  const formData = new FormData();
-  formData.append('profile_image', {
-    uri: imageUri,
-    type: validType,
-    name: `profile.${fileType}`,
-  });
-
   if (useMock) {return { success: true };}
 
-  const res = await axios.post(`${baseUrl}/auth/uploadImage`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-    withCredentials: true,
-  });
+  const res = await axios.post(
+    `${baseUrl}/auth/uploadImage`,
+    { profile_image: imageUri },  // ✅ JSON
+    {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    }
+  );
 
   return res.data;
 };

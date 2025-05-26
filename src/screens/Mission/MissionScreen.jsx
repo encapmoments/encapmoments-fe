@@ -99,7 +99,9 @@ const MissionScreen = ({ navigation }) => {
             >
               {weeklyMissions.map((mission, index) => (
                 <WeeklyMission
-                  key={mission.weekly_id ?? index}
+                  // key={mission.weekly_id ?? index}
+                  key={mission.id ?? mission.weekly_id ?? index}
+
                   navigation={navigation}
                   type="weekly"
                   {...mission}
@@ -117,9 +119,9 @@ const MissionScreen = ({ navigation }) => {
           <ActivityIndicator size="small" color={Colors.orange} />
         ) : (
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
-              {dailyMissions.map((mission) => (
+              {dailyMissions.map((mission, index) => (
               <DailyMission
-                key={mission.daily_id}
+                key={mission.daily_id ?? index}
                 navigation={navigation}
                 type="daily"
                 {...mission}

@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import MissionSelectScreenStyles from './MissionSelectScreenStyles';
 import { CommonButton } from '../../common/commonIndex';
+import baseUrl from '../../models/baseUrl';
 
 const MissionSelectScreen = ({ navigation, route }) => {
   const { mission, type } = route.params;
@@ -20,6 +21,8 @@ const MissionSelectScreen = ({ navigation, route }) => {
     mission_reward = mission.reward;
   }
 
+  console.log('route.params.mission:', mission);
+
   return (
     <View style={MissionSelectScreenStyles.backgroundStyle}>
       <TouchableOpacity onPress={() => navigation.pop()} style={MissionSelectScreenStyles.touchBackArrow}>
@@ -34,8 +37,9 @@ const MissionSelectScreen = ({ navigation, route }) => {
         source={
           typeof mission_image === 'number'
             ? mission_image
-            : { uri: mission_image }
+            : { uri: `${baseUrl}${mission_image}` }
         }
+
       />
       <View style={MissionSelectScreenStyles.missionInfo}>
         <Text style={MissionSelectScreenStyles.missionTitle}>{mission_title}</Text>

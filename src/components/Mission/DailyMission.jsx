@@ -10,6 +10,7 @@ const DailyMission = ({ navigation, ...mission }) => {
   } = mission;
 
   const completed = Boolean(is_completed);
+  // console.log(completed);
 
   // console.log('[미션]', mission);
 
