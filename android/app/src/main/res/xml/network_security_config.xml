@@ -2,6 +2,6 @@
 <network-security-config>
     <!-- <base-config cleartextTrafficPermitted="true" /> -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">3.38.233.150</domain>
+        <domain includeSubdomains="true">my-public-ip</domain> <!-- my-public-ip에 백엔드 URL 넣기 -->
     </domain-config>
 </network-security-config>
