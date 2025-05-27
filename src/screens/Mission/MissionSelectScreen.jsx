@@ -37,9 +37,13 @@ const MissionSelectScreen = ({ navigation, route }) => {
         source={
           typeof mission_image === 'number'
             ? mission_image
-            : { uri: `${baseUrl}${mission_image}` }
+            : {
+                uri:
+                  type === 'daily'
+                    ? `${baseUrl}${mission_image}`
+                    : mission_image,
+              }
         }
-
       />
       <View style={MissionSelectScreenStyles.missionInfo}>
         <Text style={MissionSelectScreenStyles.missionTitle}>{mission_title}</Text>
