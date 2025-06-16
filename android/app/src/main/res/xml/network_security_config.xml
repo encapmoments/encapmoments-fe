@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    <!-- <base-config cleartextTrafficPermitted="true" /> -->
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">my-public-ip</domain> <!-- my-public-ip에 백엔드 URL 넣기 -->
-    </domain-config>
+    <base-config cleartextTrafficPermitted="true" />
 </network-security-config>

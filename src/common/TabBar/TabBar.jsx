@@ -24,6 +24,9 @@ const TabBar = ({ navigation }) => {
                     />
                     <Text style={TabBarStyles.tabBarText}>앨범</Text>
                 </TouchableOpacity>
+
+                {/* TODO : 마켓 가는 아이콘 하나 추가해서 총 4개로 만들기 */}
+
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                     <Image
                         style={TabBarStyles.tabBarMissionIcon}

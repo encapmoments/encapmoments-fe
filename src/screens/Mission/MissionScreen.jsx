@@ -1,5 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { View, Text,ScrollView, ActivityIndicator } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppBar, TabBar } from '../../common/commonIndex';
 import MissionScreenStyles from './MissionScreenStyles';
@@ -79,57 +80,59 @@ const MissionScreen = ({ navigation }) => {
   return (
     <>
       <AppBar />
-      <View style={MissionScreenStyles.backgroundStyle}>
-        <Text style={MissionScreenStyles.missionText}>주간 미션</Text>
-        <Text style={MissionScreenStyles.weeklyMissionTimeRemains}>
-          {weeklyRemainTime || '로딩 중...'}
-        </Text>
-        <View style={MissionScreenStyles.weeklyMissionsWraapper}>
-          {weeklyLoading ? (
-            <ActivityIndicator size="small" color={Colors.orange} />
-          ) : !hasMissions ? (
-            <View style={MissionScreenStyles.AddWeeklyMissionsWrapper}>
-              <AddWeeklyMissions navigation={navigation} />
-            </View>
-          ) : (
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={MissionScreenStyles.weeklyMissionWrapper}
-            >
-              {weeklyMissions.map((mission, index) => (
-                <WeeklyMission
-                  // key={mission.weekly_id ?? index}
-                  key={mission.id ?? mission.weekly_id ?? index}
+      <SafeAreaView style={MissionScreenStyles.safeArea}>
+        <View style={MissionScreenStyles.backgroundStyle}>
+          <Text style={MissionScreenStyles.missionText}>주간 미션</Text>
+          <Text style={MissionScreenStyles.weeklyMissionTimeRemains}>
+            {weeklyRemainTime || '로딩 중...'}
+          </Text>
+          <View style={MissionScreenStyles.weeklyMissionsWraapper}>
+            {weeklyLoading ? (
+              <ActivityIndicator size="small" color={Colors.orange} />
+            ) : !hasMissions ? (
+              <View style={MissionScreenStyles.AddWeeklyMissionsWrapper}>
+                <AddWeeklyMissions navigation={navigation} />
+              </View>
+            ) : (
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={MissionScreenStyles.weeklyMissionWrapper}
+              >
+                {weeklyMissions.map((mission, index) => (
+                  <WeeklyMission
+                    // key={mission.weekly_id ?? index}
+                    key={mission.id ?? mission.weekly_id ?? index}
 
+                    navigation={navigation}
+                    type="weekly"
+                    {...mission}
+                  />
+                ))}
+              </ScrollView>
+            )}
+          </View>
+
+          <Text style={MissionScreenStyles.missionText}>일일 미션</Text>
+          <Text style={MissionScreenStyles.dailyMissionTimeRemains}>
+            {dailyRemainTime || '로딩 중...'}
+          </Text>
+          {dailyLoading ? (
+            <ActivityIndicator size="small" color={Colors.orange} />
+          ) : (
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
+                {dailyMissions.map((mission, index) => (
+                <DailyMission
+                  key={mission.daily_id ?? index}
                   navigation={navigation}
-                  type="weekly"
+                  type="daily"
                   {...mission}
                 />
-              ))}
+                ))}
             </ScrollView>
           )}
         </View>
-
-        <Text style={MissionScreenStyles.missionText}>일일 미션</Text>
-        <Text style={MissionScreenStyles.dailyMissionTimeRemains}>
-          {dailyRemainTime || '로딩 중...'}
-        </Text>
-        {dailyLoading ? (
-          <ActivityIndicator size="small" color={Colors.orange} />
-        ) : (
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
-              {dailyMissions.map((mission, index) => (
-              <DailyMission
-                key={mission.daily_id ?? index}
-                navigation={navigation}
-                type="daily"
-                {...mission}
-              />
-              ))}
-          </ScrollView>
-        )}
-      </View>
+      </SafeAreaView>
       <TabBar navigation={navigation}/>
 
     </>

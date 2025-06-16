@@ -10,6 +10,7 @@ import {
   Platform,
   Alert,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { launchImageLibrary } from 'react-native-image-picker';
 import MissionPostScreenStyles from './MissionPostScreenStyles';
 import { CommentCreate } from '../../components/Mission/CommentCreate';
@@ -131,105 +132,107 @@ const MissionPostScreen = ({ navigation, route }) => {
 
 
   return (
-    <KeyboardAvoidingView
-      style={MissionPostScreenStyles.backgroundStyle}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-      <TouchableOpacity
-        onPress={() => navigation.pop()}
-        style={MissionPostScreenStyles.touchBackArrow}
+    <SafeAreaView style={MissionPostScreenStyles.safeArea}>
+      <KeyboardAvoidingView
+        style={MissionPostScreenStyles.backgroundStyle}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <Image
-          style={MissionPostScreenStyles.backArrow}
-          source={require('../../assets/icons/backArrowWrapper.png')}
-        />
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.pop()}
+          style={MissionPostScreenStyles.touchBackArrow}
+        >
+          <Image
+            style={MissionPostScreenStyles.backArrow}
+            source={require('../../assets/icons/backArrowWrapper.png')}
+          />
+        </TouchableOpacity>
 
-      <View style={MissionPostScreenStyles.missionImageWrapper}>
-        {selectedImage ? (
-          <>
-            <Image // album_image
-              source={{ uri: selectedImage }}
-              style={MissionPostScreenStyles.uploadedImage}
-              resizeMode="cover"
-            />
-            <TouchableOpacity
-              onPress={handleImagePick}
-              style={MissionPostScreenStyles.pencilIconWrapper}
-            >
+        <View style={MissionPostScreenStyles.missionImageWrapper}>
+          {selectedImage ? (
+            <>
+              <Image // album_image
+                source={{ uri: selectedImage }}
+                style={MissionPostScreenStyles.uploadedImage}
+                resizeMode="cover"
+              />
+              <TouchableOpacity
+                onPress={handleImagePick}
+                style={MissionPostScreenStyles.pencilIconWrapper}
+              >
+                <Image
+                  source={require('../../assets/icons/pencil.png')}
+                  style={MissionPostScreenStyles.pencilIcon}
+                />
+              </TouchableOpacity>
+            </>
+          ) : (
+            <TouchableOpacity onPress={handleImagePick}>
               <Image
-                source={require('../../assets/icons/pencil.png')}
-                style={MissionPostScreenStyles.pencilIcon}
+                style={MissionPostScreenStyles.plusIcon}
+                source={require('../../assets/icons/plusIcon.png')}
               />
             </TouchableOpacity>
-          </>
-        ) : (
-          <TouchableOpacity onPress={handleImagePick}>
-            <Image
-              style={MissionPostScreenStyles.plusIcon}
-              source={require('../../assets/icons/plusIcon.png')}
-            />
-          </TouchableOpacity>
-        )}
-      </View>
-
-      <View style={MissionPostScreenStyles.missionInfo}>
-        <ScrollView
-          horizontal={false}
-          showsHorizontalScrollIndicator={false}
-          style={MissionPostScreenStyles.scroll}
-        >
-          <TextInput // album_title
-            style={MissionPostScreenStyles.titleInput}
-            placeholder="제목"
-            placeholderTextColor={Colors.white}
-            value={album_title}
-            onChangeText={setAlbumTitle}
-          />
-          <TextInput // album_tag
-            style={MissionPostScreenStyles.tagInput}
-            placeholder="태그"
-            placeholderTextColor={Colors.white}
-            value={album_tag}
-            onChangeText={setAlbumTag}
-          />
-          <TextInput // location
-            style={MissionPostScreenStyles.locationInput}
-            placeholder="위치"
-            placeholderTextColor={Colors.white}
-            value={location}
-            onChangeText={setLocation}
-          />
-
-
-        {commentComponents.map(({ id }) => (
-            <View key={id} style={MissionPostScreenStyles.commentWrapper}>
-                <CommentCreate />
-                <TouchableOpacity
-                onPress={() => handleRemoveComment(id)}
-                style={MissionPostScreenStyles.deleteButtonWrapper}
-                >
-                <Text style={MissionPostScreenStyles.deleteButton}>삭제</Text>
-                </TouchableOpacity>
-            </View>
-        ))}
-
-          <TouchableOpacity onPress={handleAddComment}>
-            <Image
-              style={MissionPostScreenStyles.plusIconForComments}
-              source={require('../../assets/icons/plusIcon.png')}
-            />
-          </TouchableOpacity>
-        </ScrollView>
-
-        <View style={MissionPostScreenStyles.commonButton}>
-          <CommonButton
-            title="완료"
-            onPress={handleSubmit} // TODO : 멤버 수정
-          />
+          )}
         </View>
-      </View>
-    </KeyboardAvoidingView>
+
+        <View style={MissionPostScreenStyles.missionInfo}>
+          <ScrollView
+            horizontal={false}
+            showsHorizontalScrollIndicator={false}
+            style={MissionPostScreenStyles.scroll}
+          >
+            <TextInput // album_title
+              style={MissionPostScreenStyles.titleInput}
+              placeholder="제목"
+              placeholderTextColor={Colors.white}
+              value={album_title}
+              onChangeText={setAlbumTitle}
+            />
+            <TextInput // album_tag
+              style={MissionPostScreenStyles.tagInput}
+              placeholder="태그"
+              placeholderTextColor={Colors.white}
+              value={album_tag}
+              onChangeText={setAlbumTag}
+            />
+            <TextInput // location
+              style={MissionPostScreenStyles.locationInput}
+              placeholder="위치"
+              placeholderTextColor={Colors.white}
+              value={location}
+              onChangeText={setLocation}
+            />
+
+
+          {commentComponents.map(({ id }) => (
+              <View key={id} style={MissionPostScreenStyles.commentWrapper}>
+                  <CommentCreate />
+                  <TouchableOpacity
+                  onPress={() => handleRemoveComment(id)}
+                  style={MissionPostScreenStyles.deleteButtonWrapper}
+                  >
+                  <Text style={MissionPostScreenStyles.deleteButton}>삭제</Text>
+                  </TouchableOpacity>
+              </View>
+          ))}
+
+            <TouchableOpacity onPress={handleAddComment}>
+              <Image
+                style={MissionPostScreenStyles.plusIconForComments}
+                source={require('../../assets/icons/plusIcon.png')}
+              />
+            </TouchableOpacity>
+          </ScrollView>
+
+          <View style={MissionPostScreenStyles.commonButton}>
+            <CommonButton
+              title="완료"
+              onPress={handleSubmit} // TODO : 멤버 수정
+            />
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

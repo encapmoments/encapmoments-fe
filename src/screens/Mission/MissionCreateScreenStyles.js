@@ -6,6 +6,9 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 const MissionCreateScreenStyles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+    },
     backgroundStyle: {
         backgroundColor: Colors.basic,
         flex: 1,

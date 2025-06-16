@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import StackNavigator from './navigation/StackNavigator';
 import ImmersiveMode from 'react-native-immersive-mode';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App = () => {
   useEffect(() => {
@@ -10,9 +11,11 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 

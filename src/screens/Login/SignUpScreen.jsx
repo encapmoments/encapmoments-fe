@@ -4,6 +4,7 @@ import { CommonButton } from '../../common/commonIndex';
 import LoginScreenStyles from './LoginStyles';
 import InputText from '../../common/InputText/InputText';
 import { useRegister } from '../../viewmodels/authViewModels';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUpScreen = ({ navigation }) => {
   const [nickname, setNickname] = useState('');
@@ -29,21 +30,23 @@ const SignUpScreen = ({ navigation }) => {
   const safePadding = '5%';
 
   return (
-    <View style={LoginScreenStyles.backgroundStyle}>
-        <View style={{padding: safePadding}}>
-      <TouchableOpacity onPress={() => navigation.pop()} style={LoginScreenStyles.touchBackArrow}>
-        <Image style={LoginScreenStyles.backArrow} source={require('../../assets/icons/backArrowWrapper.png')} />
-      </TouchableOpacity>
-      <Text style={LoginScreenStyles.loginText}>회원가입</Text>
-      <InputText title="닉네임" value={nickname} onChangeText={setNickname} />
-      <InputText title="이메일" value={email} onChangeText={setEmail} />
-      <InputText title="비밀번호" value={password} onChangeText={setPassword} secureTextEntry />
-      <CommonButton title="회원가입하기" onPress={onRegister} disabled={loading} style={LoginScreenStyles.commonButton} />
-      <Text style={LoginScreenStyles.donthaveAccount}>계정이 이미 있으신가요?
-        <Text style={LoginScreenStyles.signUp} onPress={() => navigation.navigate('Login')}> Sign In</Text>
-      </Text>
+    <SafeAreaView style={LoginScreenStyles.safeArea}>
+      <View style={LoginScreenStyles.backgroundStyle}>
+          <View style={{padding: safePadding}}>
+        <TouchableOpacity onPress={() => navigation.pop()} style={LoginScreenStyles.touchBackArrow}>
+          <Image style={LoginScreenStyles.backArrow} source={require('../../assets/icons/backArrowWrapper.png')} />
+        </TouchableOpacity>
+        <Text style={LoginScreenStyles.loginText}>회원가입</Text>
+        <InputText title="닉네임" value={nickname} onChangeText={setNickname} />
+        <InputText title="이메일" value={email} onChangeText={setEmail} />
+        <InputText title="비밀번호" value={password} onChangeText={setPassword} secureTextEntry />
+        <CommonButton title="회원가입하기" onPress={onRegister} disabled={loading} style={LoginScreenStyles.commonButton} />
+        <Text style={LoginScreenStyles.donthaveAccount}>계정이 이미 있으신가요?
+          <Text style={LoginScreenStyles.signUp} onPress={() => navigation.navigate('Login')}> Sign In</Text>
+        </Text>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

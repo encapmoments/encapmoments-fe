@@ -5,6 +5,9 @@ import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex
 const { width, height } = Dimensions.get('window');
 
 const LoginScreenStyles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+    },
     commonButton: {
         marginTop: height * 0.06,
     },

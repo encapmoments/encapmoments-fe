@@ -12,7 +12,7 @@ const TabBarStyles = StyleSheet.create({
       width: '100%',
       alignItems: 'center',
     },
-    tabBarWrapper: {
+    tabBarWrapper: { // TODO : react-natie-svg로 디자인 개선
       width: '100%',
       height: height * 0.1,
       borderTopLeftRadius: 50,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CommonButton } from '../../common/commonIndex';
 import LoginScreenStyles from './LoginStyles';
@@ -14,26 +15,28 @@ const FindPassWordScreen = ({ navigation }) => {
   const safePadding = '5%';
 
   return (
-    <View style={backgroundStyle}>
-      <View style={{padding: safePadding}}>
-        <TouchableOpacity onPress={() => navigation.pop()} style={LoginScreenStyles.touchBackArrow}>
-          <Image
-              style={LoginScreenStyles.backArrow}
-              source={require('../../assets/icons/backArrowWrapper.png')}
+    <SafeAreaView style={LoginScreenStyles.safeArea}>
+      <View style={backgroundStyle}>
+        <View style={{padding: safePadding}}>
+          <TouchableOpacity onPress={() => navigation.pop()} style={LoginScreenStyles.touchBackArrow}>
+            <Image
+                style={LoginScreenStyles.backArrow}
+                source={require('../../assets/icons/backArrowWrapper.png')}
+            />
+          </TouchableOpacity>
+          <Text style={LoginScreenStyles.loginText}>비밀번호 재설정</Text>
+          <Text style={LoginScreenStyles.findPassWordDescription}>이메일에 임시 비밀번호를{'\n'}보내드릴게요!</Text>
+
+          <InputText title="이메일" style={LoginScreenStyles.findPadding} />
+          <CommonButton
+            title="재설정하기"
+            onPress={() => navigation.navigate('Login')}
+            style={LoginScreenStyles.commonButton}
           />
-        </TouchableOpacity>
-        <Text style={LoginScreenStyles.loginText}>비밀번호 재설정</Text>
-        <Text style={LoginScreenStyles.findPassWordDescription}>이메일에 임시 비밀번호를{'\n'}보내드릴게요!</Text>
 
-        <InputText title="이메일" style={LoginScreenStyles.findPadding} />
-        <CommonButton
-          title="재설정하기"
-          onPress={() => navigation.navigate('Login')}
-          style={LoginScreenStyles.commonButton}
-        />
-
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

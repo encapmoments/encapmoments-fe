@@ -5,6 +5,9 @@ const { width, height } = Dimensions.get('window');
 const safePadding = '5%';
 
 const ProfileAccountScreenStyles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+    },
     backgroundStyle: {
         backgroundColor: Colors.basic,
         flex: 1,

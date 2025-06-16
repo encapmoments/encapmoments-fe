@@ -4,6 +4,9 @@ import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex
 const { width, height } = Dimensions.get('window');
 
 const MissionScreenStyles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+    },
     backgroundStyle: {
         backgroundColor: Colors.basic,
         flex: 1,

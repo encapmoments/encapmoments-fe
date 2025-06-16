@@ -10,6 +10,9 @@ const boxText = {
 };
 
 const ProfileScreenStyles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+    },
     backgroundStyle: {
         backgroundColor: Colors.basic,
         flex: 1,

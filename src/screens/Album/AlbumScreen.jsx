@@ -9,6 +9,7 @@ import { Searchbar } from 'react-native-paper';
 
 import { useGetAlbum, useSearchAlbum } from '../../viewmodels/albumViewModels';
 import useAccessToken from '../../models/accessToken';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AlbumScreen = ({ navigation }) => {
   const accessToken = useAccessToken();
@@ -24,38 +25,40 @@ const AlbumScreen = ({ navigation }) => {
   return (
     <>
       <AppBar />
-      <View style={AlbumScreenStyles.backgroundStyle}>
-        <Text style={AlbumScreenStyles.albumText}>내 추억 앨범</Text>
-        <Searchbar placeholder="검색" onChangeText={setSearch}
-          value={search} icon="favorite" style={AlbumScreenStyles.searchBar}/>
-        <View style={AlbumScreenStyles.albumListsWrapper}>
-          {loading ? (
-            <ActivityIndicator size="large" color={Colors.orange} />
-          ) : (
-            <FlatList
-              contentContainerStyle={AlbumScreenStyles.albumLists}
-              numColumns={2}
-              keyExtractor={(item, index) => index.toString()}
-              columnWrapperStyle={AlbumScreenStyles.albumListsRowColumn}
-              data={albumsToDisplay}
-              renderItem={({ item }) => (
-                <Card
-                  navigation={navigation}
-                  album_id={item.album_id}
-                  album_title={item.album_title}
-                  location={item.location}
-                  album_tag={item.album_tag}
-                  album_image={
-                    typeof item.album_image === 'string'
-                      ? { uri: item.album_image }
-                      : item.album_image
-                  }
-                />
-              )}
-            />
-          )}
+      <SafeAreaView style={AlbumScreenStyles.safeArea}>
+        <View style={AlbumScreenStyles.backgroundStyle}>
+          <Text style={AlbumScreenStyles.albumText}>내 추억 앨범</Text>
+          <Searchbar placeholder="검색" onChangeText={setSearch}
+            value={search} icon="favorite" style={AlbumScreenStyles.searchBar}/>
+          <View style={AlbumScreenStyles.albumListsWrapper}>
+            {loading ? (
+              <ActivityIndicator size="large" color={Colors.orange} />
+            ) : (
+              <FlatList
+                contentContainerStyle={AlbumScreenStyles.albumLists}
+                numColumns={2}
+                keyExtractor={(item, index) => index.toString()}
+                columnWrapperStyle={AlbumScreenStyles.albumListsRowColumn}
+                data={albumsToDisplay}
+                renderItem={({ item }) => (
+                  <Card
+                    navigation={navigation}
+                    album_id={item.album_id}
+                    album_title={item.album_title}
+                    location={item.location}
+                    album_tag={item.album_tag}
+                    album_image={
+                      typeof item.album_image === 'string'
+                        ? { uri: item.album_image }
+                        : item.album_image
+                    }
+                  />
+                )}
+              />
+            )}
+          </View>
         </View>
-      </View>
+      </SafeAreaView>
       <TabBar navigation={navigation} />
     </>
   );

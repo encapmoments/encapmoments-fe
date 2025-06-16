@@ -1,4 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import MissionSelectScreenStyles from './MissionSelectScreenStyles';
 import { CommonButton } from '../../common/commonIndex';
 import baseUrl from '../../models/baseUrl';
@@ -24,56 +25,58 @@ const MissionSelectScreen = ({ navigation, route }) => {
   console.log('route.params.mission:', mission);
 
   return (
-    <View style={MissionSelectScreenStyles.backgroundStyle}>
-      <TouchableOpacity onPress={() => navigation.pop()} style={MissionSelectScreenStyles.touchBackArrow}>
-        <Image
-          style={MissionSelectScreenStyles.backArrow}
-          source={require('../../assets/icons/backArrowWrapper.png')}
-        />
-      </TouchableOpacity>
-
-      <Image
-        style={MissionSelectScreenStyles.missionImage}
-        source={
-          typeof mission_image === 'number'
-            ? mission_image
-            : {
-                uri:
-                  type === 'daily'
-                    ? `${baseUrl}${mission_image}`
-                    : mission_image,
-              }
-        }
-      />
-      <View style={MissionSelectScreenStyles.missionInfo}>
-        <Text style={MissionSelectScreenStyles.missionTitle}>{mission_title}</Text>
-
-        <Text style={MissionSelectScreenStyles.missionPoint}>
-          {mission_reward} <Text style={MissionSelectScreenStyles.missionPointP}>p</Text>
-        </Text>
-
-        <Text style={MissionSelectScreenStyles.missionTitle}>설명</Text>
-        <Text style={MissionSelectScreenStyles.missionDescription}>{mission_description}</Text>
-
-        <Text style={MissionSelectScreenStyles.missionTitle}>인증 방식</Text>
-        <Text style={MissionSelectScreenStyles.missionDescription}>
-          사진을 넣고, 구성원 각자 느낀점을 작성하세요!
-        </Text>
-
-        <View style={MissionSelectScreenStyles.paddings}>
-          <CommonButton
-            title="수행하러 가기"
-            onPress={() =>
-              navigation.navigate('MissionPost', {
-                mission_type: type,
-                mission_id: type === 'daily' ? mission.daily_id : mission.weekly_id,
-              })
-            }
-            style={MissionSelectScreenStyles.commonButton}
+    <SafeAreaView style={MissionSelectScreenStyles.safeArea}>
+      <View style={MissionSelectScreenStyles.backgroundStyle}>
+        <TouchableOpacity onPress={() => navigation.pop()} style={MissionSelectScreenStyles.touchBackArrow}>
+          <Image
+            style={MissionSelectScreenStyles.backArrow}
+            source={require('../../assets/icons/backArrowWrapper.png')}
           />
+        </TouchableOpacity>
+
+        <Image
+          style={MissionSelectScreenStyles.missionImage}
+          source={
+            typeof mission_image === 'number'
+              ? mission_image
+              : {
+                  uri:
+                    type === 'daily'
+                      ? `${baseUrl}${mission_image}`
+                      : mission_image,
+                }
+          }
+        />
+        <View style={MissionSelectScreenStyles.missionInfo}>
+          <Text style={MissionSelectScreenStyles.missionTitle}>{mission_title}</Text>
+
+          <Text style={MissionSelectScreenStyles.missionPoint}>
+            {mission_reward} <Text style={MissionSelectScreenStyles.missionPointP}>p</Text>
+          </Text>
+
+          <Text style={MissionSelectScreenStyles.missionTitle}>설명</Text>
+          <Text style={MissionSelectScreenStyles.missionDescription}>{mission_description}</Text>
+
+          <Text style={MissionSelectScreenStyles.missionTitle}>인증 방식</Text>
+          <Text style={MissionSelectScreenStyles.missionDescription}>
+            사진을 넣고, 구성원 각자 느낀점을 작성하세요!
+          </Text>
+
+          <View style={MissionSelectScreenStyles.paddings}>
+            <CommonButton
+              title="수행하러 가기"
+              onPress={() =>
+                navigation.navigate('MissionPost', {
+                  mission_type: type,
+                  mission_id: type === 'daily' ? mission.daily_id : mission.weekly_id,
+                })
+              }
+              style={MissionSelectScreenStyles.commonButton}
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -7,6 +7,7 @@ import Comment from '../../components/Album/Comment';
 import { useGetAlbum } from '../../viewmodels/albumViewModels';
 import useAccessToken from '../../models/accessToken';
 import { deleteAlbum } from '../../models/album';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const AlbumSelectScreen = ({ navigation }) => {
@@ -62,46 +63,48 @@ const AlbumSelectScreen = ({ navigation }) => {
 
   return (
     <>
-      <View style={AlbumSelectScreenStyles.backgroundStyle}>
-        <TouchableOpacity onPress={() => navigation.pop()} style={AlbumSelectScreenStyles.touchBackArrow}>
+      <SafeAreaView style={AlbumSelectScreenStyles.safeArea}>
+        <View style={AlbumSelectScreenStyles.backgroundStyle}>
+          <TouchableOpacity onPress={() => navigation.pop()} style={AlbumSelectScreenStyles.touchBackArrow}>
+            <Image
+              style={AlbumSelectScreenStyles.backArrow}
+              source={require('../../assets/icons/backArrowWrapper.png')}
+            />
+          </TouchableOpacity>
           <Image
-            style={AlbumSelectScreenStyles.backArrow}
-            source={require('../../assets/icons/backArrowWrapper.png')}
+            style={AlbumSelectScreenStyles.albumImage}
+            source={
+              typeof selectedAlbum.album_image === 'string'
+                ? { uri: selectedAlbum.album_image }
+                : selectedAlbum.album_image
+            }
           />
-        </TouchableOpacity>
-        <Image
-          style={AlbumSelectScreenStyles.albumImage}
-          source={
-            typeof selectedAlbum.album_image === 'string'
-              ? { uri: selectedAlbum.album_image }
-              : selectedAlbum.album_image
-          }
-        />
-        <View style={AlbumSelectScreenStyles.albumInfo}>
-          <Text style={AlbumSelectScreenStyles.albumTitle}>{selectedAlbum.album_title}</Text>
-          <Text style={AlbumSelectScreenStyles.albumTag}>#{selectedAlbum.album_tag}</Text>
-          <Text style={AlbumSelectScreenStyles.albumDate}>2025.03.25 (화)</Text>
+          <View style={AlbumSelectScreenStyles.albumInfo}>
+            <Text style={AlbumSelectScreenStyles.albumTitle}>{selectedAlbum.album_title}</Text>
+            <Text style={AlbumSelectScreenStyles.albumTag}>#{selectedAlbum.album_tag}</Text>
+            <Text style={AlbumSelectScreenStyles.albumDate}>2025.03.25 (화)</Text>
 
-          <View style={AlbumSelectScreenStyles.albumCommentsWrapper}>
-            <ScrollView style={AlbumSelectScreenStyles.albumComments}>
-              <Comment image={require('../../assets/AppBarImages/person.png')} member={'아빠'} comment={'재밌어요'} />
-              <Comment image={require('../../assets/AppBarImages/person.png')} member={'엄마'} comment={'재미없어요'} />
-              <Comment image={require('../../assets/AppBarImages/person.png')} member={'나'} comment={'재밌어요'} />
-              <Comment image={require('../../assets/AppBarImages/person.png')} member={'삼촌'} comment={'재미없어요'} />
-              <Comment image={require('../../assets/AppBarImages/person.png')} member={'고모'} comment={'재밌어요'} />
-              <Comment image={require('../../assets/AppBarImages/person.png')} member={'이모부'} comment={'재미없어요'} />
-              <View style={AlbumSelectScreenStyles.commentLastText}>
-                <TouchableOpacity onPress={() => navigation.navigate('MissionPost', {album_id : album_id, mission_type: selectedAlbum?.mission_type})}>
-                  <Text style={AlbumSelectScreenStyles.commentLastTextUpdate}>수정</Text> {/* TODO : MissionPostScreen 으로 넘어가서, 기존 정보 GET해놓기 &  PATCH  */}
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleDelete}>
-                  <Text style={AlbumSelectScreenStyles.commentLastTextDelete}>삭제</Text> {/* TODO : 해당 album_id 삭제*/}
-                </TouchableOpacity>
-              </View>
-            </ScrollView>
+            <View style={AlbumSelectScreenStyles.albumCommentsWrapper}>
+              <ScrollView style={AlbumSelectScreenStyles.albumComments}>
+                <Comment image={require('../../assets/AppBarImages/person.png')} member={'아빠'} comment={'재밌어요'} />
+                <Comment image={require('../../assets/AppBarImages/person.png')} member={'엄마'} comment={'재미없어요'} />
+                <Comment image={require('../../assets/AppBarImages/person.png')} member={'나'} comment={'재밌어요'} />
+                <Comment image={require('../../assets/AppBarImages/person.png')} member={'삼촌'} comment={'재미없어요'} />
+                <Comment image={require('../../assets/AppBarImages/person.png')} member={'고모'} comment={'재밌어요'} />
+                <Comment image={require('../../assets/AppBarImages/person.png')} member={'이모부'} comment={'재미없어요'} />
+                <View style={AlbumSelectScreenStyles.commentLastText}>
+                  <TouchableOpacity onPress={() => navigation.navigate('MissionPost', {album_id : album_id, mission_type: selectedAlbum?.mission_type})}>
+                    <Text style={AlbumSelectScreenStyles.commentLastTextUpdate}>수정</Text> {/* TODO : MissionPostScreen 으로 넘어가서, 기존 정보 GET해놓기 &  PATCH  */}
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={handleDelete}>
+                    <Text style={AlbumSelectScreenStyles.commentLastTextDelete}>삭제</Text> {/* TODO : 해당 album_id 삭제*/}
+                  </TouchableOpacity>
+                </View>
+              </ScrollView>
+            </View>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
       <TabBar navigation={navigation} />
     </>
   );
