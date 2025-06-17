@@ -1,9 +1,7 @@
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const { width, height}  = Dimensions.get('window');
-
-const AddWeeklyMissionsStyles = StyleSheet.create({
+const getAddWeeklyMissionsStyles = (width, height) => StyleSheet.create({
     weeklyNoMission: {
         marginTop: height * 0.015,
         backgroundColor: Colors.missions,
@@ -12,22 +10,22 @@ const AddWeeklyMissionsStyles = StyleSheet.create({
         alignSelf: 'center',
         width: width * 0.6,
         justifyContent: 'center',
-        borderRadius: Spacing.md,
+        borderRadius: Spacing.lg,
 
     },
 
     plusIcon: {
-         width: width * 0.2,
-         height: width * 0.2,
-         alignSelf: 'center',
+        width: width * 0.2,
+        height: width * 0.2,
+        alignSelf: 'center',
     },
     weeklyNoMissionText: {
         ...Typography.bamin1,
         color:Colors.org,
-        fontSize: Fontsizes.md,
+        fontSize: Fontsizes.sm,
         alignSelf: 'center',
         marginTop: height * 0.01,
     },
 });
 
-export default AddWeeklyMissionsStyles;
+export default getAddWeeklyMissionsStyles;

@@ -1,9 +1,8 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex.js';
-const { width, height } = Dimensions.get('window');
 
-const MissionScreenStyles = StyleSheet.create({
+const getMissionScreenStyles = (width, height) => StyleSheet.create({
     safeArea: {
         flex: 1,
     },
@@ -60,4 +59,4 @@ const MissionScreenStyles = StyleSheet.create({
     },
 });
 
-export default MissionScreenStyles;
+export default getMissionScreenStyles;

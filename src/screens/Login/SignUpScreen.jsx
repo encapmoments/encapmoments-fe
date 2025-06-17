@@ -6,6 +6,7 @@ import InputText from '../../common/InputText/InputText';
 import { useRegister } from '../../viewmodels/authViewModels';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useWindowDimensions } from 'react-native';
+import useMock from '../../models/useMock';
 
 const SignUpScreen = ({ navigation }) => {
   const [nickname, setNickname] = useState('');
@@ -16,6 +17,11 @@ const SignUpScreen = ({ navigation }) => {
   const loginStyles = getLoginScreenStyles(width, height);
 
   const onRegister = () => {
+    if (useMock)  {
+      navigation.replace('Login');
+      return;
+    }
+    
     handleRegister(
       nickname,
       email,

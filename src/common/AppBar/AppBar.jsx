@@ -1,10 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, Image, ScrollView, Dimensions } from 'react-native';
-import AppBarStyles from './AppBarStyles';
-
-const { width } = Dimensions.get('window');
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { View, Text, Image, ScrollView, useWindowDimensions } from 'react-native';
+import getAppBarStyles from './AppBarStyles';
 
 const AppBar = () => {
+  const { width, height } = useWindowDimensions();
+  const appBarStyles = getAppBarStyles(width, height);
+
   const scrollRef = useRef(null);
   const indexRef = useRef(1);
   const autoSlideInterval = useRef(null);
@@ -23,29 +24,29 @@ const AppBar = () => {
     realImages[0],                     // 복제 맨앞
   ];
 
-  const startAutoSlide = () => {
-    if (autoSlideInterval.current) {return;}
+  const startAutoSlide = useCallback(() => {
+    if (autoSlideInterval.current) { return; }
     autoSlideInterval.current = setInterval(() => {
       const nextIndex = indexRef.current + 1;
       scrollRef.current?.scrollTo({ x: width * nextIndex, animated: true });
       indexRef.current = nextIndex;
       setRenderIndex(nextIndex);
     }, 2000);
-  };
+  }, [width]);
 
-  const stopAutoSlide = () => {
+  const stopAutoSlide = useCallback(() => {
     if (autoSlideInterval.current) {
       clearInterval(autoSlideInterval.current);
       autoSlideInterval.current = null;
     }
-  };
+  }, []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ x: width, animated: false }); // 시작 위치
     startAutoSlide();
 
     return () => stopAutoSlide(); // 언마운트 시 해제
-  }, []);
+  }, [startAutoSlide, stopAutoSlide, width]);
 
   const handleScrollEnd = (event) => {
     const offsetX = event.nativeEvent.contentOffset.x;
@@ -66,7 +67,7 @@ const AppBar = () => {
   };
 
   return (
-    <View style={AppBarStyles.AppBar}>
+    <View style={appBarStyles.AppBar}>
       <ScrollView
         ref={scrollRef}
         horizontal
@@ -76,26 +77,26 @@ const AppBar = () => {
         onScrollBeginDrag={stopAutoSlide}
         onScrollEndDrag={startAutoSlide}
         onMomentumScrollEnd={handleScrollEnd}
-        style={AppBarStyles.AppBarCoverWrapper}
-        contentContainerStyle={AppBarStyles.AppBarCoverContent}
+        style={appBarStyles.AppBarCoverWrapper}
+        contentContainerStyle={appBarStyles.AppBarCoverContent}
       >
         {images.map((src, i) => (
-          <Image key={i} style={AppBarStyles.AppBarCover} source={src} />
+          <Image key={i} style={appBarStyles.AppBarCover} source={src} />
         ))}
       </ScrollView>
 
-      <Text style={AppBarStyles.AppBarText}>  Encap{'\n'}Moments</Text>
+      <Text style={appBarStyles.AppBarText}>  Encap{'\n'}Moments</Text>
 
-      <View style={AppBarStyles.AppBarAlarmWrapper}>
+      <View style={appBarStyles.AppBarAlarmWrapper}>
         <Image
-          style={AppBarStyles.AppBarAlarm}
+          style={appBarStyles.AppBarAlarm}
           source={require('../../assets/AppBarImages/alarm.png')}
         />
       </View>
 
-      <View style={AppBarStyles.AppBarPersonWrapper}>
+      <View style={appBarStyles.AppBarPersonWrapper}>
         <Image
-          style={AppBarStyles.AppBarPerson}
+          style={appBarStyles.AppBarPerson}
           source={require('../../assets/AppBarImages/person.png')}
         />
       </View>

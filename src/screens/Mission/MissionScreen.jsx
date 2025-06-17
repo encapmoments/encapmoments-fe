@@ -1,16 +1,18 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { View, Text,ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text,ScrollView, ActivityIndicator, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AppBar, TabBar } from '../../common/commonIndex';
-import MissionScreenStyles from './MissionScreenStyles';
 import { AddWeeklyMissions, DailyMission, WeeklyMission } from '../../components/Mission/missionIndex';
 import { useGetMissions } from '../../viewmodels/missionViewModels';
 import useAccessToken from '../../models/accessToken';
 import Colors from '../../styles/colors';
+import getMissionScreenStyles from './MissionScreenStyles';
 
 const MissionScreen = ({ navigation }) => {
   const accessToken = useAccessToken();
+  const { width, height } = useWindowDimensions();
+  const missionScreenStyles = getMissionScreenStyles(width, height);
 
   const { missions: dailyMissions, loading: dailyLoading } = useGetMissions('daily', accessToken);
   const { missions: weeklyMissions, loading: weeklyLoading } = useGetMissions('weekly', accessToken);
@@ -80,24 +82,24 @@ const MissionScreen = ({ navigation }) => {
   return (
     <>
       <AppBar />
-      <SafeAreaView style={MissionScreenStyles.safeArea}>
-        <View style={MissionScreenStyles.backgroundStyle}>
-          <Text style={MissionScreenStyles.missionText}>주간 미션</Text>
-          <Text style={MissionScreenStyles.weeklyMissionTimeRemains}>
+      <SafeAreaView style={missionScreenStyles.safeArea}>
+        <View style={missionScreenStyles.backgroundStyle}>
+          <Text style={missionScreenStyles.missionText}>주간 미션</Text>
+          <Text style={missionScreenStyles.weeklyMissionTimeRemains}>
             {weeklyRemainTime || '로딩 중...'}
           </Text>
-          <View style={MissionScreenStyles.weeklyMissionsWraapper}>
+          <View style={missionScreenStyles.weeklyMissionsWraapper}>
             {weeklyLoading ? (
               <ActivityIndicator size="small" color={Colors.orange} />
             ) : !hasMissions ? (
-              <View style={MissionScreenStyles.AddWeeklyMissionsWrapper}>
+              <View style={missionScreenStyles.AddWeeklyMissionsWrapper}>
                 <AddWeeklyMissions navigation={navigation} />
               </View>
             ) : (
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                style={MissionScreenStyles.weeklyMissionWrapper}
+                style={missionScreenStyles.weeklyMissionWrapper}
               >
                 {weeklyMissions.map((mission, index) => (
                   <WeeklyMission
@@ -113,14 +115,14 @@ const MissionScreen = ({ navigation }) => {
             )}
           </View>
 
-          <Text style={MissionScreenStyles.missionText}>일일 미션</Text>
-          <Text style={MissionScreenStyles.dailyMissionTimeRemains}>
+          <Text style={missionScreenStyles.missionText}>일일 미션</Text>
+          <Text style={missionScreenStyles.dailyMissionTimeRemains}>
             {dailyRemainTime || '로딩 중...'}
           </Text>
           {dailyLoading ? (
             <ActivityIndicator size="small" color={Colors.orange} />
           ) : (
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={MissionScreenStyles.dailyMissions}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={missionScreenStyles.dailyMissions}>
                 {dailyMissions.map((mission, index) => (
                 <DailyMission
                   key={mission.daily_id ?? index}

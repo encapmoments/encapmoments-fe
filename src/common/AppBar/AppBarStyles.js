@@ -1,9 +1,7 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 
-const { width, height } = Dimensions.get('window');
-
-const AppBarStyles = StyleSheet.create({
+const getAppBarStyles = (width, height) => StyleSheet.create({
   AppBar: {
     backgroundColor: Colors.basic,
     height: height * 0.15,
@@ -41,7 +39,7 @@ const AppBarStyles = StyleSheet.create({
     top: height * 0.05,
     width: width * 0.12,
     height: width * 0.12,
-    borderRadius: Spacing.md,
+    borderRadius: Spacing.xl,
     backgroundColor: Colors.white,
     borderColor: Colors.white,
     borderWidth: 1,
@@ -62,7 +60,7 @@ const AppBarStyles = StyleSheet.create({
     top: height * 0.05,
     width: width * 0.12,
     height: width * 0.12,
-    borderRadius: Spacing.md,
+    borderRadius: Spacing.xl,
     backgroundColor: Colors.white,
     borderColor: Colors.white,
     borderWidth: 1,
@@ -82,4 +80,4 @@ const AppBarStyles = StyleSheet.create({
   },
 });
 
-export default AppBarStyles;
+export default getAppBarStyles;

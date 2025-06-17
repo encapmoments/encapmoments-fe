@@ -55,7 +55,7 @@ export const logout = async () => {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-         },
+        },
 
         withCredentials: true,
       }
@@ -74,6 +74,7 @@ export const logout = async () => {
 
 // 회원가입
 export const register = async (email, password, nickname, profile_image) => {
+  if (useMock) { }
   const res = await axios.post(
     `${baseUrl}/auth/register`,
     {

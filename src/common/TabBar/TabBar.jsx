@@ -1,38 +1,49 @@
 import React from 'react';
-import { View, Image, TouchableOpacity, Text } from 'react-native';
+import { View, Image, TouchableOpacity, Text, useWindowDimensions } from 'react-native';
 
-import TabBarStyles from './TabBarStyles';
+import getTabBarStyles from './TabBarStyles';
+import TabBarSVG from './TabBarSVG';
 
 
 const TabBar = ({ navigation }) => {
+    const { width, height } = useWindowDimensions();
+    const tabBarStyles = getTabBarStyles(width, height);
     return (
 
-        <View style={TabBarStyles.tabBar}>
-            <View style={TabBarStyles.tabBarWrapper} />
-            <View style={TabBarStyles.tabBarIcons}>
+        <View style={tabBarStyles.tabBar}>
+            <TabBarSVG width={width} height={height} />
+            <View style={tabBarStyles.tabBarIcons}>
                 <TouchableOpacity onPress={() => navigation.navigate('Mission')}>
                     <Image
-                        style={TabBarStyles.tabBarMissionIcon}
+                        style={tabBarStyles.tabBarMissionIcon}
                         source={require('../../assets/icons/home.png')}
                     />
-                    <Text style={TabBarStyles.tabBarText}>미션</Text>
+                    <Text style={tabBarStyles.tabBarText}>미션</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Album')}>
                     <Image
-                        style={TabBarStyles.tabBarMissionIcon}
+                        style={tabBarStyles.tabBarMissionIcon}
                         source={require('../../assets/icons/calendar.png')}
                     />
-                    <Text style={TabBarStyles.tabBarText}>앨범</Text>
+                    <Text style={tabBarStyles.tabBarText}>앨범</Text>
                 </TouchableOpacity>
 
                 {/* TODO : 마켓 가는 아이콘 하나 추가해서 총 4개로 만들기 */}
 
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                     <Image
-                        style={TabBarStyles.tabBarMissionIcon}
+                        style={tabBarStyles.tabBarMissionIcon}
+                        source={require('../../assets/icons/market.png')}
+                    />
+                    <Text style={tabBarStyles.tabBarText}>마켓</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                    <Image
+                        style={tabBarStyles.tabBarMissionIcon}
                         source={require('../../assets/icons/profile.png')}
                     />
-                    <Text style={TabBarStyles.tabBarText}>프로필</Text>
+                    <Text style={tabBarStyles.tabBarText}>프로필</Text>
                 </TouchableOpacity>
             </View>
         </View>

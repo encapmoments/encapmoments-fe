@@ -6,6 +6,7 @@ import InputText from '../../common/InputText/InputText';
 import { useLogin } from '../../viewmodels/authViewModels';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useWindowDimensions } from 'react-native';
+import useMock from '../../models/useMock';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -23,6 +24,10 @@ const LoginScreen = ({ navigation }) => {
   const safePadding = '5%';
 
   const onLogin = () => {
+    if (useMock) {
+      navigation.replace('Mission');
+      return;
+    }
     handleLogin(
       email,
       password,
