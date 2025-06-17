@@ -1,12 +1,16 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CommonButton } from '../../common/commonIndex';
-import LoginScreenStyles from './LoginStyles';
+import getLoginScreenStyles from './LoginStyles';
 import InputText from '../../common/InputText/InputText';
 
 const FindPassWordScreen = ({ navigation }) => {
+
+  const { width, height } = useWindowDimensions();
+  const loginStyles = getLoginScreenStyles(width, height);
+
   const backgroundStyle = {
     backgroundColor: '#F8F3D9',
     flex: 1,
@@ -15,23 +19,23 @@ const FindPassWordScreen = ({ navigation }) => {
   const safePadding = '5%';
 
   return (
-    <SafeAreaView style={LoginScreenStyles.safeArea}>
+    <SafeAreaView style={loginStyles.safeArea}>
       <View style={backgroundStyle}>
         <View style={{padding: safePadding}}>
-          <TouchableOpacity onPress={() => navigation.pop()} style={LoginScreenStyles.touchBackArrow}>
+          <TouchableOpacity onPress={() => navigation.pop()} style={loginStyles.touchBackArrow}>
             <Image
-                style={LoginScreenStyles.backArrow}
+                style={loginStyles.backArrow}
                 source={require('../../assets/icons/backArrowWrapper.png')}
             />
           </TouchableOpacity>
-          <Text style={LoginScreenStyles.loginText}>비밀번호 재설정</Text>
-          <Text style={LoginScreenStyles.findPassWordDescription}>이메일에 임시 비밀번호를{'\n'}보내드릴게요!</Text>
+          <Text style={loginStyles.loginText}>비밀번호 재설정</Text>
+          <Text style={loginStyles.findPassWordDescription}>이메일에 임시 비밀번호를{'\n'}보내드릴게요!</Text>
 
-          <InputText title="이메일" style={LoginScreenStyles.findPadding} />
+          <InputText title="이메일" style={loginStyles.findPadding} />
           <CommonButton
             title="재설정하기"
             onPress={() => navigation.navigate('Login')}
-            style={LoginScreenStyles.commonButton}
+            style={loginStyles.commonButton}
           />
 
         </View>

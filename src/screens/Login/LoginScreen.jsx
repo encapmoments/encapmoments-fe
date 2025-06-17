@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { View, Text, Alert } from 'react-native';
 import { CommonButton } from '../../common/commonIndex';
-import LoginScreenStyles from './LoginStyles';
+import getLoginScreenStyles from './LoginStyles';
 import InputText from '../../common/InputText/InputText';
 import { useLogin } from '../../viewmodels/authViewModels';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useWindowDimensions } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { handleLogin, loading } = useLogin();
+
+  const { width, height } = useWindowDimensions();
+  const loginStyles = getLoginScreenStyles(width, height);
 
   const backgroundStyle = {
     backgroundColor: '#F8F3D9',
@@ -28,10 +32,10 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={LoginScreenStyles.safeArea}>
+    <SafeAreaView style={loginStyles.safeArea}>
       <View style={backgroundStyle}>
         <View style={{ padding: safePadding }}>
-          <Text style={LoginScreenStyles.loginText}>로그인</Text>
+          <Text style={loginStyles.loginText}>로그인</Text>
 
           <InputText title="이메일" value={email} onChangeText={setEmail} />
           <InputText
@@ -42,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
           />
 
           <Text
-            style={LoginScreenStyles.forgotPW}
+            style={loginStyles.forgotPW}
             onPress={() => navigation.navigate('FindPW')}
           >
             Forgot password?
@@ -52,20 +56,20 @@ const LoginScreen = ({ navigation }) => {
             title="로그인"
             onPress={onLogin}
             disabled={loading}
-            style={LoginScreenStyles.commonButton}
+            style={loginStyles.commonButton}
           />
 
-          <Text style={LoginScreenStyles.donthaveAccount}>
+          <Text style={loginStyles.donthaveAccount}>
             계정이 없으신가요?{'    '}
             <Text
-              style={LoginScreenStyles.signUp}
+              style={loginStyles.signUp}
               onPress={() => navigation.navigate('SetProfileImage')}
             >
               Sign Up
             </Text>
           </Text>
 
-          <Text style={LoginScreenStyles.orConnect}>Or Connect</Text>
+          <Text style={loginStyles.orConnect}>Or Connect</Text>
         </View>
       </View>
     </SafeAreaView>

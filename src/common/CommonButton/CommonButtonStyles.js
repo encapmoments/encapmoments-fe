@@ -6,10 +6,10 @@ const CommonButtonStyles = {
     commonButton: {
         backgroundColor: '#4A4434',
         paddingVertical: Spacing.sm,
-        borderRadius: 999,
+        borderRadius: Spacing.lg,
         alignItems: 'center',
         justifyContent: 'center',
-      },
+    },
 
     commonButtonText: {
         color: 'white',

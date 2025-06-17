@@ -1,12 +1,13 @@
-import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 
 
-const { width, height } = Dimensions.get('window');
+// const { width, height } = Dimensions.get('window');
 
-const LoginScreenStyles = StyleSheet.create({
+const getLoginScreenStyles = (width, height) => StyleSheet.create({
     safeArea: {
         flex: 1,
+        backgroundColor: 'red',
     },
     commonButton: {
         marginTop: height * 0.06,
@@ -22,7 +23,7 @@ const LoginScreenStyles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         marginTop: height * 0.15,
-        marginBottom: height * 0.06,
+        marginBottom: height * 0.02,
     },
 
     forgotPW: {
@@ -30,7 +31,7 @@ const LoginScreenStyles = StyleSheet.create({
         color: Colors.orange,
         marginTop: height * 0.02,
         marginLeft: width * 0.63,
-        fontSize: Fontsizes.sm,
+        fontSize: Fontsizes.xs,
     },
     donthaveAccount: {
         ...Typography.bamin1,
@@ -57,28 +58,26 @@ const LoginScreenStyles = StyleSheet.create({
         alignSelf: 'center',
         marginBottom: height * 0.04,
         textAlign: 'center',
-        marginTop: height * -0.04,
         fontSize: Fontsizes.sm,
     },
     findPadding: {
-        marginBottom: height * -0.02,
     },
 
     setProfileImageWrapper: {
         alignSelf: 'center',
-        width: width * 0.5,
-        height: width * 0.5,
+        width: width * 0.6,
+        height: width * 0.6,
         borderRadius: width * 0.5,
         backgroundColor: Colors.missionInput,
-        borderColor: Colors.white,
+        borderColor: Colors.basic,
         borderWidth: 1,
         overflow: 'hidden',
         justifyContent: 'center',
         alignItems: 'center',
-      },
+    },
     setProfileImage: {
-        width: width * 0.5,
-        height: width * 0.5,
+        width: width * 0.6,
+        height: width * 0.6,
         resizeMode: 'cover',
     },
     pencilIconWrapper: {
@@ -103,7 +102,7 @@ const LoginScreenStyles = StyleSheet.create({
     setProfileImageDescription : {
         ...Typography.bamin1,
         color: Colors.graytext2,
-        fontSize: Fontsizes.md,
+        fontSize: Fontsizes.sm,
         textAlign: 'center',
         marginTop: height * 0.02,
         marginBottom: height * -0.02,
@@ -131,8 +130,8 @@ const LoginScreenStyles = StyleSheet.create({
         height: width * 0.15,
     },
     paddings: {
-        padidng: '5%',
+        padding: '5%',
     },
 });
 
-export default LoginScreenStyles;
+export default getLoginScreenStyles;

@@ -10,7 +10,7 @@ const InputTextStyles = {
         paddingVertical: Spacing.input,
         borderRadius: Spacing.input, // 완전 둥글게
         alignItems: 'center',
-        fontSize: Fontsizes.md,
+        fontSize: Fontsizes.sm,
         marginTop: height * 0.02,
 
     },
