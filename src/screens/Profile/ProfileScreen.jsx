@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, Image, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, Image, ActivityIndicator, Alert, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ProfileBox } from '../../components/Profile/profileIndex';
 import { TabBar } from '../../common/commonIndex';
-import ProfileScreenStyles from './ProfileScreenStyles';
+import getProfileScreenStyles from './ProfileScreenStyles';
 import { useGetProfileUser } from '../../viewmodels/profileViewModels';
 import useAccessToken from '../../models/accessToken';
 import { useLogout } from '../../viewmodels/authViewModels';
@@ -14,6 +14,8 @@ import { useNavigation } from '@react-navigation/native';
 const ProfileScreen = ( ) => {
   const navigation = useNavigation();
   const accessToken = useAccessToken();
+  const { width, height } = useWindowDimensions();
+  const profileStyles = getProfileScreenStyles(width, height);
 
   const { profile, profileLoading } = useGetProfileUser(accessToken);
   const { handleLogout } = useLogout();
@@ -44,14 +46,14 @@ const ProfileScreen = ( ) => {
 
   return (
     <>
-      <SafeAreaView style={ProfileScreenStyles.safeArea}>
-        <View style={ProfileScreenStyles.backgroundStyle}>
-          <View style={ProfileScreenStyles.topStyle}>
-            <Text style={ProfileScreenStyles.mainText}>프로필</Text>
+      <SafeAreaView style={profileStyles.safeArea}>
+        <View style={profileStyles.backgroundStyle}>
+          <View style={profileStyles.topStyle}>
+            <Text style={profileStyles.mainText}>프로필</Text>
           </View>
-          <View style={ProfileScreenStyles.profileImageWrapper}>
+          <View style={profileStyles.profileImageWrapper}>
             <Image
-              style={ProfileScreenStyles.profileImage}
+              style={profileStyles.profileImage}
               source={
                 typeof profile.profile_image === 'string'
                   ? { uri: profile.profile_image }
@@ -59,11 +61,11 @@ const ProfileScreen = ( ) => {
               }
             />
           </View>
-          <Text style={ProfileScreenStyles.nicknameText}>{profile.nickname}</Text>
-          <View style={ProfileScreenStyles.boxWrapper}>
-            <Text style={ProfileScreenStyles.boxText1}>내 추억 점수</Text>
-            <View style={ProfileScreenStyles.box}>
-              <Text style={ProfileScreenStyles.boxText2}>{profile.points}</Text><Text style={ProfileScreenStyles.boxText2_2}> points</Text>
+          <Text style={profileStyles.nicknameText}>{profile.nickname}</Text>
+          <View style={profileStyles.boxWrapper}>
+            <Text style={profileStyles.boxText1}>내 추억 점수</Text>
+            <View style={profileStyles.box}>
+              <Text style={profileStyles.boxText2}>{profile.points}</Text><Text style={profileStyles.boxText2_2}> points</Text>
             </View>
           </View>
           <ProfileBox title={'개인정보 수정'} navigation={navigation} route="ProfileAccount" />

@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 
-import SearchBarStyles from './SearchBarStyles';
+import getSearchBarStyles from './SearchBarStyles';
 
 const SearchBar = () => {
+    const { width, height } = useWindowDimensions();
+    const searchStyles = getSearchBarStyles(width, height);
+
     return (
-        <View style={SearchBarStyles.backgroundStyle}/>
+        <View style={searchStyles.backgroundStyle}/>
     );
 };
 

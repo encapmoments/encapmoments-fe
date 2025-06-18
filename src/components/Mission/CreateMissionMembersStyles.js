@@ -1,32 +1,29 @@
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-
-const { width, height } = Dimensions.get('window');
-
-const CreateMissionMembersStyles = StyleSheet.create({
+const getCreateMissionMembersStyles = (width, height) => StyleSheet.create({
     wrapper: {
         paddingVertical: height * 0.01,
     },
     backgroundStyle: {
         backgroundColor: Colors.white,
         width: width * 0.7,
-        padding: Spacing.md,
-        borderRadius: Spacing.md,
-        marginHorizontal: width * 0.02,
-
+        padding: Spacing.xs,
+        borderRadius: Spacing.lg,
+        marginHorizontal: width * 0.05,
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: height * 0.002,
+        marginBottom: height * 0.01,
     },
     memberText: {
         ...Typography.bamin1,
         fontSize: Fontsizes.md,
         color: Colors.black,
         marginRight: width * 0.02,
-        marginTop: height * -0.02,
+        marginLeft: width * 0.02,
+        marginTop: height * 0.002,
     },
     memberAge: {
         ...Typography.bamin2,
@@ -35,7 +32,7 @@ const CreateMissionMembersStyles = StyleSheet.create({
         borderColor: Colors.gray,
         width: width * 0.2,
         marginRight: width * 0.02,
-        marginTop: height * -0.025,
+        marginTop: -height * 0.01,
 
     },
     memberSex: {
@@ -79,4 +76,4 @@ const CreateMissionMembersStyles = StyleSheet.create({
 });
 
 
-export default CreateMissionMembersStyles;
+export default getCreateMissionMembersStyles;

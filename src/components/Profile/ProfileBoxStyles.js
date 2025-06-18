@@ -1,11 +1,10 @@
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
-import { Dimensions, StyleSheet } from 'react-native';
-const { width, height } = Dimensions.get('window');
+import {StyleSheet } from 'react-native';
 
-const ProfileBoxStyles = StyleSheet.create({
+const getProfileBoxStyles = (width, height) => StyleSheet.create({
     boxWrapper: {
         backgroundColor: Colors.white,
-        borderRadius: Spacing.md,
+        borderRadius: Spacing.lg,
         alignSelf: 'center',
         justifyContent: 'center',
         padding: Spacing.xs,
@@ -29,4 +28,4 @@ const ProfileBoxStyles = StyleSheet.create({
     },
 });
 
-export default ProfileBoxStyles;
+export default getProfileBoxStyles;

@@ -1,11 +1,9 @@
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
-
-const MissionSelectScreenStyles = StyleSheet.create({
+const getMissionSelectScreenStyles = (width, height) => StyleSheet.create({
     safeArea: {
-        flex: 1
+        flex: 1,
     },
     backgroundStyle: {
         backgroundColor: Colors.basic,
@@ -44,9 +42,21 @@ const MissionSelectScreenStyles = StyleSheet.create({
         marginTop:height * 0.03,
         fontSize:Fontsizes.lg,
     },
+    missionSubTitle1: {
+        ...Typography.bamin1,
+        marginLeft:width * 0.1,
+        marginTop:height * 0.03,
+        fontSize:Fontsizes.mm,
+    },
+    missionSubTitle2: {
+        ...Typography.bamin1,
+        marginLeft:width * 0.1,
+        marginTop:height * 0.1,
+        fontSize:Fontsizes.mm,
+    },
     missionPoint: {
         ...Typography.bamin1,
-        fontSize:Fontsizes.md,
+        fontSize:Fontsizes.sm,
         marginLeft:width * 0.1,
         marginTop:height * 0.01,
     },
@@ -56,8 +66,8 @@ const MissionSelectScreenStyles = StyleSheet.create({
     missionDescription: {
         width: width * 0.65,
         ...Typography.bamin1,
-        fontSize: Fontsizes.md,
-        marginTop: height * 0.003,
+        fontSize: Fontsizes.sm,
+        marginTop: height * 0.008,
         color: Colors.graytext,
         marginLeft:width * 0.1,
         lineHeight: Spacing.input,
@@ -65,6 +75,12 @@ const MissionSelectScreenStyles = StyleSheet.create({
     paddings: {
         padding: '5%',
     },
+    // commonButton: {
+    //     position: 'absolute',
+    //     alignSelf: 'center',
+    //     justifyContent: 'center',
+    //     width: width * 0.9,
+    // }
 });
 
-export default MissionSelectScreenStyles;
+export default getMissionSelectScreenStyles;

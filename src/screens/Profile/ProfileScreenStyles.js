@@ -1,6 +1,5 @@
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
-import { Dimensions, StyleSheet } from 'react-native';
-const { width, height } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
 const boxText = {
     ...Typography.bamin2,
@@ -9,7 +8,7 @@ const boxText = {
     justifyContent: 'center',
 };
 
-const ProfileScreenStyles = StyleSheet.create({
+const getProfileScreenStyles = (width, height) => StyleSheet.create({
     safeArea: {
         flex: 1,
     },
@@ -32,7 +31,7 @@ const ProfileScreenStyles = StyleSheet.create({
         alignSelf: 'center',
         width: width * 0.24,
         height: width * 0.24,
-        borderRadius: Spacing.xl,
+        borderRadius: width * 0.24,
         marginTop: height * 0.05,
         backgroundColor: Colors.white,
         borderColor: Colors.white,
@@ -40,7 +39,7 @@ const ProfileScreenStyles = StyleSheet.create({
         overflow: 'hidden',
         justifyContent: 'center',
         alignItems: 'center',
-      },
+    },
     profileImage: {
         width: width * 0.24,
         height: width * 0.24,
@@ -48,7 +47,7 @@ const ProfileScreenStyles = StyleSheet.create({
     },
     nicknameText: {
         ...Typography.bamin1,
-        fontSize: Fontsizes.lg,
+        fontSize: Fontsizes.mm,
         textAlign: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
@@ -56,7 +55,7 @@ const ProfileScreenStyles = StyleSheet.create({
     },
     boxWrapper: {
         backgroundColor: Colors.white,
-        borderRadius: Spacing.md,
+        borderRadius: Spacing.lg,
         alignSelf: 'center',
         justifyContent: 'center',
         padding: Spacing.xs,
@@ -76,11 +75,12 @@ const ProfileScreenStyles = StyleSheet.create({
     boxText2: {
         ...boxText,
         fontSize: Fontsizes.mdm,
-
+        marginTop: height * -0.01,
     },
     boxText2_2: {
         ...boxText,
         fontSize: Fontsizes.md,
+        marginTop: height * -0.01,
     },
     box: {
         flexDirection: 'row',
@@ -88,4 +88,4 @@ const ProfileScreenStyles = StyleSheet.create({
     },
 });
 
-export default ProfileScreenStyles;
+export default getProfileScreenStyles;

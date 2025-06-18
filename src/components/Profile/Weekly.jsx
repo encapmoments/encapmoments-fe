@@ -1,12 +1,15 @@
-import { View, Text, Image } from 'react-native';
-import WeeklyStyles from './WeeklyStyles';
+import { View, Text, Image, useWindowDimensions } from 'react-native';
+import getWeeklyStyles from './WeeklyStyles';
 
 const Weekly = ({ weekly_id, weekly_title, weekly_image, reward }) => {
+    const { width, height } = useWindowDimensions();
+    const weeklyStyles = getWeeklyStyles(width, height);
+
     return (
-        <View style={WeeklyStyles.backgroundStyle}>
-        <Image style={WeeklyStyles.weeklyImage} resizeMode="cover" source={ weekly_image }/>
-        <Text style={WeeklyStyles.weeklyTitle}>{ weekly_title }</Text>
-        <Text style={WeeklyStyles.weeklyPoint}>{ reward }<Text style={WeeklyStyles.weeklyPointP}> p</Text></Text>
+        <View style={weeklyStyles.backgroundStyle}>
+        <Image style={weeklyStyles.weeklyImage} resizeMode="cover" source={ weekly_image }/>
+        <Text style={weeklyStyles.weeklyTitle}>{ weekly_title }</Text>
+        <Text style={weeklyStyles.weeklyPoint}>{ reward }<Text style={weeklyStyles.weeklyPointP}> p</Text></Text>
         </View>
     );
 };

@@ -1,9 +1,8 @@
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 
-import { StyleSheet, Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
-const AlbumScreenStyles = StyleSheet.create({
+const getAlbumScreenStyles = (width, height) => StyleSheet.create({
     safeArea: {
         flex: 1,
     },
@@ -41,21 +40,21 @@ const AlbumScreenStyles = StyleSheet.create({
     },
     albumText: {
         ...Typography.bamin1,
-        fontSize: Fontsizes.lg,
-        marginTop: height * 0.03,
+        fontSize: Fontsizes.mm,
+        marginTop: height * 0.05,
         marginLeft: width * 0.05,
     },
     albumListsWrapper: {
         backgroundColor: Colors.basic,
         borderRadius: Spacing.lg,
         alignSelf:'center',
-        width:width * 0.8,
-        height: height * 0.5,
-        marginTop: height * 0.02,
+        width:width * 0.9,
+        height: height * 0.9,
+        marginTop: height * 0.01,
     },
     albumLists: {
-        marginTop: height * 0.02,
-        borderRadius: Spacing.md,
+        marginTop: -height * 0.02,
+        borderRadius: Spacing.lg,
 
     },
     albumListsRowColumn: {
@@ -66,12 +65,24 @@ const AlbumScreenStyles = StyleSheet.create({
     },
     searchBar: {
         alignSelf: 'center',
-        justifyContent: 'center',
-        width: width * 0.8,
+        width: width * 0.9,
         backgroundColor: Colors.white,
         marginTop: height * 0.03,
+        borderRadius: Spacing.lg,
+        height: height * 0.08,
+    },
+    searchBarInput: {
+        textAlignVertical: 'center', // Android 전용
+        fontSize: Fontsizes.sm,
+        paddingVertical: 0,
+        includeFontPadding: false,
+    },
+    searchBarContent: {
+        textAlignVertical: 'center', // Android에서는 무시됨
+        alignItems: 'center',        // iOS 정렬 대응
+        height: height * 0.06 * 0.8,
     },
 });
 
-export default AlbumScreenStyles;
+export default getAlbumScreenStyles;
 

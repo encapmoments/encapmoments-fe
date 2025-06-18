@@ -1,11 +1,14 @@
-import { View, Text } from 'react-native';
-import DailyStyles from './DailyStyles';
+import { View, Text, useWindowDimensions } from 'react-native';
+import getDailyStyles from './DailyStyles';
 
 const Daily = ({ daily_id, daily_title, reward }) => {
+    const { width, height } = useWindowDimensions();
+    const dailyStyles = getDailyStyles(width, height);
+
     return (
-        <View style={DailyStyles.backgroundStyle}>
-            <Text style={DailyStyles.dailyTitle}>{daily_title }</Text>
-            <Text style={DailyStyles.dailyPoint}>{ reward }<Text style={DailyStyles.dailyPointP}> p</Text></Text>
+        <View style={dailyStyles.backgroundStyle}>
+            <Text style={dailyStyles.dailyTitle}>{daily_title }</Text>
+            <Text style={dailyStyles.dailyPoint}>{ reward }<Text style={dailyStyles.dailyPointP}> p</Text></Text>
         </View>
     );
 };

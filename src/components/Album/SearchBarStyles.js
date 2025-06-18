@@ -1,12 +1,11 @@
 import { Colors, Typography } from '../../styles/stylesIndex';
 
-import { StyleSheet, Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
-const SearchBarStyles = StyleSheet.create({
+const getSearchBarStyles = (width, height) => StyleSheet.create({
     backgroundStyle: {
         backgroundColor: Colors.inputtextarea,
     },
 });
 
-export default SearchBarStyles;
+export default getSearchBarStyles;

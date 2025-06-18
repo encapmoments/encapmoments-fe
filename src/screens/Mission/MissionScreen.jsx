@@ -8,6 +8,7 @@ import { useGetMissions } from '../../viewmodels/missionViewModels';
 import useAccessToken from '../../models/accessToken';
 import Colors from '../../styles/colors';
 import getMissionScreenStyles from './MissionScreenStyles';
+import useMock from '../../models/useMock';
 
 const MissionScreen = ({ navigation }) => {
   const accessToken = useAccessToken();
@@ -21,6 +22,7 @@ const MissionScreen = ({ navigation }) => {
 
   // const hasMissions = true; // weekly_time 조건 불충족시 false, 충족 시 true
   const hasMissions = useMemo(() => {
+    if (useMock) { return false; }
     if (weeklyLoading) {return true;} // 로딩 중엔 true 처리
     const now = new Date();
 

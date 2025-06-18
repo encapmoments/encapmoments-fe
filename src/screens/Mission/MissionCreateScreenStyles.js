@@ -1,11 +1,8 @@
-import { fonts } from 'react-native-elements/dist/config';
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
-
-const MissionCreateScreenStyles = StyleSheet.create({
+const getMissionCreateScreenStyles = (width, height) => StyleSheet.create({
     safeArea: {
         flex: 1,
     },
@@ -59,7 +56,7 @@ const MissionCreateScreenStyles = StyleSheet.create({
         backgroundColor: Colors.missions,
         width: width * 0.8,
         alignSelf: 'center',
-        borderRadius: Spacing.md,
+        borderRadius: Spacing.lg,
         height:height * 0.22,
     },
     inputText: {
@@ -73,8 +70,13 @@ const MissionCreateScreenStyles = StyleSheet.create({
         width: '90%',
         height:height * 0.18,
         textAlignVertical: 'top',
-        borderRadius: Spacing.md,
+        borderRadius: Spacing.lg,
+    },
+    scroll: {
+        flexGrow: 1,
+        padding: '5%',
+        justifyContent: 'flex-start', // 필요한 경우 'space-between'으로 변경 가능
     },
 });
 
-export default MissionCreateScreenStyles;
+export default getMissionCreateScreenStyles;

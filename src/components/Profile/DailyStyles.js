@@ -1,13 +1,12 @@
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
-import { Dimensions, StyleSheet } from 'react-native';
-const { width, height } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
 
-const DailyStyles = StyleSheet.create({
+const getDailyStyles = (width, height) => StyleSheet.create({
     backgroundStyle: {
         backgroundColor: Colors.white,
         width: width * 0.8,
         height: height * 0.1,
-        borderRadius: Spacing.md,
+        borderRadius: Spacing.lg,
         marginBottom: height * 0.02,
     },
     dailyTitle: {
@@ -34,4 +33,4 @@ const DailyStyles = StyleSheet.create({
     },
 });
 
-export default DailyStyles;
+export default getDailyStyles;

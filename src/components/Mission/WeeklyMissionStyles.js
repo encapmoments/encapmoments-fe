@@ -1,11 +1,7 @@
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
-
-
-
-const WeeklyMissionStyles = StyleSheet.create({
+const getWeeklyMissionStyles = (width, height) => StyleSheet.create({
     weeklyMissionWrapper: {
         marginTop: height * -0.05,
         marginBottom: height * 0.02,
@@ -14,14 +10,14 @@ const WeeklyMissionStyles = StyleSheet.create({
         alignSelf: 'center',
         width: width * 0.6,
         justifyContent: 'center',
-        borderRadius: Spacing.md,
+        borderRadius: Spacing.lg,
         marginLeft: width * 0.05,
     },
     weeklyMissionImage: {
-        marginTop: height * -0.02,
+        marginTop: height * -0.025,
         width: width * 0.5,
-        height: height * 0.33,
-        borderRadius: Spacing.md,
+        height: height * 0.35,
+        borderRadius: Spacing.lg,
         resizeMode: 'cover',
         alignSelf: 'center',
 
@@ -83,6 +79,6 @@ const WeeklyMissionStyles = StyleSheet.create({
 
 });
 
-export default WeeklyMissionStyles;
+export default getWeeklyMissionStyles;
 
 

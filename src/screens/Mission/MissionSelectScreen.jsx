@@ -1,11 +1,14 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import MissionSelectScreenStyles from './MissionSelectScreenStyles';
+import getMissionSelectScreenStyles from './MissionSelectScreenStyles';
 import { CommonButton } from '../../common/commonIndex';
 import baseUrl from '../../models/baseUrl';
 
 const MissionSelectScreen = ({ navigation, route }) => {
   const { mission, type } = route.params;
+
+  const { width, height } = useWindowDimensions();
+  const dailyStyles = getMissionSelectScreenStyles(width, height);
 
   // type에 따라 필드 분기
   let mission_image, mission_title, mission_description, mission_reward;
@@ -25,17 +28,17 @@ const MissionSelectScreen = ({ navigation, route }) => {
   console.log('route.params.mission:', mission);
 
   return (
-    <SafeAreaView style={MissionSelectScreenStyles.safeArea}>
-      <View style={MissionSelectScreenStyles.backgroundStyle}>
-        <TouchableOpacity onPress={() => navigation.pop()} style={MissionSelectScreenStyles.touchBackArrow}>
+    <SafeAreaView style={dailyStyles.safeArea}>
+      <View style={dailyStyles.backgroundStyle}>
+        <TouchableOpacity onPress={() => navigation.pop()} style={dailyStyles.touchBackArrow}>
           <Image
-            style={MissionSelectScreenStyles.backArrow}
+            style={dailyStyles.backArrow}
             source={require('../../assets/icons/backArrowWrapper.png')}
           />
         </TouchableOpacity>
 
         <Image
-          style={MissionSelectScreenStyles.missionImage}
+          style={dailyStyles.missionImage}
           source={
             typeof mission_image === 'number'
               ? mission_image
@@ -47,22 +50,22 @@ const MissionSelectScreen = ({ navigation, route }) => {
                 }
           }
         />
-        <View style={MissionSelectScreenStyles.missionInfo}>
-          <Text style={MissionSelectScreenStyles.missionTitle}>{mission_title}</Text>
+        <View style={dailyStyles.missionInfo}>
+          <Text style={dailyStyles.missionTitle}>{mission_title}</Text>
 
-          <Text style={MissionSelectScreenStyles.missionPoint}>
-            {mission_reward} <Text style={MissionSelectScreenStyles.missionPointP}>p</Text>
+          <Text style={dailyStyles.missionPoint}>
+            {mission_reward} <Text style={dailyStyles.missionPointP}>p</Text>
           </Text>
 
-          <Text style={MissionSelectScreenStyles.missionTitle}>설명</Text>
-          <Text style={MissionSelectScreenStyles.missionDescription}>{mission_description}</Text>
+          <Text style={dailyStyles.missionSubTitle1}>설명</Text>
+          <Text style={dailyStyles.missionDescription}>{mission_description}</Text>
 
-          <Text style={MissionSelectScreenStyles.missionTitle}>인증 방식</Text>
-          <Text style={MissionSelectScreenStyles.missionDescription}>
+          <Text style={dailyStyles.missionSubTitle2}>인증 방식</Text>
+          <Text style={dailyStyles.missionDescription}>
             사진을 넣고, 구성원 각자 느낀점을 작성하세요!
           </Text>
 
-          <View style={MissionSelectScreenStyles.paddings}>
+          <View style={dailyStyles.paddings}>
             <CommonButton
               title="수행하러 가기"
               onPress={() =>
@@ -71,7 +74,7 @@ const MissionSelectScreen = ({ navigation, route }) => {
                   mission_id: type === 'daily' ? mission.daily_id : mission.weekly_id,
                 })
               }
-              style={MissionSelectScreenStyles.commonButton}
+              style={dailyStyles.commonButton}
             />
           </View>
         </View>

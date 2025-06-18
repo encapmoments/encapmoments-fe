@@ -1,21 +1,22 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, useWindowDimensions } from 'react-native';
 
-import CardStyles from './CardStyles';
+import getCardStyles from './CardStyles';
 
 const Card = ({ album_id, album_image, album_title, location, album_tag, navigation }) => {
-
+    const { width, height } = useWindowDimensions();
+    const cardStyles = getCardStyles(width, height);
     return (
-        <View style={CardStyles.backgroundStyle}>
-            <TouchableOpacity onPress={() => navigation.navigate('AlbumSelect', { album_id })} style={CardStyles.no}>
-                <Image style={CardStyles.albumImage} source={album_image} />
+        <View style={cardStyles.backgroundStyle}>
+            <TouchableOpacity onPress={() => navigation.navigate('AlbumSelect', { album_id })} style={cardStyles.no}>
+                <Image style={cardStyles.albumImage} source={album_image} />
             </TouchableOpacity>
-            <Text style={CardStyles.texts}>{album_title}</Text>
-            <View style={CardStyles.locationRow}>
-                <Image style={CardStyles.locationImage} source={require('../../assets/icons/locationIcon.png')} />
-                <Text style={CardStyles.locationText}>{location}</Text>
+            <Text style={cardStyles.texts}>{album_title}</Text>
+            <View style={cardStyles.locationRow}>
+                <Image style={cardStyles.locationImage} source={require('../../assets/icons/locationIcon.png')} />
+                <Text style={cardStyles.locationText}>{location}</Text>
             </View>
-            <View style={CardStyles.locationRow}>
-                <Text style={CardStyles.tagText}>#{album_tag}</Text>
+            <View style={cardStyles.locationRow}>
+                <Text style={cardStyles.tagText}>#{album_tag}</Text>
             </View>
         </View>
     );
