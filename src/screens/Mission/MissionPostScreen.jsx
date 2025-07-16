@@ -28,23 +28,14 @@ const MissionPostScreen = ({ navigation, route }) => {
   const [location, setLocation] = useState('');
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const [commentComponents, setCommentComponents] = useState([{ id: Date.now() }]);
+  const [commentComponents, setCommentComponents] = useState([{ id: Date.now(), selectedMember: null }]);
   const { mission_type, album_id, mission_id } = route.params;
 
     const { albums, loading } = useGetAlbum(accessToken);
     const [selectedAlbum, setSelectedAlbum] = useState(null);
     const isEditMode = !!album_id;
 
-    // useEffect(() => {
-    //   if (route?.params) {
-    //     Alert.alert('mission_type', route.params.mission_type ?? '없음');
-    //     Alert.alert('mission_id', String(route.params.mission_id ?? '없음'));
-    //   }
-    //   // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
-
     useEffect(() => {
-
       if (!loading && isEditMode) {
         const album = albums.find((a) => a.album_id === album_id);
         if (album) {
@@ -52,7 +43,7 @@ const MissionPostScreen = ({ navigation, route }) => {
           setAlbumTitle(album.album_title);
           setAlbumTag(album.album_tag);
           setLocation(album.location);
-          setSelectedImage(album.album_image); // string일 경우 uri 처리 필요
+          setSelectedImage(album.album_image);
         }
       }
     }, [albums, loading, album_id, isEditMode]);
@@ -75,13 +66,18 @@ const MissionPostScreen = ({ navigation, route }) => {
   };
 
   const handleAddComment = () => {
-    setCommentComponents([...commentComponents, { id: Date.now() }]);
+    setCommentComponents([...commentComponents, { id: Date.now(), selectedMember: null }]);
   };
 
   const handleRemoveComment = (idToRemove) => {
     setCommentComponents(commentComponents.filter(({ id }) => id !== idToRemove));
   };
 
+  const handleMemberSelect = (commentId, member) => {
+    setCommentComponents(commentComponents.map(comment => 
+      comment.id === commentId ? { ...comment, selectedMember: member } : comment
+    ));
+  };
 
   const handleSubmit = async () => {
     if (!album_title || !selectedImage) {
@@ -93,7 +89,6 @@ const MissionPostScreen = ({ navigation, route }) => {
       let result;
 
       if (isEditMode) {
-        // 수정 요청 (PATCH)
         result = await updateAlbum(
           {
             album_id,
@@ -105,7 +100,6 @@ const MissionPostScreen = ({ navigation, route }) => {
           accessToken
         );
       } else {
-        // 생성 요청 (POST)
         result = await postAlbum(
           {
             album_title,
@@ -130,13 +124,9 @@ const MissionPostScreen = ({ navigation, route }) => {
     }
   };
 
-
   return (
     <SafeAreaView style={MissionPostScreenStyles.safeArea}>
-      <KeyboardAvoidingView
-        style={MissionPostScreenStyles.backgroundStyle}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      >
+      <View style={MissionPostScreenStyles.backgroundStyle}>
         <TouchableOpacity
           onPress={() => navigation.pop()}
           style={MissionPostScreenStyles.touchBackArrow}
@@ -150,7 +140,7 @@ const MissionPostScreen = ({ navigation, route }) => {
         <View style={MissionPostScreenStyles.missionImageWrapper}>
           {selectedImage ? (
             <>
-              <Image // album_image
+              <Image
                 source={{ uri: selectedImage }}
                 style={MissionPostScreenStyles.uploadedImage}
                 resizeMode="cover"
@@ -175,27 +165,33 @@ const MissionPostScreen = ({ navigation, route }) => {
           )}
         </View>
 
-        <View style={MissionPostScreenStyles.missionInfo}>
+        <KeyboardAvoidingView
+          style={MissionPostScreenStyles.missionInfo}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+        >
           <ScrollView
             horizontal={false}
-            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             style={MissionPostScreenStyles.scroll}
+            contentContainerStyle={MissionPostScreenStyles.scrollContent}
+            keyboardShouldPersistTaps="handled"
           >
-            <TextInput // album_title
+            <TextInput
               style={MissionPostScreenStyles.titleInput}
               placeholder="제목"
               placeholderTextColor={Colors.white}
               value={album_title}
               onChangeText={setAlbumTitle}
             />
-            <TextInput // album_tag
+            <TextInput
               style={MissionPostScreenStyles.tagInput}
               placeholder="태그"
               placeholderTextColor={Colors.white}
               value={album_tag}
               onChangeText={setAlbumTag}
             />
-            <TextInput // location
+            <TextInput
               style={MissionPostScreenStyles.locationInput}
               placeholder="위치"
               placeholderTextColor={Colors.white}
@@ -203,18 +199,21 @@ const MissionPostScreen = ({ navigation, route }) => {
               onChangeText={setLocation}
             />
 
-
-          {commentComponents.map(({ id }) => (
+            {commentComponents.map(({ id, selectedMember }) => (
               <View key={id} style={MissionPostScreenStyles.commentWrapper}>
-                  <CommentCreate />
-                  <TouchableOpacity
+                <CommentCreate 
+                  commentId={id}
+                  selectedMember={selectedMember}
+                  onMemberSelect={handleMemberSelect}
+                />
+                <TouchableOpacity
                   onPress={() => handleRemoveComment(id)}
                   style={MissionPostScreenStyles.deleteButtonWrapper}
-                  >
+                >
                   <Text style={MissionPostScreenStyles.deleteButton}>삭제</Text>
-                  </TouchableOpacity>
+                </TouchableOpacity>
               </View>
-          ))}
+            ))}
 
             <TouchableOpacity onPress={handleAddComment}>
               <Image
@@ -227,11 +226,11 @@ const MissionPostScreen = ({ navigation, route }) => {
           <View style={MissionPostScreenStyles.commonButton}>
             <CommonButton
               title="완료"
-              onPress={handleSubmit} // TODO : 멤버 수정
+              onPress={handleSubmit}
             />
           </View>
-        </View>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </View>
     </SafeAreaView>
   );
 };

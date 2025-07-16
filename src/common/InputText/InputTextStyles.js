@@ -8,7 +8,7 @@ const InputTextStyles = {
         ...Typography.sf,
         backgroundColor: Colors.missionInput,
         paddingVertical: Spacing.input,
-        borderRadius: Spacing.input, // 완전 둥글게
+        borderRadius: Spacing.input,
         alignItems: 'center',
         fontSize: Fontsizes.sm,
         marginTop: height * 0.02,

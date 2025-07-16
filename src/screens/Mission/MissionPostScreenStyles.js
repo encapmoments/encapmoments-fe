@@ -18,7 +18,6 @@ const MissionPostScreenStyles = StyleSheet.create({
         top: height * 0.03,
         left: width * 0.03,
     },
-
     touchBackArrow: {
         position: 'absolute',
         top: height * 0.03,
@@ -44,22 +43,24 @@ const MissionPostScreenStyles = StyleSheet.create({
         opacity: 0.7,
    },
     pencilIconWrapper: {
-    position: 'absolute',
-    width: width * 0.1,
-    height: width * 0.1,
-    borderRadius: Spacing.md,
-
+        position: 'absolute',
+        width: width * 0.1,
+        height: width * 0.1,
+        borderRadius: Spacing.md,
+        bottom: width * 0.05,
+        right: width * 0.05,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     pencilIcon: {
-        width: width * 0.1,
-        height: height * 0.1,
-        resizeMode: 'center',
-        opacity: 0.5,
+        width: width * 0.06,
+        height: width * 0.06,
+        tintColor: 'white',
     },
     missionInfo: {
-        height:height * 0.5,
+        flex: 1,
     },
-
     titleInput: {
         ...Typography.bamin2,
         marginTop: height * 0.02,
@@ -79,8 +80,8 @@ const MissionPostScreenStyles = StyleSheet.create({
         width: width * 0.6,
         height: height * 0.06,
         borderRadius: Spacing.lg,
-        textAlignVertical: 'center',
         paddingLeft: Spacing.sm,
+        paddingTop: height * 0.02, // 수직 정렬을 위한 paddingTop 추가
         fontSize: Fontsizes.md,
         color: Colors.white,
         marginLeft: width * 0.05,
@@ -92,8 +93,8 @@ const MissionPostScreenStyles = StyleSheet.create({
         width: width * 0.5,
         height: height * 0.06,
         borderRadius: Spacing.lg,
-        textAlignVertical: 'center',
         paddingLeft: Spacing.sm,
+        paddingTop: height * 0.02, // 수직 정렬을 위한 paddingTop 추가
         fontSize: Fontsizes.md,
         color: Colors.white,
         marginLeft: width * 0.05,
@@ -105,13 +106,18 @@ const MissionPostScreenStyles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         marginTop: height * 0.02,
+        marginBottom: height * 0.02,
     },
     commonButton: {
         padding: '5%',
+        paddingBottom: height * 0.03,
     },
     scroll: {
         flex: 1,
-        paddingBottom: 80,
+    },
+    scrollContent: {
+        flexGrow: 1,
+        paddingBottom: height * 0.02,
     },
     commentWrapper: {
         flexDirection: 'row',
@@ -120,7 +126,6 @@ const MissionPostScreenStyles = StyleSheet.create({
         marginHorizontal: width * 0.05,
     },
     deleteButtonWrapper: {
-        position: 'absolute',
         marginTop: height * 0.015,
         marginLeft: width * 0.4,
     },

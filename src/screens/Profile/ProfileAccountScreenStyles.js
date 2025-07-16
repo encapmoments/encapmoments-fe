@@ -1,4 +1,4 @@
-import { Colors, Fontsizes, Typography } from '../../styles/stylesIndex';
+import { Colors, Fontsizes, Typography, Spacing } from '../../styles/stylesIndex';
 import { StyleSheet } from 'react-native';
 
 const safePadding = '5%';
@@ -31,9 +31,9 @@ const getProfileAccountScreenStyles = (width, height) => StyleSheet.create({
         flex: 1,
     },
     scroll: {
-        flexGrow: 1, // ✅ 내용이 적어도 아래로 늘어남
+        flexGrow: 1,
         justifyContent: 'space-between',
-        paddingBottom: height * 0.05, // 키보드/버튼 공간 확보
+        paddingBottom: height * 0.15,
     },
     topStyle: {
         flexDirection: 'row',
@@ -68,17 +68,23 @@ const getProfileAccountScreenStyles = (width, height) => StyleSheet.create({
         ...Typography.bamin1,
         color: Colors.black,
         fontSize: Fontsizes.mdm,
-        marginTop: height * 0.03,
+        marginTop: height * 0.025,
     },
     optionsWrapper: {
         marginTop: height * 0.02,
         height: height * 0.5,
     },
     commonButton: {
-        marginTop: height * 0.11,
+        marginTop: height * 0.12,
     },
     paddings: {
         marginTop: height * 0.01,
+    },
+    members: {
+        backgroundColor: Colors.missionInput,
+        paddingVertical: Spacing.input,
+        borderRadius: Spacing.input,
+        marginTop: height * 0.02,
     },
 });
 
