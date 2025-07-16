@@ -28,7 +28,7 @@ const MissionPostScreenStyles = StyleSheet.create({
     },
     missionImageWrapper: {
         width: width * 1.0,
-        height: height * 0.55,
+        height: height * 0.4,
         backgroundColor: Colors.missions,
         alignItems: 'center',
         justifyContent: 'center',
@@ -41,7 +41,7 @@ const MissionPostScreenStyles = StyleSheet.create({
         width: width * 0.2,
         height: width * 0.2,
         opacity: 0.7,
-   },
+    },
     pencilIconWrapper: {
         position: 'absolute',
         width: width * 0.1,
@@ -70,8 +70,12 @@ const MissionPostScreenStyles = StyleSheet.create({
         borderRadius: Spacing.lg,
         alignSelf: 'center',
         paddingLeft: Spacing.sm,
+        paddingRight: Spacing.sm,
         fontSize: Fontsizes.mm,
         color: Colors.white,
+        textAlignVertical: 'center',
+        paddingTop: 0,
+        paddingBottom: 0,
     },
     tagInput: {
         ...Typography.bamin2,
@@ -81,10 +85,13 @@ const MissionPostScreenStyles = StyleSheet.create({
         height: height * 0.06,
         borderRadius: Spacing.lg,
         paddingLeft: Spacing.sm,
-        paddingTop: height * 0.02, // 수직 정렬을 위한 paddingTop 추가
+        paddingRight: Spacing.sm,
         fontSize: Fontsizes.md,
         color: Colors.white,
         marginLeft: width * 0.05,
+        textAlignVertical: 'center',
+        paddingTop: 0,
+        paddingBottom: 0,
     },
     locationInput: {
         ...Typography.bamin2,
@@ -94,10 +101,13 @@ const MissionPostScreenStyles = StyleSheet.create({
         height: height * 0.06,
         borderRadius: Spacing.lg,
         paddingLeft: Spacing.sm,
-        paddingTop: height * 0.02, // 수직 정렬을 위한 paddingTop 추가
+        paddingRight: Spacing.sm,
         fontSize: Fontsizes.md,
         color: Colors.white,
         marginLeft: width * 0.05,
+        textAlignVertical: 'center',
+        paddingTop: 0,
+        paddingBottom: 0,
     },
     plusIconForComments: {
         width: width * 0.1,
@@ -109,32 +119,37 @@ const MissionPostScreenStyles = StyleSheet.create({
         marginBottom: height * 0.02,
     },
     commonButton: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
         padding: '5%',
         paddingBottom: height * 0.03,
+        backgroundColor: Colors.basic,
     },
     scroll: {
         flex: 1,
     },
     scrollContent: {
         flexGrow: 1,
-        paddingBottom: height * 0.02,
+        paddingBottom: height * 0.15,
     },
     commentWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         marginHorizontal: width * 0.05,
+        marginTop: height * 0.02,
+        marginLeft: width * 0.1,
     },
     deleteButtonWrapper: {
-        marginTop: height * 0.015,
-        marginLeft: width * 0.4,
+        right: width * 0.08,
+        top: height * 0.08,
     },
     deleteButton: {
         ...Typography.bamin1,
         color: Colors.red,
         fontSize: Fontsizes.sm,
-        marginTop: height * 0.055,
-        marginLeft: width * 0.4,
     },
 });
 

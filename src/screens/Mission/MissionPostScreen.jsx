@@ -6,8 +6,6 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -66,6 +64,7 @@ const MissionPostScreen = ({ navigation, route }) => {
   };
 
   const handleAddComment = () => {
+    console.log('Adding comment...', commentComponents.length);
     setCommentComponents([...commentComponents, { id: Date.now(), selectedMember: null }]);
   };
 
@@ -165,11 +164,7 @@ const MissionPostScreen = ({ navigation, route }) => {
           )}
         </View>
 
-        <KeyboardAvoidingView
-          style={MissionPostScreenStyles.missionInfo}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
-        >
+        <View style={MissionPostScreenStyles.missionInfo}>
           <ScrollView
             horizontal={false}
             showsVerticalScrollIndicator={false}
@@ -201,11 +196,13 @@ const MissionPostScreen = ({ navigation, route }) => {
 
             {commentComponents.map(({ id, selectedMember }) => (
               <View key={id} style={MissionPostScreenStyles.commentWrapper}>
-                <CommentCreate 
-                  commentId={id}
-                  selectedMember={selectedMember}
-                  onMemberSelect={handleMemberSelect}
-                />
+                <View style={{ flex: 1 }}>
+                  <CommentCreate
+                    commentId={id}
+                    selectedMember={selectedMember}
+                    onMemberSelect={handleMemberSelect}
+                  />
+                </View>
                 <TouchableOpacity
                   onPress={() => handleRemoveComment(id)}
                   style={MissionPostScreenStyles.deleteButtonWrapper}
@@ -221,15 +218,15 @@ const MissionPostScreen = ({ navigation, route }) => {
                 source={require('../../assets/icons/plusIcon.png')}
               />
             </TouchableOpacity>
-          </ScrollView>
 
-          <View style={MissionPostScreenStyles.commonButton}>
-            <CommonButton
-              title="완료"
-              onPress={handleSubmit}
-            />
-          </View>
-        </KeyboardAvoidingView>
+            <View style={MissionPostScreenStyles.commonButton}>
+              <CommonButton
+                title="완료"
+                onPress={handleSubmit}
+              />
+            </View>
+          </ScrollView>
+        </View>
       </View>
     </SafeAreaView>
   );

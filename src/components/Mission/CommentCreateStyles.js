@@ -10,7 +10,7 @@ export const CommentCreateStyles = StyleSheet.create({
         height: height * 0.1,
         alignSelf: 'center',
         marginTop: height * 0.02,
-        borderRadius: Spacing.md,
+        borderRadius: Spacing.lg,
         paddingHorizontal: width * 0.03,
         paddingVertical: height * 0.01,
     },
@@ -29,8 +29,8 @@ export const CommentCreateStyles = StyleSheet.create({
         fontSize: Fontsizes.sm,
         flex: 1,
         textAlignVertical: 'top',
-        paddingTop: height * 0.005, // 상단 패딩 추가로 텍스트 안정화
-        includeFontPadding: false, // Android에서 폰트 패딩 제거
+        paddingTop: height * 0.005,
+        includeFontPadding: false,
     },
     // 모달 스타일
     modalOverlay: {

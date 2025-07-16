@@ -5,8 +5,7 @@ import CommentCreateStyles from './CommentCreateStyles';
 export const CommentCreate = ({ commentId, selectedMember, onMemberSelect }) => {
     const [comment, setComment] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
-    
-    const familyMembers = ['엄마', '아빠']; // 고정된 구성원
+    const familyMembers = ['엄마', '아빠'];
 
     const handleMemberSelect = (member) => {
         onMemberSelect(commentId, member);
@@ -15,7 +14,7 @@ export const CommentCreate = ({ commentId, selectedMember, onMemberSelect }) => 
 
     return (
         <View style={CommentCreateStyles.commentCreateWrapper}>
-            <TouchableOpacity 
+            <TouchableOpacity
                 style={CommentCreateStyles.memberSelectButton}
                 onPress={() => setModalVisible(true)}
             >
@@ -23,10 +22,9 @@ export const CommentCreate = ({ commentId, selectedMember, onMemberSelect }) => 
                     {selectedMember || '구성원 선택'}
                 </Text>
             </TouchableOpacity>
-            
-            <TextInput 
-                style={CommentCreateStyles.commentCreateDescription} 
-                placeholder="느낀점 작성" 
+            <TextInput
+                style={CommentCreateStyles.commentCreateDescription}
+                placeholder="느낀점 작성"
                 placeholderTextColor="rgba(255, 255, 255, 0.7)"
                 value={comment}
                 onChangeText={setComment}
@@ -41,32 +39,30 @@ export const CommentCreate = ({ commentId, selectedMember, onMemberSelect }) => 
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
             >
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={CommentCreateStyles.modalOverlay}
                     activeOpacity={1}
                     onPress={() => setModalVisible(false)}
                 >
                     <View style={CommentCreateStyles.modalContainer}>
                         <Text style={CommentCreateStyles.modalTitle}>구성원 선택</Text>
-                        
                         {familyMembers.map((member) => (
                             <TouchableOpacity
                                 key={member}
                                 style={[
                                     CommentCreateStyles.memberOption,
-                                    selectedMember === member && CommentCreateStyles.selectedMemberOption
+                                    selectedMember === member && CommentCreateStyles.selectedMemberOption,
                                 ]}
                                 onPress={() => handleMemberSelect(member)}
                             >
                                 <Text style={[
                                     CommentCreateStyles.memberOptionText,
-                                    selectedMember === member && CommentCreateStyles.selectedMemberOptionText
+                                    selectedMember === member && CommentCreateStyles.selectedMemberOptionText,
                                 ]}>
                                     {member}
                                 </Text>
                             </TouchableOpacity>
                         ))}
-                        
                         <TouchableOpacity
                             style={CommentCreateStyles.cancelButton}
                             onPress={() => setModalVisible(false)}

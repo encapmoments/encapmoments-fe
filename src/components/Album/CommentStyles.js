@@ -1,4 +1,3 @@
-import { fonts } from 'react-native-elements/dist/config';
 import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
 import { StyleSheet, Dimensions } from 'react-native';
 
@@ -11,7 +10,7 @@ const CommentStyles = StyleSheet.create({
         height: height * 0.12,
         marginLeft: width * 0.05,
         borderTopLeftRadius: Spacing.lg,
-        borderTopRightRadius: Spacing.md,
+        borderTopRightRadius: Spacing.lg,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: Spacing.lg,
         marginTop: height * 0.02,
@@ -35,12 +34,12 @@ const CommentStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 1,
-      },
-      commentMemberIcon: {
+    },
+    commentMemberIcon: {
         width: width * 0.06,
         height: width * 0.06,
         resizeMode: 'cover',
-      },
+    },
     commentMemberName: {
         ...Typography.bamin1,
         fontSize:Fontsizes.md,
