@@ -68,12 +68,17 @@ const Member = ({ members, setMembers, styles, navigation }) => {
     };
 
     const openActionModal = (member, event) => {
+        // 터치한 Member 원의 정확한 위치를 기준으로 완전 오른쪽, 완전 위에 모달 표시
         const touchX = event.nativeEvent.pageX || width / 2;
         const touchY = event.nativeEvent.pageY || height / 2;
-        setModalPosition({ x: touchX - width * 0.15, y: touchY - height * 0.05 });
+
+        setModalPosition({ 
+            x: touchX, 
+            y: touchY 
+        });
         setSelectedMember(member);
         setActionModalVisible(true);
-    };
+        };
 
     const handleEdit = () => {
         navigation.navigate('Member', {

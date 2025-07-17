@@ -37,13 +37,14 @@ const getProfileAccountScreenStyles = (width, height) => StyleSheet.create({
     },
     topStyle: {
         flexDirection: 'row',
-        marginTop: height * 0.025,
+        marginTop: height * 0.022,
     },
     mainText: {
         ...Typography.bamin1,
         fontSize: Fontsizes.mm,
         alignSelf: 'center',
         marginLeft: width * 0.33,
+        marginTop: height * 0.025,
     },
 
     setProfileImageWrapper: {

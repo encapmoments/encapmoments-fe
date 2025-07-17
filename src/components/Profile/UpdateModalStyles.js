@@ -1,5 +1,5 @@
-import { Colors, Fontsizes, Spacing, Typography } from "../../styles/stylesIndex";
-import { StyleSheet } from "react-native";
+import { Colors, Fontsizes, Spacing, Typography } from '../../styles/stylesIndex';
+import { StyleSheet } from 'react-native';
 
 const getUpdateModalStyles = (width, height) => StyleSheet.create({
     modalContainer: {
@@ -8,19 +8,12 @@ const getUpdateModalStyles = (width, height) => StyleSheet.create({
         borderTopRightRadius: 40,
         borderBottomRightRadius: 40,
         borderBottomLeftRadius: 10,
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
         overflow: 'hidden',
     },
     editButton: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        borderBottomWidth: 1,
-        borderBottomColor: '#B8A082',
     },
     deleteButton: {
         flex: 1,
@@ -29,13 +22,15 @@ const getUpdateModalStyles = (width, height) => StyleSheet.create({
     },
     editText: {
         fontSize: width * 0.035,
-        fontFamily: 'BMJUA_ttf',
+        ...Typography.bamin1,
         color: '#1B1E28',
+        marginTop: height * 0.02,
     },
     deleteText: {
         fontSize: width * 0.035,
-        fontFamily: 'BMJUA_ttf',
+        ...Typography.bamin1,
         color: '#F50000',
+        marginBottom: height * 0.02,
     },
 });
 
