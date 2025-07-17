@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, useWindowDimensions, Modal, TextInput, Alert } from 'react-native';
+import UpdateModal from './UpdateModal';
 
-const Member = ({ members, setMembers, styles }) => {
+const Member = ({ members, setMembers, styles, navigation }) => {
     const { width, height } = useWindowDimensions();
     const [modalVisible, setModalVisible] = useState(false);
     const [editingMember, setEditingMember] = useState(null);
     const [tempName, setTempName] = useState('');
+    const [actionModalVisible, setActionModalVisible] = useState(false);
+    const [selectedMember, setSelectedMember] = useState(null);
+    const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
 
     const backgroundColors = [
         '#FFB3BA',
@@ -29,7 +33,18 @@ const Member = ({ members, setMembers, styles }) => {
             backgroundColor: getRandomColor(),
         };
         setMembers([...members, newMember]);
-        openEditModal(newMember);
+        navigation.navigate('Member', {
+            member: newMember,
+            isNewMember: true,
+            onUpdate: (updatedMember) => {
+                setMembers(prev => prev.map(member =>
+                    member.id === updatedMember.id ? updatedMember : member
+                ));
+            },
+            onCancel: () => {
+                setMembers(prev => prev.filter(member => member.id !== newMember.id));
+            },
+        });
     };
 
     const removeMember = (id) => {
@@ -44,16 +59,35 @@ const Member = ({ members, setMembers, styles }) => {
                 { text: '취소', style: 'cancel' },
                 {
                     text: '삭제',
-                    onPress: () => setMembers(members.filter(member => member.id !== id)),
+                    onPress: () => {
+                        setMembers(members.filter(member => member.id !== id));
+                    },
                 },
             ]
         );
     };
 
-    const openEditModal = (member) => {
-        setEditingMember(member);
-        setTempName(member.name);
-        setModalVisible(true);
+    const openActionModal = (member, event) => {
+        const touchX = event.nativeEvent.pageX || width / 2;
+        const touchY = event.nativeEvent.pageY || height / 2;
+        setModalPosition({ x: touchX - width * 0.15, y: touchY - height * 0.05 });
+        setSelectedMember(member);
+        setActionModalVisible(true);
+    };
+
+    const handleEdit = () => {
+        navigation.navigate('Member', {
+            member: selectedMember,
+            onUpdate: (updatedMember) => {
+                setMembers(members.map(member =>
+                    member.id === updatedMember.id ? updatedMember : member
+                ));
+            },
+        });
+    };
+
+    const handleDelete = () => {
+        removeMember(selectedMember.id);
     };
 
     const saveNameEdit = () => {
@@ -75,6 +109,11 @@ const Member = ({ members, setMembers, styles }) => {
         setTempName('');
     };
 
+    const cancelAction = () => {
+        setActionModalVisible(false);
+        setSelectedMember(null);
+    };
+
     return (
         <View style={styles.membersContainer}>
             <ScrollView
@@ -87,7 +126,7 @@ const Member = ({ members, setMembers, styles }) => {
                     <View key={member.id} style={styles.memberItem}>
                         <TouchableOpacity
                             style={[styles.memberCircle, { backgroundColor: member.backgroundColor }]}
-                            onPress={() => openEditModal(member)}
+                            onPress={(event) => openActionModal(member, event)}
                             onLongPress={() => removeMember(member.id)}
                         >
                             <Text
@@ -108,7 +147,17 @@ const Member = ({ members, setMembers, styles }) => {
                 </TouchableOpacity>
             </ScrollView>
 
-            {/* 이름 편집 모달 */}
+            <UpdateModal
+                visible={actionModalVisible}
+                onClose={cancelAction}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                memberName={selectedMember?.name}
+                position={modalPosition}
+                width={width}
+                height={height}
+            />
+
             <Modal
                 animationType="slide"
                 transparent={true}

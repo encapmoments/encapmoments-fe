@@ -107,11 +107,13 @@ const getMemberStyles = (width, height) => StyleSheet.create({
         marginBottom: height * 0.02,
         textAlign: 'center',
         minHeight: height * 0.05,
+        width: '100%',
     },
     modalButtonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: height * 0.01, // 위쪽 여백 줄임
+        marginTop: height * 0.01,
+        width: '100%',
     },
     modalCancelButton: {
         flex: 1,
@@ -143,6 +145,38 @@ const getMemberStyles = (width, height) => StyleSheet.create({
     modalSaveText: {
         ...Typography.bamin1,
         fontSize: Fontsizes.sm,
+        color: 'white',
+    },
+    // 수정/삭제 선택 모달 스타일
+    actionButtonContainer: {
+        width: '100%',
+        marginBottom: height * 0.02,
+    },
+    editButton: {
+        backgroundColor: '#007AFF',
+        borderRadius: 10,
+        paddingVertical: height * 0.02,
+        paddingHorizontal: width * 0.04,
+        marginBottom: height * 0.015,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    editButtonText: {
+        ...Typography.bamin1,
+        fontSize: Fontsizes.md,
+        color: 'white',
+    },
+    deleteButton: {
+        backgroundColor: '#FF3B30',
+        borderRadius: 10,
+        paddingVertical: height * 0.02,
+        paddingHorizontal: width * 0.04,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    deleteButtonText: {
+        ...Typography.bamin1,
+        fontSize: Fontsizes.md,
         color: 'white',
     },
 });

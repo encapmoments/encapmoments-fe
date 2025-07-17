@@ -64,7 +64,7 @@ const ProfileAccountScreen = ({ navigation }) => {
             <SafeAreaView style={accountStyles.safeArea}>
                 <KeyboardAvoidingView style={accountStyles.backgroundStyle} behavior="height" keyboardVerticalOffset={20} >
                     <ScrollView style={accountStyles.scrollWrapper} contentContainerStyle={accountStyles.scroll} keyboardShouldPersistTaps="handled" scrollEnabled={true}>
-                        <TouchableOpacity onPress={() => navigation.pop()} style={accountStyles.touchBackArrow}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={accountStyles.touchBackArrow}>
                             <Image
                                 style={accountStyles.backArrow}
                                 source={require('../../assets/icons/backArrowWrapper.png')}
@@ -90,6 +90,7 @@ const ProfileAccountScreen = ({ navigation }) => {
                                     members={familyMembers}
                                     setMembers={setFamilyMembers}
                                     styles={familyMembersStyles}
+                                    navigation={navigation}
                                 />
                             </View>
                         </View>

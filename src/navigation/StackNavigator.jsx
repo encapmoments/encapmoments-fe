@@ -14,6 +14,7 @@ import MissionPostScreen from '../screens/Mission/MissionPostScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import ProfileAccountScreen from '../screens/Profile/ProfileAccountScreen';
 import ProfileMyMissionsScreen from '../screens/Profile/ProfileMyMissionsScreen';
+import MemberUpdate from '../components/Profile/MemberUpdate';
 
 
 const Stack = createNativeStackNavigator();
@@ -68,6 +69,10 @@ const StackNavigator = () => {
             <Stack.Screen name="ProfileAccount"
                 component={ProfileAccountScreen}
                 options={{ headerShown: false, animation: 'slide_from_left'}}
+            />
+            <Stack.Screen name="Member"
+                component={MemberUpdate}
+                options={{ headerShown: false, animation: 'none'}}
             />
             <Stack.Screen name="ProfileMyMissions"
                 component={ProfileMyMissionsScreen}
