@@ -30,7 +30,7 @@ const TabBar = ({ navigation }) => {
 
                 {/* TODO : 마켓 가는 아이콘 하나 추가해서 총 4개로 만들기 */}
 
-                <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Market')}>
                     <Image
                         style={tabBarStyles.tabBarMissionIcon}
                         source={require('../../assets/icons/market.png')}

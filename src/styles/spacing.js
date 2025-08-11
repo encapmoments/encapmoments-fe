@@ -1,4 +1,3 @@
-// Spacing.js
 import { scale } from 'react-native-size-matters';
 
 const Spacing = {

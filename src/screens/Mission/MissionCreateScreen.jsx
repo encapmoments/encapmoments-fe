@@ -31,15 +31,11 @@ const MissionCreateScreen = ({ navigation }) => {
         })),
       };
 
-      // console.log('📤 전송할 데이터:', requestData);
-
       const result = await generateWeeklyMission(requestData, accessToken);
-      // console.log('✅ 생성된 미션:', result);
 
       Alert.alert('미션 생성 성공', 'AI가 미션을 생성했어요!');
       navigation.navigate('Mission');
     } catch (error) {
-      // console.error('❌ 미션 생성 실패:', error.response?.data || error.message);
       Alert.alert('오류', error.response?.data?.message || '미션 생성에 실패했습니다.');
     } finally {
       setLoading(false);
@@ -65,7 +61,7 @@ const MissionCreateScreen = ({ navigation }) => {
             {/* 구성원 선택 */}
             <Text style={createStyles.missionTitleText}>구성원 선택</Text>
             <View style={createStyles.inputTextWrapper}>
-              <CreateMissionMembers members={members} setMembers={setMembers} />
+              {/* <CreateMissionMembers members={members} setMembers={setMembers} /> */}
             </View>
 
             {/* 부가 설명 */}

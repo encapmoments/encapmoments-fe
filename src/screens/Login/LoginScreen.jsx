@@ -16,13 +16,6 @@ const LoginScreen = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
   const loginStyles = getLoginScreenStyles(width, height);
 
-  const backgroundStyle = {
-    backgroundColor: '#F8F3D9',
-    flex: 1,
-  };
-
-  const safePadding = '5%';
-
   const onLogin = () => {
     if (useMock) {
       navigation.replace('Mission');
@@ -38,8 +31,8 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={loginStyles.safeArea}>
-      <View style={backgroundStyle}>
-        <View style={{ padding: safePadding }}>
+      <View style={loginStyles.backgroundStyle}>
+        <View style={loginStyles.safePadding}>
           <Text style={loginStyles.loginText}>로그인</Text>
 
           <InputText title="이메일" value={email} onChangeText={setEmail} />

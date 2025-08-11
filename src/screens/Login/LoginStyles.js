@@ -9,6 +9,9 @@ const getLoginScreenStyles = (width, height) => StyleSheet.create({
         flex: 1,
         backgroundColor: 'red',
     },
+    safePadding: {
+        padding: '5%',
+    },
     commonButton: {
         marginTop: height * 0.06,
     },
