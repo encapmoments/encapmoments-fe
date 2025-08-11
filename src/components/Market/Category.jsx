@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, useWindowDimensions, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Text, useWindowDimensions, TouchableOpacity } from 'react-native';
 import getCategoryStyles from './CategoryStyles';
 
 const Category = ({ title, onPress }) => {
@@ -7,7 +7,7 @@ const Category = ({ title, onPress }) => {
     const categoryStyles = getCategoryStyles(width, height);
 
     return (
-        <TouchableOpacity 
+        <TouchableOpacity
             style={categoryStyles.backgroundStyle}
             onPress={onPress}
         >

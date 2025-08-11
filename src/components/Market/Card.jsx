@@ -9,7 +9,7 @@ const Card = ({ title, point, category, img, navigation }) => {
         <View style={cardStyles.card}>
             <TouchableOpacity>
                 {img && (
-                    <Image 
+                    <Image
                         source={typeof img === 'string' ? { uri: img } : img}
                         style={cardStyles.cardImage}
                         resizeMode="cover"

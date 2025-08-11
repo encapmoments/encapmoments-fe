@@ -2,26 +2,26 @@ import React, { useState } from 'react';
 import { Modal, View, Text, TouchableOpacity, useWindowDimensions, TouchableWithoutFeedback } from 'react-native';
 import getCategoryModalStyles from './CategoryModalStyles';
 
-const CategoryModal = ({ isVisible, onClose, onCategorySelect }) => {
+const UsageModal = ({ isVisible, onClose, onUsageSelect }) => {
     const { width, height } = useWindowDimensions();
     const modalStyles = getCategoryModalStyles(width, height);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const categories = ['전체', '여행', '운동', '게임', '자연', '예술'];
+    const [selectedUsage, setSelectedUsage] = useState(null);
+    const usageOptions = ['전체', '사용 가능', '사용 완료'];
 
-    const handleCategoryPress = (category) => {
-        setSelectedCategory(category);
+    const handleUsagePress = (usage) => {
+        setSelectedUsage(usage);
     };
 
     const handleConfirm = () => {
-        if (selectedCategory && onCategorySelect) {
-            onCategorySelect(selectedCategory);
+        if (selectedUsage && onUsageSelect) {
+            onUsageSelect(selectedUsage);
         }
-        setSelectedCategory(null);
+        setSelectedUsage(null);
         onClose();
     };
 
     const handleCancel = () => {
-        setSelectedCategory(null);
+        setSelectedUsage(null);
         onClose();
     };
 
@@ -36,19 +36,19 @@ const CategoryModal = ({ isVisible, onClose, onCategorySelect }) => {
                 <View style={modalStyles.overlay}>
                     <TouchableWithoutFeedback>
                         <View style={modalStyles.modalContainer}>
-                            <Text style={modalStyles.modalTitle}>카테고리 선택</Text>
+                            <Text style={modalStyles.modalTitle}>사용 여부 선택</Text>
                             <View style={modalStyles.categoryContainer}>
-                                {categories.map((category) => (
+                                {usageOptions.map((usage) => (
                                     <TouchableOpacity
-                                        key={category}
+                                        key={usage}
                                         style={[
                                             modalStyles.categoryButton,
-                                            selectedCategory === category && modalStyles.categoryButtonSelected,
+                                            selectedUsage === usage && modalStyles.categoryButtonSelected,
                                         ]}
-                                        onPress={() => handleCategoryPress(category)}
+                                        onPress={() => handleUsagePress(usage)}
                                     >
                                         <Text style={modalStyles.categoryButtonText}>
-                                            {category}
+                                            {usage}
                                         </Text>
                                     </TouchableOpacity>
                                 ))}
@@ -75,4 +75,4 @@ const CategoryModal = ({ isVisible, onClose, onCategorySelect }) => {
     );
 };
 
-export default CategoryModal;
+export default UsageModal;

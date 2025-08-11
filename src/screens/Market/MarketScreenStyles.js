@@ -1,5 +1,4 @@
-import { withBadge } from 'react-native-elements';
-import { Colors, Typography, Spacing, Fontsizes } from '../../styles/stylesIndex';
+import { Colors, Typography, Fontsizes } from '../../styles/stylesIndex';
 
 import { StyleSheet } from "react-native";
 
@@ -39,7 +38,7 @@ const getMarketScreenStyles = (width, height) => StyleSheet.create({
     },
     cards: {
         justifyContent: 'space-between',
-        paddingBottom: height * 0.02, 
+        paddingBottom: height * 0.02,
     },
     columnWrapper: {
         justifyContent: 'space-between',
