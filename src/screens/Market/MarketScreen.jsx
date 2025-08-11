@@ -5,11 +5,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useWindowDimensions } from 'react-native';
 import useMock from '../../models/useMock';
 import { AppBar, TabBar } from '../../common/commonIndex';
-import { Card, Category } from '../../components/Market/marketComponentsIndex';
+import { Card, Category, CategoryModal } from '../../components/Market/marketComponentsIndex';
+import useModal from '../../hooks/useModal';
 
 const MarketScreen = ({ navigation }) => {
     const { width, height } = useWindowDimensions();
     const marketStyles = getMarketScreenStyles(width, height);
+    const categoryModal = useModal();
+    const [selectedCategory, setSelectedCategory] = useState('전체');
 
     const mockData = [
         {
@@ -63,6 +66,11 @@ const MarketScreen = ({ navigation }) => {
         },
     ];
 
+    const handleCategorySelect = (category) => {
+        setSelectedCategory(category);
+        console.log('선택된 카테고리:', category);
+    };
+
     return (
         <>
             <AppBar />
@@ -72,7 +80,10 @@ const MarketScreen = ({ navigation }) => {
                         <Text style={marketStyles.pointP}> points</Text>
                     </Text>
                     <View style={marketStyles.category}>
-                        <Category title="카테고리" />
+                        <Category 
+                            title={selectedCategory === '전체' ? '카테고리' : selectedCategory}
+                            onPress={categoryModal.openModal}
+                        />
                         <Category title="사용 여부" />
                         <Category title="포인트" />
                     </View>
@@ -97,6 +108,12 @@ const MarketScreen = ({ navigation }) => {
                 </View>
             </SafeAreaView>
             <TabBar navigation={navigation} />
+
+            <CategoryModal
+                isVisible={categoryModal.isVisible}
+                onClose={categoryModal.closeModal}
+                onCategorySelect={handleCategorySelect}
+            />
         </>
     );
 };
