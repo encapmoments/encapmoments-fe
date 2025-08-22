@@ -1,36 +1,33 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import DailyMissionStyles from './DailyMissionStyles';
+import { View, Text, TouchableOpacity } from "react-native";
+import DailyMissionStyles from "./DailyMissionStyles";
 
 const DailyMission = ({ navigation, ...mission }) => {
-  const {
-    daily_title,
-    reward,
-    daily_id,
-    is_completed,
-  } = mission;
+  const { daily_title, reward, daily_id, is_completed } = mission;
 
   const completed = Boolean(is_completed);
   // console.log(completed);
 
   // console.log('[미션]', mission);
 
-
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('MissionSelect', { mission, type: 'daily' })}
+      onPress={() =>
+        navigation.navigate("MissionSelect", { mission, type: "daily" })
+      }
       disabled={completed}
-      activeOpacity={completed ? 1 : 0.5}
-    >
+      activeOpacity={completed ? 1 : 0.5}>
       <View style={DailyMissionStyles.wrapper}>
-        <View style={[
-          DailyMissionStyles.dailyMissionWrapper,
-          completed && DailyMissionStyles.completedWrapper,
-        ]}>
+        <View
+          style={[
+            DailyMissionStyles.dailyMissionWrapper,
+            completed && DailyMissionStyles.completedWrapper,
+          ]}>
           <Text style={DailyMissionStyles.dailyMissionText}>
-            {!completed ? daily_title : ''}
+            {!completed ? daily_title : ""}
           </Text>
           <Text style={DailyMissionStyles.dailyMissionPoint}>
-            {reward}<Text style={DailyMissionStyles.dailyMissionPointP}> p</Text>
+            {reward}
+            <Text style={DailyMissionStyles.dailyMissionPointP}> p</Text>
           </Text>
         </View>
 
@@ -44,7 +41,4 @@ const DailyMission = ({ navigation, ...mission }) => {
   );
 };
 
-
 export default DailyMission;
-
-

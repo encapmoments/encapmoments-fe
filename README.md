@@ -20,6 +20,7 @@ colors, spacing, typography 등 스타일 상수를 변수로 정의
 ```
 
 ### USE_MOCK
+
 ```
 src/models/useMock.js
 const useMock = true; // 목데이터 사용 => 백엔드 서버가 아닌 임시 목데이터로 어플 실행 가능

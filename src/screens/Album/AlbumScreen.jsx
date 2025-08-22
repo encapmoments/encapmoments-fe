@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, useWindowDimensions } from 'react-native';
-import Fontsizes from '../../styles/fontsizes';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  useWindowDimensions,
+} from "react-native";
+import Fontsizes from "../../styles/fontsizes";
 
-import Colors from '../../styles/colors';
-import { AppBar, TabBar } from '../../common/commonIndex';
-import getAlbumScreenStyles from './AlbumScreenStyles';
-import Card from '../../components/Album/Card';
-import { Searchbar } from 'react-native-paper';
+import Colors from "../../styles/colors";
+import { AppBar, TabBar } from "../../common/commonIndex";
+import getAlbumScreenStyles from "./AlbumScreenStyles";
+import Card from "../../components/Album/Card";
+import { Searchbar } from "react-native-paper";
 
-import { useGetAlbum, useSearchAlbum } from '../../viewmodels/albumViewModels';
-import useAccessToken from '../../models/accessToken';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useGetAlbum, useSearchAlbum } from "../../viewmodels/albumViewModels";
+import useAccessToken from "../../models/accessToken";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const AlbumScreen = ({ navigation }) => {
   const accessToken = useAccessToken();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const { width, height } = useWindowDimensions();
   const albumStyles = getAlbumScreenStyles(width, height);
 
-  const { albums: defaultAlbums, loading: defaultLoading } = useGetAlbum(accessToken);
-  const { albums: searchedAlbums, loading: searchLoading } = useSearchAlbum(search, accessToken);
+  const { albums: defaultAlbums, loading: defaultLoading } =
+    useGetAlbum(accessToken);
+  const { albums: searchedAlbums, loading: searchLoading } = useSearchAlbum(
+    search,
+    accessToken,
+  );
 
   const isSearching = search.trim().length > 0;
   const albumsToDisplay = isSearching ? searchedAlbums : defaultAlbums;
@@ -59,7 +69,7 @@ const AlbumScreen = ({ navigation }) => {
                     location={item.location}
                     album_tag={item.album_tag}
                     album_image={
-                      typeof item.album_image === 'string'
+                      typeof item.album_image === "string"
                         ? { uri: item.album_image }
                         : item.album_image
                     }

@@ -1,10 +1,10 @@
-import axios from 'axios';
-import useMock from './useMock';
-import { useMissionStore } from '../store/store';
-import baseUrl from './baseUrl';
+import axios from "axios";
+import useMock from "./useMock";
+import { useMissionStore } from "../store/store";
+import baseUrl from "./baseUrl";
 
 // 일일 앨범 모두 조회
-export const getDailyMissions = async (accessToken) => {
+export const getDailyMissions = async accessToken => {
   if (useMock) {
     return useMissionStore.getState().dailyMissions;
   }
@@ -32,7 +32,7 @@ export const getDailyMissionDetail = async (daily_id, accessToken) => {
 };
 
 // 주간 미션 모두 조회
-export const getWeeklyMissions = async (accessToken) => {
+export const getWeeklyMissions = async accessToken => {
   if (useMock) {
     return useMissionStore.getState().weeklyMissions;
   }

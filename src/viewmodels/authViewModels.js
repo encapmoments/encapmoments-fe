@@ -1,10 +1,6 @@
-import { useState } from 'react';
-import { login, logout, register, uploadImage } from '../models/auth';
-import {
-  useAuthStore,
-  useUserStore,
-  useAuthTempStore,
-} from '../store/store';
+import { useState } from "react";
+import { login, logout, register, uploadImage } from "../models/auth";
+import { useAuthStore, useUserStore, useAuthTempStore } from "../store/store";
 
 // export const useLogin = () => {
 //   const [loading, setLoading] = useState(false);
@@ -34,8 +30,8 @@ import {
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
-  const setAccessToken = useAuthStore((state) => state.setAccessToken);
-  const setUser = useUserStore((state) => state.setUser);
+  const setAccessToken = useAuthStore(state => state.setAccessToken);
+  const setUser = useUserStore(state => state.setUser);
 
   const handleLogin = async (email, password, onSuccess, onError) => {
     setLoading(true);
@@ -46,11 +42,11 @@ export const useLogin = () => {
         setUser(res.user);
         onSuccess?.();
       } else {
-        onError?.(res.message || '로그인 실패');
+        onError?.(res.message || "로그인 실패");
       }
     } catch (err) {
-      console.error('[로그인 에러]', err?.response?.data || err.message, err); // ✅ 추가
-      onError?.('서버 오류');
+      console.error("[로그인 에러]", err?.response?.data || err.message, err); // ✅ 추가
+      onError?.("서버 오류");
     } finally {
       setLoading(false);
     }
@@ -61,19 +57,25 @@ export const useLogin = () => {
 
 export const useRegister = () => {
   const [loading, setLoading] = useState(false);
-  const profileImageUrl = useAuthTempStore((state) => state.profileImageUrl);
+  const profileImageUrl = useAuthTempStore(state => state.profileImageUrl);
 
-  const handleRegister = async (nickname, email, password, onSuccess, onError) => {
+  const handleRegister = async (
+    nickname,
+    email,
+    password,
+    onSuccess,
+    onError,
+  ) => {
     setLoading(true);
     try {
       const res = await register(email, password, nickname, profileImageUrl);
       if (res.success) {
         onSuccess?.();
       } else {
-        onError?.(res.message || '회원가입 실패');
+        onError?.(res.message || "회원가입 실패");
       }
     } catch (err) {
-      onError?.('서버 오류');
+      onError?.("서버 오류");
     } finally {
       setLoading(false);
     }
@@ -95,10 +97,10 @@ export const useLogout = () => {
         // navigation.replace('Login');
         // navigation.navigate('Login');
       } else {
-        onError?.(res.message || '로그아웃 실패');
+        onError?.(res.message || "로그아웃 실패");
       }
     } catch (err) {
-      onError?.('서버 오류');
+      onError?.("서버 오류");
     } finally {
       setLoading(false);
     }
@@ -109,7 +111,9 @@ export const useLogout = () => {
 
 export const useUploadProfileImage = () => {
   const [uploading, setUploading] = useState(false);
-  const setProfileImageUrl = useAuthTempStore((state) => state.setProfileImageUrl);
+  const setProfileImageUrl = useAuthTempStore(
+    state => state.setProfileImageUrl,
+  );
 
   const handleUpload = async (imageUri, onSuccess, onError) => {
     setUploading(true);
@@ -118,7 +122,7 @@ export const useUploadProfileImage = () => {
       setProfileImageUrl(res.profile_image_url);
       onSuccess?.();
     } catch (err) {
-      onError?.('이미지 업로드 실패');
+      onError?.("이미지 업로드 실패");
     } finally {
       setUploading(false);
     }

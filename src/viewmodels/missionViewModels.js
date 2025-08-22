@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from 'react';
-import { getDailyMissions, getWeeklyMissions } from '../models/mission';
+import { useEffect, useState, useCallback } from "react";
+import { getDailyMissions, getWeeklyMissions } from "../models/mission";
 
 // 미션 조회
 export const useGetMissions = (type, accessToken) => {
@@ -9,7 +9,7 @@ export const useGetMissions = (type, accessToken) => {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      if (type === 'daily') {
+      if (type === "daily") {
         const data = await getDailyMissions(accessToken);
         setMissions(data);
       } else {
@@ -17,7 +17,7 @@ export const useGetMissions = (type, accessToken) => {
         setMissions(data);
       }
     } catch (err) {
-      console.error('미션 불러오기 실패', err);
+      console.error("미션 불러오기 실패", err);
     } finally {
       setLoading(false);
     }

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { View, Text, Alert } from 'react-native';
-import { CommonButton } from '../../common/commonIndex';
-import getLoginScreenStyles from './LoginStyles';
-import InputText from '../../common/InputText/InputText';
-import { useLogin } from '../../viewmodels/authViewModels';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useWindowDimensions } from 'react-native';
-import useMock from '../../models/useMock';
+import React, { useState } from "react";
+import { View, Text, Alert } from "react-native";
+import { CommonButton } from "../../common/commonIndex";
+import getLoginScreenStyles from "./LoginStyles";
+import InputText from "../../common/InputText/InputText";
+import { useLogin } from "../../viewmodels/authViewModels";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useWindowDimensions } from "react-native";
+import useMock from "../../models/useMock";
 
 const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { handleLogin, loading } = useLogin();
 
   const { width, height } = useWindowDimensions();
@@ -18,14 +18,14 @@ const LoginScreen = ({ navigation }) => {
 
   const onLogin = () => {
     if (useMock) {
-      navigation.replace('Mission');
+      navigation.replace("Mission");
       return;
     }
     handleLogin(
       email,
       password,
-      () => navigation.replace('Mission'),
-      (msg) => Alert.alert('로그인 실패', msg)
+      () => navigation.replace("Mission"),
+      msg => Alert.alert("로그인 실패", msg),
     );
   };
 
@@ -45,8 +45,7 @@ const LoginScreen = ({ navigation }) => {
 
           <Text
             style={loginStyles.forgotPW}
-            onPress={() => navigation.navigate('FindPW')}
-          >
+            onPress={() => navigation.navigate("FindPW")}>
             Forgot password?
           </Text>
 
@@ -58,11 +57,10 @@ const LoginScreen = ({ navigation }) => {
           />
 
           <Text style={loginStyles.donthaveAccount}>
-            계정이 없으신가요?{'    '}
+            계정이 없으신가요?{"    "}
             <Text
               style={loginStyles.signUp}
-              onPress={() => navigation.navigate('SetProfileImage')}
-            >
+              onPress={() => navigation.navigate("SetProfileImage")}>
               Sign Up
             </Text>
           </Text>

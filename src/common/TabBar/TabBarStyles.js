@@ -1,15 +1,16 @@
-import { StyleSheet } from 'react-native';
-import { Fontsizes } from '../../styles/stylesIndex';
-import Svg, { Path } from 'react-native-svg';
-import { Colors, Typography } from '../../styles/stylesIndex';
+import { StyleSheet } from "react-native";
+import { Fontsizes } from "../../styles/stylesIndex";
+import Svg, { Path } from "react-native-svg";
+import { Colors, Typography } from "../../styles/stylesIndex";
 
-const getTabBarStyles = (width, height) => StyleSheet.create({
+const getTabBarStyles = (width, height) =>
+  StyleSheet.create({
     tabBar: {
       backgroundColor: Colors.basic,
-      position: 'absolute',
+      position: "absolute",
       bottom: 0,
-      width: '100%',
-      alignItems: 'center',
+      width: "100%",
+      alignItems: "center",
     },
     // tabBarWrapper: { // TODO : react-natie-svg로 디자인 개선
     //   width: '100%',
@@ -23,25 +24,25 @@ const getTabBarStyles = (width, height) => StyleSheet.create({
     //   zIndex: 0,
     // },
     tabBarIcons: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      width: '90%',
+      flexDirection: "row",
+      justifyContent: "space-around",
+      alignItems: "center",
+      width: "90%",
       height: height * 0.1,
       zIndex: 1,
-      marginBottom: height*0.005
+      marginBottom: height * 0.005,
     },
     tabBarMissionIcon: {
       width: width * 0.07,
       height: width * 0.07,
-      resizeMode: 'contain',
+      resizeMode: "contain",
     },
     tabBarText: {
-        ...Typography.bamin1,
-        alignSelf: 'center',
-        fontSize: Fontsizes.sm,
-        marginTop: height * 0.01,
-        color: Colors.graytext,
+      ...Typography.bamin1,
+      alignSelf: "center",
+      fontSize: Fontsizes.sm,
+      marginTop: height * 0.01,
+      color: Colors.graytext,
     },
   });
 

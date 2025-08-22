@@ -1,14 +1,15 @@
-import { View, Text, TouchableOpacity, Image, useWindowDimensions } from 'react-native';
-import getWeeklyMissionStyles from './WeeklyMissionStyles';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  useWindowDimensions,
+} from "react-native";
+import getWeeklyMissionStyles from "./WeeklyMissionStyles";
 
 const WeeklyMission = ({ navigation, ...mission }) => {
-  const {
-    weekly_image,
-    weekly_title,
-    reward,
-    weekly_id,
-    is_completed,
-  } = mission;
+  const { weekly_image, weekly_title, reward, weekly_id, is_completed } =
+    mission;
 
   const completed = Boolean(is_completed);
   // const completed = is_completed === 1 || is_completed === '1';
@@ -19,19 +20,21 @@ const WeeklyMission = ({ navigation, ...mission }) => {
   // console.log(mission);
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('MissionSelect', { mission, type: 'weekly' })}
+      onPress={() =>
+        navigation.navigate("MissionSelect", { mission, type: "weekly" })
+      }
       disabled={completed}
-      activeOpacity={completed ? 1 : 0.5}
-    >
+      activeOpacity={completed ? 1 : 0.5}>
       <View style={weeklyStyles.wrapper}>
-        <View style={[
-          weeklyStyles.weeklyMissionWrapper,
-          completed && weeklyStyles.completedWrapper,
-        ]}>
+        <View
+          style={[
+            weeklyStyles.weeklyMissionWrapper,
+            completed && weeklyStyles.completedWrapper,
+          ]}>
           <Image
             style={weeklyStyles.weeklyMissionImage}
             source={
-              typeof weekly_image === 'string'
+              typeof weekly_image === "string"
                 ? { uri: weekly_image }
                 : weekly_image
             }
@@ -48,8 +51,6 @@ const WeeklyMission = ({ navigation, ...mission }) => {
             <Text style={weeklyStyles.overlayText}>수행 완료!</Text>
           </View>
         )}
-
-
       </View>
     </TouchableOpacity>
   );

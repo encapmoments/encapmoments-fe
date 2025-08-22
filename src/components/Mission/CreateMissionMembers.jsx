@@ -1,10 +1,17 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, ScrollView, useWindowDimensions } from 'react-native';
-import getCreateMissionMembersStyles from './CreateMissionMembersStyles';
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
+import getCreateMissionMembersStyles from "./CreateMissionMembersStyles";
 
 const CreateMissionMembers = ({ members, setMembers }) => {
   const handleAdd = () => {
-    setMembers([...members, { age: '', gender: '' }]);
+    setMembers([...members, { age: "", gender: "" }]);
   };
 
   const handleRemove = () => {
@@ -28,7 +35,7 @@ const CreateMissionMembers = ({ members, setMembers }) => {
                 placeholder="나이"
                 keyboardType="numeric"
                 value={member.age}
-                onChangeText={(text) => {
+                onChangeText={text => {
                   const updated = [...members];
                   updated[index].age = text;
                   setMembers(updated);
@@ -42,28 +49,26 @@ const CreateMissionMembers = ({ members, setMembers }) => {
               <TouchableOpacity
                 style={[
                   selectStyles.memberSex,
-                  member.gender === '남자' && selectStyles.selectedSex,
+                  member.gender === "남자" && selectStyles.selectedSex,
                 ]}
                 onPress={() => {
                   const updated = [...members];
-                  updated[index].gender = '남자';
+                  updated[index].gender = "남자";
                   setMembers(updated);
-                }}
-              >
+                }}>
                 <Text style={selectStyles.memberSexText}>남자</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={[
                   selectStyles.memberSex,
-                  member.gender === '여자' && selectStyles.selectedSex,
+                  member.gender === "여자" && selectStyles.selectedSex,
                 ]}
                 onPress={() => {
                   const updated = [...members];
-                  updated[index].gender = '여자';
+                  updated[index].gender = "여자";
                   setMembers(updated);
-                }}
-              >
+                }}>
                 <Text style={selectStyles.memberSexText}>여자</Text>
               </TouchableOpacity>
             </View>
@@ -72,10 +77,14 @@ const CreateMissionMembers = ({ members, setMembers }) => {
       </ScrollView>
 
       <View style={selectStyles.buttonRow}>
-        <TouchableOpacity style={selectStyles.controlButton} onPress={handleAdd}>
+        <TouchableOpacity
+          style={selectStyles.controlButton}
+          onPress={handleAdd}>
           <Text style={selectStyles.controlButtonText}>추가</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={selectStyles.controlButton} onPress={handleRemove}>
+        <TouchableOpacity
+          style={selectStyles.controlButton}
+          onPress={handleRemove}>
           <Text style={selectStyles.controlButtonText}>삭제</Text>
         </TouchableOpacity>
       </View>

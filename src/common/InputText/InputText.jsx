@@ -1,6 +1,6 @@
-import React from 'react';
-import { TextInput } from 'react-native';
-import InputTextStyles from './InputTextStyles';
+import React from "react";
+import { TextInput } from "react-native";
+import InputTextStyles from "./InputTextStyles";
 
 const InputText = ({ title, style, ...props }) => {
   return (

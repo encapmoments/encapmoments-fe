@@ -1,16 +1,15 @@
-import axios from 'axios';
-import useMock from './useMock';
-import { useAuthStore, useUserStore } from '../store/store';
-import baseUrl from './baseUrl';
+import axios from "axios";
+import useMock from "./useMock";
+import { useAuthStore, useUserStore } from "../store/store";
+import baseUrl from "./baseUrl";
 
 // 로그인
 export const login = async (email, password) => {
   if (useMock) {
     const user = useUserStore.getState().users;
 
-    useAuthStore.getState().setAccessToken('mock-access-token');
+    useAuthStore.getState().setAccessToken("mock-access-token");
     useUserStore.getState().setUser(user);
-
 
     return {
       success: true,
@@ -19,8 +18,8 @@ export const login = async (email, password) => {
         nickname: user.nickname,
         profile_image: user.profile_image,
       },
-      accessToken: 'mock-access-token',
-      refreshToken: 'mock-refresh-token',
+      accessToken: "mock-access-token",
+      refreshToken: "mock-refresh-token",
     };
   }
 
@@ -29,10 +28,10 @@ export const login = async (email, password) => {
     { email, password },
     {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       withCredentials: true,
-    }
+    },
   );
   return res.data;
 };
@@ -46,19 +45,19 @@ export const logout = async () => {
   }
 
   try {
-      const accessToken = useAuthStore.getState().accessToken;
+    const accessToken = useAuthStore.getState().accessToken;
 
     const res = await axios.post(
       `${baseUrl}/auth/logout`,
       {},
       {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
 
         withCredentials: true,
-      }
+      },
     );
 
     useAuthStore.getState().resetAccessToken();
@@ -67,14 +66,15 @@ export const logout = async () => {
 
     return res.data;
   } catch (err) {
-    console.error('Logout error:', err);
+    console.error("Logout error:", err);
     throw err;
   }
 };
 
 // 회원가입
 export const register = async (email, password, nickname, profile_image) => {
-  if (useMock) { }
+  if (useMock) {
+  }
   const res = await axios.post(
     `${baseUrl}/auth/register`,
     {
@@ -85,10 +85,10 @@ export const register = async (email, password, nickname, profile_image) => {
     },
     {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       withCredentials: true,
-    }
+    },
   );
   return res.data;
 };
@@ -120,16 +120,18 @@ export const register = async (email, password, nickname, profile_image) => {
 
 //   return res.data;
 // };
-export const uploadImage = async (imageUri) => {
-  if (useMock) {return { success: true };}
+export const uploadImage = async imageUri => {
+  if (useMock) {
+    return { success: true };
+  }
 
   const res = await axios.post(
     `${baseUrl}/auth/uploadImage`,
-    { profile_image: imageUri },  // ✅ JSON
+    { profile_image: imageUri }, // ✅ JSON
     {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
       withCredentials: true,
-    }
+    },
   );
 
   return res.data;

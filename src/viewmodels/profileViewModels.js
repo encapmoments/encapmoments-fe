@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
-import { getProfileUser, getProfileMissions, updateProfile } from '../models/profile';
+import { useState, useEffect } from "react";
+import {
+  getProfileUser,
+  getProfileMissions,
+  updateProfile,
+} from "../models/profile";
 
 // 프로필 조회
-export const useGetProfileUser = (accessToken) => {
+export const useGetProfileUser = accessToken => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -18,7 +22,7 @@ export const useGetProfileUser = (accessToken) => {
         const profileUser = await getProfileUser(accessToken);
         setProfile(profileUser);
       } catch (error) {
-        console.error('프로필 가져오기 실패:', error); // ← 메시지도 정확히
+        console.error("프로필 가져오기 실패:", error); // ← 메시지도 정확히
       } finally {
         setLoading(false);
       }
@@ -30,12 +34,11 @@ export const useGetProfileUser = (accessToken) => {
   return { profile, loading };
 };
 
-
 // 프로필 개인정보 조회
-export const useUpdateProfile = (accessToken) => {
+export const useUpdateProfile = accessToken => {
   const [loading, setLoading] = useState(false);
 
-  const update = async (data) => {
+  const update = async data => {
     setLoading(true);
     try {
       await updateProfile(accessToken, data);
@@ -50,26 +53,26 @@ export const useUpdateProfile = (accessToken) => {
 };
 
 // 내 미션 확인
-export const useGetProfileMissions = (accessToken) => {
-    const [profileDailyMissions, setProfileDailyMissions] = useState([]);
-    const [profileWeeklyMissions, setProfileWeeklyMissions] = useState([]);
-    const [loading, setLoading] = useState(true);
+export const useGetProfileMissions = accessToken => {
+  const [profileDailyMissions, setProfileDailyMissions] = useState([]);
+  const [profileWeeklyMissions, setProfileWeeklyMissions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchMissions = async () => {
-            try {
-                const { daily, weekly } = await getProfileMissions(accessToken);
-                setProfileDailyMissions(daily);
-                setProfileWeeklyMissions(weekly);
-            } catch (error) {
-                console.error('미션 가져오기 실패:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+  useEffect(() => {
+    const fetchMissions = async () => {
+      try {
+        const { daily, weekly } = await getProfileMissions(accessToken);
+        setProfileDailyMissions(daily);
+        setProfileWeeklyMissions(weekly);
+      } catch (error) {
+        console.error("미션 가져오기 실패:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        fetchMissions();
-    }, [accessToken]);
+    fetchMissions();
+  }, [accessToken]);
 
-    return { profileDailyMissions, profileWeeklyMissions, loading };
+  return { profileDailyMissions, profileWeeklyMissions, loading };
 };
