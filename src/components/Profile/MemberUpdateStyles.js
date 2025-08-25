@@ -1,7 +1,6 @@
 import {
   Colors,
   Typography,
-  Spacing,
   Fontsizes,
 } from "../../styles/stylesIndex";
 import { StyleSheet } from "react-native";

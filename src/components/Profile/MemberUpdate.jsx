@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   useWindowDimensions,
   View,
@@ -11,16 +11,37 @@ import {
 } from "react-native";
 import { launchImageLibrary } from "react-native-image-picker";
 import getMemberUpdateStyles from "./MemberUpdateStyles";
-import { TabBar, CommonButton } from "../../common/commonIndex";
+import {  CommonButton } from "../../common/commonIndex";
 
-const MemberUpdate = ({ navigation }) => {
+const MemberUpdate = ({ navigation, route }) => {
   const { width, height } = useWindowDimensions();
   const updateStyles = getMemberUpdateStyles(width, height);
 
-  const [memberName, setMemberName] = useState("아빠");
-  const [tempName, setTempName] = useState("아빠");
+  // route params
+  const { member, isNewMember, onUpdate, onCancel } = route.params || {};
+
+  const [memberName, setMemberName] = useState("");
+  const [tempName, setTempName] = useState("");
   const [isEditingName, setIsEditingName] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  // 컴포넌트 마운트 시 기본값 설정
+  useEffect(() => {
+    if (isNewMember) {
+      // 새 구성원인 경우 기본값 설정
+      setMemberName("새 구성원");
+      setTempName("새 구성원");
+      setSelectedImage(null); // 기본 이미지 사용
+    } else if (member) {
+      setMemberName(member.name || "이름");
+      setTempName(member.name || "이름");
+      setSelectedImage(member.image || null);
+    } else {
+      // 기본값 (기존 코드 호환성)
+      setMemberName("이름");
+      setTempName("이름");
+    }
+  }, [member, isNewMember]);
 
   const handleNamePress = () => {
     setTempName(memberName);
@@ -52,19 +73,47 @@ const MemberUpdate = ({ navigation }) => {
     });
   };
 
+  const handleComplete = () => {
+    if (memberName.trim() === "") {
+      Alert.alert("알림", "구성원 이름을 입력해주세요.");
+      return;
+    }
+
+    const updatedMember = {
+      ...member,
+      name: memberName,
+      image: selectedImage,
+    };
+
+    if (onUpdate) {
+      onUpdate(updatedMember);
+    }
+
+    navigation.navigate("ProfileAccount");
+  };
+
+  const handleBack = () => {
+    if (isNewMember && onCancel) {
+      onCancel();
+    }
+    navigation.pop();
+  };
+
   return (
     <>
       <View style={updateStyles.backgroundStyle}>
         <View style={updateStyles.topStyle}>
           <TouchableOpacity
-            onPress={() => navigation.pop()}
+            onPress={handleBack}
             style={updateStyles.touchBackArrow}>
             <Image
               style={updateStyles.backArrow}
               source={require("../../assets/icons/backArrowWrapper.png")}
             />
           </TouchableOpacity>
-          <Text style={updateStyles.mainText}>구성원 설정</Text>
+          <Text style={updateStyles.mainText}>
+            {isNewMember ? "구성원 추가" : "구성원 설정"}
+          </Text>
         </View>
         <View style={updateStyles.updateContainer}>
           <TouchableOpacity onPress={handleNamePress}>
@@ -85,9 +134,7 @@ const MemberUpdate = ({ navigation }) => {
           <CommonButton
             style={updateStyles.commonButton}
             title="완료"
-            onPress={() => {
-              navigation.navigate("ProfileAccount");
-            }}
+            onPress={handleComplete}
           />
         </View>
 
@@ -123,7 +170,6 @@ const MemberUpdate = ({ navigation }) => {
           </View>
         </Modal>
       </View>
-      <TabBar />
     </>
   );
 };
