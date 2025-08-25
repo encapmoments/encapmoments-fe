@@ -27,6 +27,7 @@ const ProductStyles = (width, height) => StyleSheet.create({
         ...Typography.bamin1,
         marginLeft: width * 0.05,
         paddingTop: height * 0.02,
+        fontSize: Fontsizes.md,
     },
     pointOrange: {
         ...Typography.bamin1,

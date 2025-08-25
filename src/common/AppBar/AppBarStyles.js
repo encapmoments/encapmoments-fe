@@ -28,17 +28,24 @@ const getAppBarStyles = (width, height) =>
       resizeMode: "stretch",
       opacity: 0.3,
     },
-
-    AppBarText: {
-      ...Typography.bamin1,
-      marginTop: height * 0.035,
-      marginLeft: width * 0.04,
-      fontSize: Fontsizes.lg,
-      fontWeight: "400",
-      color: Colors.black,
-      zIndex: 1,
+    logoContainer: {
+      position: "absolute",
+      left: width * 0.04,
+      top: height * 0.03,
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 2,
     },
-
+    logoIcon: {
+      width: width * 0.12,
+      height: width * 0.12,
+      resizeMode: "contain",
+    },
+    logoText: {
+      width: width * 0.2,
+      height: height * 0.035,
+      resizeMode: "contain",
+    },
     AppBarAlarmWrapper: {
       position: "absolute",
       left: width * 0.7,
@@ -52,7 +59,7 @@ const getAppBarStyles = (width, height) =>
       overflow: "hidden",
       justifyContent: "center",
       alignItems: "center",
-      zIndex: 1,
+      zIndex: 2,
     },
     AppBarAlarm: {
       width: width * 0.07,
@@ -73,7 +80,7 @@ const getAppBarStyles = (width, height) =>
       overflow: "hidden",
       justifyContent: "center",
       alignItems: "center",
-      zIndex: 1,
+      zIndex: 2,
     },
     AppBarPerson: {
       width: width * 0.09,
@@ -82,7 +89,7 @@ const getAppBarStyles = (width, height) =>
     },
 
     handleBackArrow: {
-      zIndex: 1,
+      zIndex: 2,
     },
   });
 

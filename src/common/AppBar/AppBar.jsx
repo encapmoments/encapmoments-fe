@@ -1,11 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  useWindowDimensions,
-} from "react-native";
+import { View, Image, ScrollView, useWindowDimensions } from "react-native";
 import getAppBarStyles from "./AppBarStyles";
 
 const AppBar = () => {
@@ -53,7 +47,7 @@ const AppBar = () => {
     scrollRef.current?.scrollTo({ x: width, animated: false }); // 시작 위치
     startAutoSlide();
 
-    return () => stopAutoSlide(); // 언마운트 시 해제
+    return () => stopAutoSlide();
   }, [startAutoSlide, stopAutoSlide, width]);
 
   const handleScrollEnd = event => {
@@ -94,8 +88,10 @@ const AppBar = () => {
           <Image key={i} style={appBarStyles.AppBarCover} source={src} />
         ))}
       </ScrollView>
-
-      <Text style={appBarStyles.AppBarText}> Encap{"\n"}Moments</Text>
+      <View style={appBarStyles.logoContainer}>
+        <Image source={require("../../assets/logo/logo-icon.png")} style={appBarStyles.logoIcon} />
+        <Image source={require("../../assets/logo/logo-text.png")} style={appBarStyles.logoText} />
+      </View>
 
       <View style={appBarStyles.AppBarAlarmWrapper}>
         <Image

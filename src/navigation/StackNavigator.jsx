@@ -17,12 +17,18 @@ import ProfileMyMissionsScreen from "../screens/Profile/ProfileMyMissionsScreen"
 import MemberUpdate from "../components/Profile/MemberUpdate";
 import MarketScreen from "../screens/Market/MarketScreen";
 import MarketDetailScreen from "../screens/Market/MarketDetailScreen";
+import StartSkeleton from "../common/Skeleton/StartSkeleton";
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator>
+      <Stack.Screen
+          name="Start"
+          component={StartSkeleton}
+          options={{ headerShown: false, animation: "none" }}
+        />
       <Stack.Screen
         name="Login"
         component={LoginScreen}

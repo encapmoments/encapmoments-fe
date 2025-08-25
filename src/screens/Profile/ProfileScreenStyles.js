@@ -66,7 +66,7 @@ const getProfileScreenStyles = (width, height) =>
       justifyContent: "center",
       padding: Spacing.xs,
       width: width * 0.8,
-      height: height * 0.12,
+      height: height * 0.11,
       marginTop: height * 0.05,
       marginBottom: height * 0.03,
     },
