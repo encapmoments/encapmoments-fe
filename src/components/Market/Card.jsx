@@ -11,9 +11,14 @@ import getCardStyles from "./CardStyles";
 const Card = ({ title, point, category, img, navigation }) => {
   const { width, height } = useWindowDimensions();
   const cardStyles = getCardStyles(width, height);
+
+  const handleMarketCard = () => {
+    navigation.navigate("MarketDetail");
+  };
+
   return (
     <View style={cardStyles.card}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleMarketCard}>
         {img && (
           <Image
             source={typeof img === "string" ? { uri: img } : img}

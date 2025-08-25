@@ -16,6 +16,7 @@ import ProfileAccountScreen from "../screens/Profile/ProfileAccountScreen";
 import ProfileMyMissionsScreen from "../screens/Profile/ProfileMyMissionsScreen";
 import MemberUpdate from "../components/Profile/MemberUpdate";
 import MarketScreen from "../screens/Market/MarketScreen";
+import MarketDetailScreen from "../screens/Market/MarketDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -96,6 +97,11 @@ const StackNavigator = () => {
         name="Market"
         component={MarketScreen}
         options={{ headerShown: false, animation: "none" }}
+      />
+      <Stack.Screen
+        name="MarketDetail"
+        component={MarketDetailScreen}
+        options={{ headerShown: false, animation: "slide_from_bottom" }}
       />
     </Stack.Navigator>
 

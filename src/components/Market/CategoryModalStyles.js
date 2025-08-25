@@ -19,7 +19,7 @@ const getCategoryModalStyles = (width, height) =>
       borderRadius: Spacing.lg,
       padding: width * 0.06,
       width: width * 0.85,
-      maxHeight: height * 0.7,
+      maxHeight: height * 0.75,
     },
     modalTitle: {
       ...Typography.bamin1,

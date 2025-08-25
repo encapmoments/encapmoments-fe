@@ -9,6 +9,7 @@ import {
   Card,
   Category,
   CategoryModal,
+  PointModal,
   UsageModal,
 } from "../../components/Market/marketComponentsIndex";
 import useModal from "../../hooks/useModal";
@@ -18,8 +19,10 @@ const MarketScreen = ({ navigation }) => {
   const marketStyles = getMarketScreenStyles(width, height);
   const categoryModal = useModal();
   const usageModal = useModal();
+  const pointModal = useModal();
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedUsage, setSelectedUsage] = useState("전체");
+  const [selectedPoint, setSelectedPoint] = useState("전체");
 
   const mockData = [
     {
@@ -73,14 +76,19 @@ const MarketScreen = ({ navigation }) => {
     },
   ];
 
-  const handleCategorySelect = category => {
+  const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     console.log("선택된 카테고리:", category);
   };
 
-  const handleUsageSelect = usage => {
+  const handleUsageSelect = (usage) => {
     setSelectedUsage(usage);
     console.log("선택된 사용 여부:", usage);
+  };
+
+  const handlePointSelect = (point) => {
+    setSelectedPoint(point);
+    console.log("선택된 포인트 범위:", point);
   };
 
   return (
@@ -94,17 +102,18 @@ const MarketScreen = ({ navigation }) => {
           </Text>
           <View style={marketStyles.category}>
             <Category
-              title={
-                selectedCategory === "전체" ? "카테고리" : selectedCategory
-              }
+              title={ selectedCategory === "전체" ? "카테고리" : selectedCategory }
               onPress={categoryModal.openModal}
             />
             <Category
-              title={selectedUsage === "전체" ? "사용 여부" : selectedUsage}
+              title={ selectedUsage === "전체" ? "사용 여부" : selectedUsage }
               onPress={usageModal.openModal}
             />
             {/* TODO: 포인트 범위 설정 */}
-            <Category title="포인트" />
+            <Category
+              title={ selectedPoint === "전체" ? "포인트" : selectedPoint }
+              onPress= {pointModal.openModal }
+            />
           </View>
           <View style={marketStyles.cardsWrapper}>
             <FlatList
@@ -137,6 +146,11 @@ const MarketScreen = ({ navigation }) => {
         isVisible={usageModal.isVisible}
         onClose={usageModal.closeModal}
         onUsageSelect={handleUsageSelect}
+      />
+      <PointModal
+        isVisible={ pointModal.isVisible }
+        onClose={ pointModal.closeModal }
+        onPointSelect = { handlePointSelect }
       />
     </>
   );

@@ -13,7 +13,7 @@ const CategoryModal = ({ isVisible, onClose, onCategorySelect }) => {
   const { width, height } = useWindowDimensions();
   const modalStyles = getCategoryModalStyles(width, height);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const categories = ["전체", "여행", "운동", "게임", "자연", "예술"];
+  const categories = ["전체", "빵", "즉석식품", "음료", "라면", "과자", "기타"];
 
   const handleCategoryPress = category => {
     setSelectedCategory(category);
