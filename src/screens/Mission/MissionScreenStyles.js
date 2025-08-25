@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 import {
   Colors,
   Typography,
-  Spacing,
   Fontsizes,
 } from "../../styles/stylesIndex.js";
 
@@ -24,6 +23,7 @@ const getMissionScreenStyles = (width, height) =>
     },
     dailyMissions: {
       flexDirection: "row",
+      width: width * 0.95,
     },
     weeklyMissionTimeRemains: {
       ...Typography.bamin1,
