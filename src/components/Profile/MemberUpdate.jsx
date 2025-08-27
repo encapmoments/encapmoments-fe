@@ -16,24 +16,27 @@ const MemberUpdate = ({ navigation, route }) => {
   const { width, height } = useWindowDimensions();
   const updateStyles = getMemberUpdateStyles(width, height);
 
-  // route params
   const { member, isNewMember, onUpdate, onCancel } = route.params || {};
 
   const [memberName, setMemberName] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
-
-  // 컴포넌트 마운트 시 기본값 설정
+  const [selectedGender, setSelectedGender] = useState("");
+  const [memberAge, setMemberAge] = useState("");
   useEffect(() => {
     if (isNewMember) {
-      // 새 구성원인 경우 기본값 설정
       setMemberName("새 구성원");
-      setSelectedImage(null); // 기본 이미지 사용
+      setSelectedImage(null);
+      setSelectedGender("");
+      setMemberAge("");
     } else if (member) {
       setMemberName(member.name || "이름");
       setSelectedImage(member.image || null);
+      setSelectedGender(member.gender || "");
+      setMemberAge(member.age ? member.age.toString() : "");
     } else {
-      // 기본값 (기존 코드 호환성)
       setMemberName("이름");
+      setSelectedGender("");
+      setMemberAge("");
     }
   }, [member, isNewMember]);
 
@@ -48,9 +51,18 @@ const MemberUpdate = ({ navigation, route }) => {
     });
   };
 
+  const handleGenderSelect = (gender) => {
+    setSelectedGender(gender);
+  };
+
   const handleComplete = () => {
     if (memberName.trim() === "") {
       Alert.alert("알림", "구성원 이름을 입력해주세요.");
+      return;
+    }
+
+    if (!selectedGender) {
+      Alert.alert("알림", "성별을 선택해주세요.");
       return;
     }
 
@@ -58,6 +70,8 @@ const MemberUpdate = ({ navigation, route }) => {
       ...member,
       name: memberName,
       image: selectedImage,
+      gender: selectedGender,
+      age: memberAge,
     };
 
     if (onUpdate) {
@@ -106,18 +120,36 @@ const MemberUpdate = ({ navigation, route }) => {
           <View style={updateStyles.memberInfo}>
             <View style={updateStyles.memberInfoItem}>
               <Text style={updateStyles.memberText}>이름</Text>
-              <InputText title="" />
+              <InputText
+                title=""
+                value={memberName}
+                onChangeText={setMemberName}
+              />
             </View>
             <View style={updateStyles.memberInfoItem}>
               <Text style={updateStyles.memberText}>성별</Text>
               <View style={updateStyles.memberGender}>
-                <GenderButton gender="남자" />
-                <GenderButton gender="여자" />
+                <GenderButton
+                  gender="남자"
+                  selectedGender={selectedGender}
+                  onGenderSelect={handleGenderSelect}
+                />
+                <GenderButton
+                  gender="여자"
+                  selectedGender={selectedGender}
+                  onGenderSelect={handleGenderSelect}
+                />
               </View>
             </View>
             <View style={updateStyles.memberInfoItem}>
               <Text style={updateStyles.memberText}>나이</Text>
-              <InputText title="" />
+              <InputText
+                title=""
+                value={memberAge}
+                onChangeText={setMemberAge}
+                keyboardType="numeric"
+                placeholder="나이를 입력하세요"
+              />
             </View>
           </View>
           <CommonButton

@@ -73,13 +73,13 @@ const getMemberUpdateStyles = (width, height) =>
       resizeMode: "cover",
     },
     commonButton: {
-      marginTop: height * 0.05,
+      marginTop: height * 0.04,
     },
     memberInfo: {
-      marginTop: height * 0,
+      marginTop: height * 0.01,
     },
     memberInfoItem: {
-      marginTop: height * 0.01,
+      marginTop: height * 0.02,
     },
     memberText: {
       ...Typography.bamin1,
@@ -89,11 +89,11 @@ const getMemberUpdateStyles = (width, height) =>
     },
     memberGender: {
       flexDirection: 'row',
-      marginLeft: width * 0.04,
-      gap: width * 0.04,
-      marginTop: height * 0.02,
+      marginTop: height * 0.01,
+      gap: width * 0.03,
       backgroundColor: Colors.missionInput,
-      paddingVertical: Spacing.input,
+      paddingVertical: Spacing.sm,
+      borderRadius: Spacing.input,
     },
   });
 
