@@ -213,6 +213,50 @@ const mockProfileDailyMissions = [
   },
 ];
 
+// 가족 구성원 mock data 추가
+const mockFamilyMembers = [
+  {
+    id: 1,
+    member_id: 4,
+    member_name: "아들",
+    member_image: "https://via.placeholder.com/150/FF6B6B/FFFFFF?text=Son",
+    member_gender: "남자",
+    member_age: 10,
+  },
+  {
+    id: 2,
+    member_id: 5,
+    member_name: "딸",
+    member_image: "https://via.placeholder.com/150/4ECDC4/FFFFFF?text=Daughter",
+    member_gender: "여자",
+    member_age: 8,
+  },
+  {
+    id: 3,
+    member_id: 6,
+    member_name: "할머니",
+    member_image: "https://via.placeholder.com/150/45B7D1/FFFFFF?text=Grandma",
+    member_gender: "여자",
+    member_age: 75,
+  },
+  {
+    id: 4,
+    member_id: 7,
+    member_name: "할아버지",
+    member_image: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    member_gender: "남자",
+    member_age: 78,
+  },
+  {
+    id: 5,
+    member_id: 8,
+    member_name: "막내",
+    member_image: "https://via.placeholder.com/150/FFEAA7/000000?text=Baby",
+    member_gender: "남자",
+    member_age: 5,
+  },
+];
+
 export {
   mockAlbums,
   mockUser,
@@ -220,4 +264,5 @@ export {
   mockWeeklyMissions,
   mockProfileWeeklyMissions,
   mockProfileDailyMissions,
+  mockFamilyMembers,
 };

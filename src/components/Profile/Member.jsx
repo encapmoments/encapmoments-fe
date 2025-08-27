@@ -5,20 +5,19 @@ import {
   TouchableOpacity,
   ScrollView,
   useWindowDimensions,
-  Modal,
-  TextInput,
   Alert,
 } from "react-native";
+import { deleteMembers } from "../../models/profile";
+import { useFocusEffect } from "@react-navigation/native";
 import UpdateModal from "./UpdateModal";
 
-const Member = ({ members, setMembers, styles, navigation }) => {
+const Member = ({ members, setMembers, styles, navigation, accessToken }) => {
   const { width, height } = useWindowDimensions();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [editingMember, setEditingMember] = useState(null);
-  const [tempName, setTempName] = useState("");
+
   const [actionModalVisible, setActionModalVisible] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
   const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+  const [pendingNewMember, setPendingNewMember] = useState(null);
 
   const backgroundColors = [
     "#FFB3BA",
@@ -37,47 +36,89 @@ const Member = ({ members, setMembers, styles, navigation }) => {
     ];
   };
 
+  // Member 화면에서 돌아올 때
+  useFocusEffect(
+    React.useCallback(() => {
+      const unsubscribe = navigation.addListener('focus', () => {
+        // route params에서 확인
+        const route = navigation.getState()?.routes?.find(r => r.name === 'ProfileAccount');
+        if (route?.params?.memberResult) {
+          const { type, member: updatedMember } = route.params.memberResult;
+          if (type === 'update' && updatedMember) {
+            setMembers(prev =>
+              prev.map(member =>
+                member.id === updatedMember.id ? updatedMember : member,
+              ),
+            );
+          } else if (type === 'cancel' && pendingNewMember) {
+            setMembers(prev => prev.filter(member => member.id !== pendingNewMember.id));
+          }
+
+          navigation.setParams({ memberResult: undefined });
+          setPendingNewMember(null);
+        }
+      });
+
+      return unsubscribe;
+    }, [navigation, setMembers, pendingNewMember])
+  );
+
   const addMember = () => {
     const newMember = {
       id: Date.now(),
       name: "",
+      image: null,
+      gender: "",
+      age: "",
       backgroundColor: getRandomColor(),
+      isNewMember: true,
     };
     setMembers([...members, newMember]);
+    setPendingNewMember(newMember);
     navigation.navigate("Member", {
-      member: newMember,
+      member: {
+        id: newMember.id,
+        name: newMember.name,
+        image: newMember.image,
+        gender: newMember.gender,
+        age: newMember.age,
+      },
       isNewMember: true,
-      onUpdate: updatedMember => {
-        setMembers(prev =>
-          prev.map(member =>
-            member.id === updatedMember.id ? updatedMember : member,
-          ),
-        );
-      },
-      onCancel: () => {
-        setMembers(prev => prev.filter(member => member.id !== newMember.id));
-      },
+      accessToken: accessToken,
     });
   };
 
-  const removeMember = id => {
+  const removeMember = async (memberId) => {
     if (members.length <= 1) {
       Alert.alert("알림", "최소 1명의 구성원이 필요합니다.");
       return;
     }
+
+    const member = members.find(m => m.id === memberId);
+    if (!member) { return; }
+
     Alert.alert("구성원 삭제", "이 구성원을 삭제하시겠습니까?", [
       { text: "취소", style: "cancel" },
       {
         text: "삭제",
-        onPress: () => {
-          setMembers(members.filter(member => member.id !== id));
+        onPress: async () => {
+          try {
+            if (!member.isNewMember && member.member_id) {
+              await deleteMembers(member.member_id, accessToken);
+            }
+            setMembers(members.filter(m => m.id !== memberId));
+            Alert.alert("성공", "구성원이 삭제되었습니다.");
+          } catch (error) {
+            console.error("구성원 삭제 실패:", error);
+            Alert.alert("오류", "구성원 삭제에 실패했습니다.");
+          }
         },
       },
     ]);
   };
 
   const openActionModal = (member, event) => {
-    // 터치한 Member 원의 정확한 위치를 기준으로 완전 오른쪽, 완전 위에 모달 표시
+    // modal 위치 지정
     const touchX = event.nativeEvent.pageX || width / 2;
     const touchY = event.nativeEvent.pageY || height / 2;
 
@@ -91,43 +132,26 @@ const Member = ({ members, setMembers, styles, navigation }) => {
 
   const handleEdit = () => {
     navigation.navigate("Member", {
-      member: selectedMember,
-      onUpdate: updatedMember => {
-        setMembers(
-          members.map(member =>
-            member.id === updatedMember.id ? updatedMember : member,
-          ),
-        );
+      member: {
+        id: selectedMember.id,
+        name: selectedMember.name,
+        image: selectedMember.image,
+        gender: selectedMember.gender,
+        age: selectedMember.age,
+        member_id: selectedMember.member_id,
       },
+      isNewMember: false,
+      accessToken: accessToken,
     });
+    setActionModalVisible(false);
   };
 
   const handleDelete = () => {
+    setActionModalVisible(false);
     removeMember(selectedMember.id);
   };
 
-  const saveNameEdit = () => {
-    if (tempName.trim() === "") {
-      Alert.alert("알림", "이름을 입력해주세요.");
-      return;
-    }
-    setMembers(
-      members.map(member =>
-        member.id === editingMember.id
-          ? { ...member, name: tempName.trim() }
-          : member,
-      ),
-    );
-    setModalVisible(false);
-    setEditingMember(null);
-    setTempName("");
-  };
 
-  const cancelEdit = () => {
-    setModalVisible(false);
-    setEditingMember(null);
-    setTempName("");
-  };
 
   const cancelAction = () => {
     setActionModalVisible(false);
@@ -178,37 +202,7 @@ const Member = ({ members, setMembers, styles, navigation }) => {
         height={height}
       />
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={cancelEdit}>
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>구성원 이름 입력</Text>
-            <TextInput
-              style={styles.modalInput}
-              value={tempName}
-              onChangeText={setTempName}
-              placeholder="이름을 입력하세요"
-              autoFocus={true}
-              maxLength={10}
-            />
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity
-                style={styles.modalCancelButton}
-                onPress={cancelEdit}>
-                <Text style={styles.modalCancelText}>취소</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.modalSaveButton}
-                onPress={saveNameEdit}>
-                <Text style={styles.modalSaveText}>저장</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
+
     </View>
   );
 };

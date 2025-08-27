@@ -9,8 +9,8 @@ import { useWindowDimensions } from "react-native";
 import useMock from "../../models/useMock";
 
 const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(useMock ? "a@a.com" : "");
+  const [password, setPassword] = useState(useMock ? "1234" : "");
   const { handleLogin, loading } = useLogin();
 
   const { width, height } = useWindowDimensions();
@@ -18,15 +18,33 @@ const LoginScreen = ({ navigation }) => {
 
   const onLogin = () => {
     if (useMock) {
-      navigation.replace("Mission");
-      return;
+      // Mock 환경에서는 handleLogin을 사용하여 스토어에 데이터 저장
+      handleLogin(
+        email,
+        password,
+        () => {
+          Alert.alert("로그인 성공!", "Mock 사용자로 로그인되었습니다.", [
+            {
+              text: "확인",
+              onPress: () => navigation.replace("Mission"),
+            },
+          ]);
+        },
+        msg => Alert.alert("로그인 실패", msg),
+      );
+    } else {
+      if (!email.trim() || !password.trim()) {
+        Alert.alert("입력 오류", "이메일과 비밀번호를 입력해주세요.");
+        return;
+      }
+
+      handleLogin(
+        email,
+        password,
+        () => navigation.replace("Mission"),
+        msg => Alert.alert("로그인 실패", msg),
+      );
     }
-    handleLogin(
-      email,
-      password,
-      () => navigation.replace("Mission"),
-      msg => Alert.alert("로그인 실패", msg),
-    );
   };
 
   return (
@@ -35,12 +53,27 @@ const LoginScreen = ({ navigation }) => {
         <View style={loginStyles.safePadding}>
           <Text style={loginStyles.loginText}>로그인</Text>
 
-          <InputText title="이메일" value={email} onChangeText={setEmail} />
+          {/* useMock 사용 시 로그인 자동 by Claude */}
+          {useMock && (
+            <View style={{ padding: 10, backgroundColor: '#f0f8ff', marginBottom: 20, borderRadius: 8 }}>
+              <Text style={{ fontSize: 14, color: '#666', textAlign: 'center' }}>
+                🎯 Mock 모드: 테스트 계정이 자동 입력됩니다
+              </Text>
+            </View>
+          )}
+
+          <InputText
+            title="이메일"
+            value={email}
+            onChangeText={setEmail}
+            placeholder={useMock ? "Mock: a@a.com" : "이메일을 입력하세요"}
+          />
           <InputText
             title="비밀번호"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
+            placeholder={useMock ? "Mock: 1234" : "비밀번호를 입력하세요"}
           />
 
           <Text
@@ -50,7 +83,7 @@ const LoginScreen = ({ navigation }) => {
           </Text>
 
           <CommonButton
-            title="로그인"
+            title={useMock ? "Mock 로그인" : "로그인"}
             onPress={onLogin}
             disabled={loading}
             style={loginStyles.commonButton}
@@ -66,6 +99,14 @@ const LoginScreen = ({ navigation }) => {
           </Text>
 
           <Text style={loginStyles.orConnect}>Or Connect</Text>
+
+          {useMock && (
+            <View style={{ marginTop: 20, padding: 10, backgroundColor: '#fff3cd', borderRadius: 8 }}>
+              <Text style={{ fontSize: 12, color: '#856404', textAlign: 'center' }}>
+                Mock 사용자: 이강룡 ({email})
+              </Text>
+            </View>
+          )}
         </View>
       </View>
     </SafeAreaView>

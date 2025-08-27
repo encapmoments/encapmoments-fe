@@ -1,26 +1,37 @@
 import axios from "axios";
 import useMock from "./useMock";
-import { useAuthStore, useUserStore } from "../store/store";
+import { useAuthStore, useUserStore, useProfileStore } from "../store/store";
 import baseUrl from "./baseUrl";
 
 // 로그인
 export const login = async (email, password) => {
   if (useMock) {
-    const user = useUserStore.getState().users;
+    // Mock 사용자 데이터를 profileStore에서 가져오기
+    const mockUser = useProfileStore.getState().profileUser;
+    if (email === mockUser.email && password === mockUser.password) {
+      useAuthStore.getState().setAccessToken("mock-access-token");
 
-    useAuthStore.getState().setAccessToken("mock-access-token");
-    useUserStore.getState().setUser(user);
+      useUserStore.getState().setUser({
+        email: mockUser.email,
+        nickname: mockUser.nickname,
+        profile_image: mockUser.profile_image,
+        points: mockUser.points,
+      });
 
-    return {
-      success: true,
-      user: {
-        email: user.email,
-        nickname: user.nickname,
-        profile_image: user.profile_image,
-      },
-      accessToken: "mock-access-token",
-      refreshToken: "mock-refresh-token",
-    };
+      return {
+        success: true,
+        user: {
+          email: mockUser.email,
+          nickname: mockUser.nickname,
+          profile_image: mockUser.profile_image,
+          points: mockUser.points,
+        },
+        accessToken: "mock-access-token",
+        refreshToken: "mock-refresh-token",
+      };
+    } else {
+      throw new Error("이메일 또는 비밀번호가 올바르지 않습니다.");
+    }
   }
 
   const res = await axios.post(
@@ -55,14 +66,12 @@ export const logout = async () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-
         withCredentials: true,
       },
     );
 
     useAuthStore.getState().resetAccessToken();
     useUserStore.getState().resetUser();
-    // localStorage.removeItem('refreshToken'); // 우리는 DB에서 refresh token 관리
 
     return res.data;
   } catch (err) {
@@ -74,6 +83,8 @@ export const logout = async () => {
 // 회원가입
 export const register = async (email, password, nickname, profile_image) => {
   if (useMock) {
+    // Mock 환경에서는 단순히 성공 응답 반환
+    return { success: true, message: "Mock 회원가입 성공" };
   }
   const res = await axios.post(
     `${baseUrl}/auth/register`,
@@ -94,35 +105,12 @@ export const register = async (email, password, nickname, profile_image) => {
 };
 
 // 프로필 이미지 업로드
-// export const uploadImage = async (imageUri) => {
-
-//   const uriParts = imageUri.split('.');
-//   const fileType = uriParts[uriParts.length - 1].toLowerCase();
-
-//   const supportedTypes = ['jpg', 'jpeg', 'png'];
-//   const validType = supportedTypes.includes(fileType) ? `image/${fileType}` : 'image/jpeg';
-
-//   const formData = new FormData();
-//   formData.append('profile_image', {
-//     uri: imageUri,
-//     type: validType,
-//     name: `profile.${fileType}`,
-//   });
-
-//   if (useMock) {return { success: true };}
-
-//   const res = await axios.post(`${baseUrl}/auth/uploadImage`, formData, {
-//     headers: {
-//       'Content-Type': 'multipart/form-data',
-//     },
-//     withCredentials: true,
-//   });
-
-//   return res.data;
-// };
 export const uploadImage = async imageUri => {
   if (useMock) {
-    return { success: true };
+    return {
+      success: true,
+      profile_image_url: imageUri,
+    };
   }
 
   const res = await axios.post(

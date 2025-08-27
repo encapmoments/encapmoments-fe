@@ -15,7 +15,9 @@ import getProfileAccountScreenStyles from "./ProfileAccountScreenStyles";
 import getMemberStyles from "../../components/Profile/MemberStyles";
 import Member from "../../components/Profile/Member";
 import { useGetProfileUser, useUpdateProfile } from "../../viewmodels/profileViewModels";
+import { getMembers } from "../../models/profile";
 import useAccessToken from "../../models/accessToken";
+import useMock from "../../models/useMock";
 
 const ProfileAccountScreen = ({ navigation }) => {
   const accessToken = useAccessToken();
@@ -26,26 +28,65 @@ const ProfileAccountScreen = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [familyMembers, setFamilyMembers] = useState([
-    { id: 1, name: "아빠", backgroundColor: "#FFB3BA" },
-    { id: 2, name: "엄마", backgroundColor: "#BAFFC9" },
-  ]);
+  const [familyMembers, setFamilyMembers] = useState([]);
 
   const { profile, profileLoading } = useGetProfileUser(accessToken);
   const { update, updateLoading } = useUpdateProfile(accessToken);
 
+  useEffect(() => {
+    const loadFamilyMembers = async () => {
+      try {
+        const members = await getMembers(accessToken);
+        const formattedMembers = members.map((member, index) => {
+          let imageUri = member.member_image;
+          if (typeof imageUri === 'number') {
+            imageUri = imageUri.toString();
+          } else if (!imageUri || typeof imageUri !== 'string' || imageUri.trim() === '') {
+            imageUri = null;
+          }
+
+          let uiGender = member.member_gender;
+          if (uiGender === "남") {
+            uiGender = "남자";
+          } else if (uiGender === "여") {
+            uiGender = "여자";
+          }
+
+          return {
+            id: member.member_id || member.id,
+            member_id: member.member_id || member.id,
+            name: member.member_name,
+            image: imageUri,
+            gender: uiGender,
+            age: member.member_age,
+            backgroundColor: [
+              "#FFB3BA",
+              "#BAFFC9",
+              "#BAE1FF",
+              "#FFFFBA",
+              "#FFDFBA",
+              "#E0BBE4",
+              "#FFB3E6",
+              "#B3E5D1",
+            ][index % 8],
+          };
+        });
+        setFamilyMembers(formattedMembers);
+      } catch (error) {
+        console.error("가족 구성원 로드 실패:", error);
+        // 실패시 기본 데이터 설정
+        setFamilyMembers([
+          { id: 1, name: "아빠", backgroundColor: "#FFB3BA" },
+          { id: 2, name: "엄마", backgroundColor: "#BAFFC9" },
+        ]);
+      }
+    };
+
+    loadFamilyMembers();
+  }, [accessToken]);
+
   const handleUpdateProfile = async () => {
     try {
-      // 가족 구성원 이름들을 문자열로 변환
-      const memberNames = familyMembers
-        .map(member => member.name)
-        .filter(name => name.trim() !== "");
-      // await update({
-      //     nickname,
-      //     email,
-      //     password,
-      //     familyMembers: memberNames.join(', ')
-      // });
       Alert.alert("성공!", "정보가 수정되었습니다.");
       navigation.navigate("Profile");
     } catch (err) {
@@ -58,7 +99,8 @@ const ProfileAccountScreen = ({ navigation }) => {
       setNickname(profile.nickname || "");
       setEmail(profile.email || "");
       setPassword("");
-      if (profile.familyMembers) {
+
+      if (profile.familyMembers && !useMock) {
         const members = profile.familyMembers.split(",").map((name, index) => ({
           id: index + 1,
           name: name.trim(),
@@ -136,6 +178,7 @@ const ProfileAccountScreen = ({ navigation }) => {
                   setMembers={setFamilyMembers}
                   styles={familyMembersStyles}
                   navigation={navigation}
+                  accessToken={accessToken}
                 />
               </View>
             </View>
