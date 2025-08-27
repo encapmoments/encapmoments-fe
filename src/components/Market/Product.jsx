@@ -6,6 +6,9 @@ const Product = ({ productImage, productTitle, productPoint, myPoint, navigation
 
     const { width, height } = useWindowDimensions();
     const productStyles = ProductStyles(width, height);
+    
+    const remainingPoints = myPoint - productPoint;
+    const isPointOK = remainingPoints < 0;
 
     return (
         <View style={productStyles.backgroundStyle}>
@@ -17,9 +20,21 @@ const Product = ({ productImage, productTitle, productPoint, myPoint, navigation
                     <Text style={productStyles.point}>내 포인트 : {myPoint}<Text style={productStyles.pointOrange}> points</Text></Text>
                     <Text style={productStyles.pointMinus}>- 차감 포인트 : {productPoint}<Text style={productStyles.pointOrange}> points</Text></Text>
                     <View style={productStyles.pointBar} />
-                    <Text style={productStyles.point}>잔여 포인트 : { myPoint - productPoint }<Text style={productStyles.pointOrange}> points</Text></Text>
+                    <Text style={[
+                        productStyles.point,
+                        isPointOK && productStyles.pointInsufficient,
+                    ]}>
+                        잔여 포인트 : {remainingPoints}
+                        <Text style={[
+                            productStyles.pointOrange,
+                            isPointOK && productStyles.pointInsufficientOrange,
+                        ]}> points</Text>
+                    </Text>
                 </View>
-                    <Pay navigation={navigation} />
+                <Pay
+                    navigation={navigation}
+                    isPointOK={isPointOK}
+                />
             </View>
         </View>
     );

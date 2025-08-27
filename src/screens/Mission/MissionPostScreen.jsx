@@ -7,6 +7,7 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { launchImageLibrary } from "react-native-image-picker";
@@ -16,6 +17,7 @@ import Colors from "../../styles/colors";
 import { CommonButton } from "../../common/commonIndex";
 import useAccessToken from "../../models/accessToken";
 import { postAlbum, updateAlbum } from "../../models/album";
+import { getMembers } from "../../models/profile";
 import { useGetAlbum } from "../../viewmodels/albumViewModels";
 
 const MissionPostScreen = ({ navigation, route }) => {
@@ -23,6 +25,8 @@ const MissionPostScreen = ({ navigation, route }) => {
   const [album_title, setAlbumTitle] = useState("");
   const [album_tag, setAlbumTag] = useState("");
   const [location, setLocation] = useState("");
+  const [familyMembers, setFamilyMembers] = useState([]);
+  const [loadingMembers, setLoadingMembers] = useState(true);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [commentComponents, setCommentComponents] = useState([
@@ -33,6 +37,25 @@ const MissionPostScreen = ({ navigation, route }) => {
   const { albums, loading } = useGetAlbum(accessToken);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const isEditMode = !!album_id;
+
+  // 가족 구성원 데이터 로드
+  useEffect(() => {
+    const loadFamilyMembers = async () => {
+      try {
+        setLoadingMembers(true);
+        const members = await getMembers(accessToken);
+        const memberNames = members.map(member => member.member_name);
+        setFamilyMembers(memberNames);
+      } catch (error) {
+        console.error("가족 구성원 로드 실패:", error);
+        setFamilyMembers(["구성원1", "구성원2"]);
+      } finally {
+        setLoadingMembers(false);
+      }
+    };
+
+    loadFamilyMembers();
+  }, [accessToken]);
 
   useEffect(() => {
     if (!loading && isEditMode) {
@@ -201,22 +224,32 @@ const MissionPostScreen = ({ navigation, route }) => {
               onChangeText={setLocation}
             />
 
-            {commentComponents.map(({ id, selectedMember }) => (
-              <View key={id} style={MissionPostScreenStyles.commentWrapper}>
-                <View style={{ flex: 1 }}>
-                  <CommentCreate
-                    commentId={id}
-                    selectedMember={selectedMember}
-                    onMemberSelect={handleMemberSelect}
-                  />
-                </View>
-                <TouchableOpacity
-                  onPress={() => handleRemoveComment(id)}
-                  style={MissionPostScreenStyles.deleteButtonWrapper}>
-                  <Text style={MissionPostScreenStyles.deleteButton}>삭제</Text>
-                </TouchableOpacity>
+            {loadingMembers ? (
+              <View style={MissionPostScreenStyles.loadingContainer}>
+                <ActivityIndicator size="small" color="#666" />
+                <Text style={MissionPostScreenStyles.loadingText}>
+                  구성원 정보를 불러오는 중...
+                </Text>
               </View>
-            ))}
+            ) : (
+              commentComponents.map(({ id, selectedMember }) => (
+                <View key={id} style={MissionPostScreenStyles.commentWrapper}>
+                  <View style={{ flex: 1 }}>
+                    <CommentCreate
+                      commentId={id}
+                      selectedMember={selectedMember}
+                      onMemberSelect={handleMemberSelect}
+                      familyMembers={familyMembers}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => handleRemoveComment(id)}
+                    style={MissionPostScreenStyles.deleteButtonWrapper}>
+                    <Text style={MissionPostScreenStyles.deleteButton}>삭제</Text>
+                  </TouchableOpacity>
+                </View>
+              ))
+            )}
 
             <TouchableOpacity onPress={handleAddComment}>
               <Image
@@ -226,7 +259,11 @@ const MissionPostScreen = ({ navigation, route }) => {
             </TouchableOpacity>
 
             <View style={MissionPostScreenStyles.commonButton}>
-              <CommonButton title="완료" onPress={handleSubmit} />
+              <CommonButton
+                title="완료"
+                onPress={handleSubmit}
+                disabled={loadingMembers}
+              />
             </View>
           </ScrollView>
         </View>

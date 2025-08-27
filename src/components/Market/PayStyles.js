@@ -12,11 +12,17 @@ const PayStyles = (width, height) => StyleSheet.create({
         marginTop: height * 0.04,
         marginRight: width * 0.08,
     },
+    payWrapperDisabled: {
+        opacity: 0.7,
+    },
     payText: {
         ...Typography.bamin1,
         fontSize: Fontsizes.xs,
         color: Colors.white,
         alignSelf: 'center',
+    },
+    payTextDisabled: {
+        color: Colors.white,
     },
 });
 

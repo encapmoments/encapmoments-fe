@@ -13,7 +13,7 @@ const PointModal = ({ isVisible, onClose, onPointSelect }) => {
   const { width, height } = useWindowDimensions();
   const modalStyles = getCategoryModalStyles(width, height);
   const [selectedUsage, setSelectedUsage] = useState(null);
-  const usageOptions = ["~1000p", "1001~2000p", "2000~3000p", "3000p~"];
+  const usageOptions = ["전체", "~1000p", "1001~2000p", "2001~3000p", "3001p~"];
 
   const handlePointPress = usage => {
     setSelectedUsage(usage);

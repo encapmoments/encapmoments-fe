@@ -2,8 +2,7 @@ import { Colors, Typography, Fontsizes } from "../../styles/stylesIndex";
 
 import { StyleSheet } from "react-native";
 
-const getMarketScreenStyles = (width, height) =>
-  StyleSheet.create({
+const getMarketScreenStyles = (width, height) => StyleSheet.create({
     safeArea: {
       flex: 1,
     },
@@ -40,12 +39,19 @@ const getMarketScreenStyles = (width, height) =>
     },
     cards: {
       justifyContent: "space-between",
-      paddingBottom: height * 0.02,
+      paddingBottom: height * 0.12,
     },
     columnWrapper: {
       justifyContent: "space-between",
       paddingHorizontal: width * 0.02,
       marginBottom: height * 0.02,
+    },
+    emptyText: {
+      textAlign: 'center',
+      marginTop: 50,
+      ...Typography.bamin1,
+      color: Colors.black,
+      fontSize: Fontsizes.md,
     },
   });
 

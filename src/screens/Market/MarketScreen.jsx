@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { View, Text, FlatList } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, Alert } from "react-native";
 import getMarketScreenStyles from "./MarketScreenStyles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useWindowDimensions } from "react-native";
 import { AppBar, TabBar } from "../../common/commonIndex";
 import { Card, Category, CategoryModal, PointModal } from "../../components/Market/marketComponentsIndex";
 import useModal from "../../hooks/useModal";
+import { getMarketItems } from "../../models/market";
+import { useAuthStore, useProfileStore } from "../../store/store";
+import useAccessToken from "../../models/accessToken";
 
 const MarketScreen = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
@@ -14,68 +17,68 @@ const MarketScreen = ({ navigation }) => {
   const pointModal = useModal();
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedPoint, setSelectedPoint] = useState("전체");
+  const [marketItems, setMarketItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const accessToken = useAccessToken();
+  const profileUser = useProfileStore(state => state.profileUser);
 
-  const mockData = [
-    {
-      id: 1,
-      title: "스타벅스 아메리카노",
-      point: 100,
-      category: "카페",
-      img: require("../../assets/AppBarImages/covers/cover1.jpg"),
-    },
-    {
-      id: 2,
-      title: "맥도날드 세트",
-      point: 200,
-      category: "패스트푸드",
-      img: require("../../assets/AppBarImages/covers/cover1.jpg"),
-    },
-    {
-      id: 3,
-      title: "CGV 영화관람권",
-      point: 300,
-      category: "영화",
-      img: require("../../assets/AppBarImages/covers/cover1.jpg"),
-    },
-    {
-      id: 4,
-      title: "배스킨라빈스",
-      point: 150,
-      category: "디저트",
-      img: require("../../assets/AppBarImages/covers/cover1.jpg"),
-    },
-    {
-      id: 5,
-      title: "올리브영 상품권",
-      point: 250,
-      category: "뷰티",
-      img: require("../../assets/AppBarImages/covers/cover1.jpg"),
-    },
-    {
-      id: 6,
-      title: "교보문고 도서권",
-      point: 180,
-      category: "도서",
-      img: require("../../assets/AppBarImages/covers/cover1.jpg"),
-    },
-    {
-      id: 7,
-      title: "컬쳐랜드 상품권",
-      point: 500,
-      category: "문화",
-      img: require("../../assets/AppBarImages/covers/cover1.jpg"),
-    },
-  ];
+  useEffect(() => {
+    const fetchMarketItems = async () => {
+      try {
+        setLoading(true);
+        const items = await getMarketItems(accessToken);
+        setMarketItems(items);
+      } catch (error) {
+        console.error("마켓 아이템 불러오기 실패:", error);
+        Alert.alert("오류", "마켓 아이템을 불러오는데 실패했습니다.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMarketItems();
+  }, [accessToken]);
+
+  const getFilteredItems = () => {
+    let filtered = marketItems;
+
+    if (selectedCategory !== "전체") {
+      filtered = filtered.filter(item => item.category === selectedCategory);
+    }
+
+    if (selectedPoint !== "전체") {
+      const pointRanges = {
+        "전체": [0, Infinity],
+        "~1000p": [0, 1000],
+        "1001~2000p": [1001, 2000],
+        "2001~3000p": [2001, 3000],
+        "3001p~": [3001, Infinity],
+      };
+      if (pointRanges[selectedPoint]) {
+        const [min, max] = pointRanges[selectedPoint];
+        filtered = filtered.filter(item => item.cost >= min && item.cost <= max);
+      }
+    }
+
+    return filtered;
+  };
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    console.log("선택된 카테고리:", category);
   };
 
   const handlePointSelect = (point) => {
     setSelectedPoint(point);
-    console.log("선택된 포인트 범위:", point);
   };
+
+  const handleCardPress = (item) => {
+    navigation.navigate("MarketDetail", {
+      item_id: item.item_id,
+      item: item,
+    });
+  };
+
+  const filteredItems = getFilteredItems();
 
   return (
     <>
@@ -83,37 +86,48 @@ const MarketScreen = ({ navigation }) => {
       <SafeAreaView style={marketStyles.safeArea}>
         <View style={marketStyles.backgroundStyle}>
           <Text style={marketStyles.point}>
-            내 잔여 포인트: 300
+            내 잔여 포인트: {profileUser?.points || 0}
             <Text style={marketStyles.pointP}> points</Text>
           </Text>
           <View style={marketStyles.category}>
             <Category
-              title={ selectedCategory === "전체" ? "카테고리" : selectedCategory }
+              title={selectedCategory === "전체" ? "카테고리" : selectedCategory}
               onPress={categoryModal.openModal}
             />
-            {/* TODO: 포인트 범위 설정 */}
             <Category
-              title={ selectedPoint === "전체" ? "포인트" : selectedPoint }
-              onPress= {pointModal.openModal }
+              title={selectedPoint === "전체" ? "포인트" : selectedPoint}
+              onPress={pointModal.openModal}
             />
           </View>
           <View style={marketStyles.cardsWrapper}>
-            <FlatList
-              data={mockData}
-              numColumns={2}
-              keyExtractor={item => item.id.toString()}
-              contentContainerStyle={marketStyles.cards}
-              columnWrapperStyle={marketStyles.columnWrapper}
-              renderItem={({ item }) => (
-                <Card
-                  navigation={navigation}
-                  title={item.title}
-                  point={item.point}
-                  category={item.category}
-                  img={item.img}
-                />
-              )}
-            />
+            {loading ? (
+              <Text style={marketStyles.emptyText}>로딩 중...</Text>
+            ) : (
+              <FlatList
+                data={filteredItems}
+                numColumns={2}
+                keyExtractor={item => item.item_id.toString()}
+                contentContainerStyle={marketStyles.cards}
+                columnWrapperStyle={marketStyles.columnWrapper}
+                renderItem={({ item }) => (
+                  <Card
+                    navigation={navigation}
+                    title={item.name}
+                    point={item.cost}
+                    category={item.category}
+                    img={{ uri: item.image_url }}
+                    onPress={() => handleCardPress(item)}
+                    item_id={item.item_id}
+                  />
+                )}
+                showsVerticalScrollIndicator={true}
+                ListEmptyComponent={
+                  <Text style={marketStyles.emptyText}>
+                    해당하는 상품이 없습니다.
+                  </Text>
+                }
+              />
+            )}
           </View>
         </View>
       </SafeAreaView>
@@ -125,9 +139,9 @@ const MarketScreen = ({ navigation }) => {
         onCategorySelect={handleCategorySelect}
       />
       <PointModal
-        isVisible={ pointModal.isVisible }
-        onClose={ pointModal.closeModal }
-        onPointSelect = { handlePointSelect }
+        isVisible={pointModal.isVisible}
+        onClose={pointModal.closeModal}
+        onPointSelect={handlePointSelect}
       />
     </>
   );

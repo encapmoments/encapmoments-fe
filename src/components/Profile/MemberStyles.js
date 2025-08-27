@@ -153,7 +153,6 @@ const getMemberStyles = (width, height) =>
       fontSize: Fontsizes.sm,
       color: "white",
     },
-    // 수정/삭제 선택 모달 스타일
     actionButtonContainer: {
       width: "100%",
       marginBottom: height * 0.02,

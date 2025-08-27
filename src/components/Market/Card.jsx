@@ -8,12 +8,16 @@ import {
 } from "react-native";
 import getCardStyles from "./CardStyles";
 
-const Card = ({ title, point, category, img, navigation }) => {
+const Card = ({ title, point, category, img, navigation, onPress, item_id }) => {
   const { width, height } = useWindowDimensions();
   const cardStyles = getCardStyles(width, height);
 
   const handleMarketCard = () => {
-    navigation.navigate("MarketDetail");
+    if (onPress) {
+      onPress();
+    } else {
+      navigation.navigate("MarketDetail");
+    }
   };
 
   return (

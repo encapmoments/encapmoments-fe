@@ -1,64 +1,78 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Alert,
-  useWindowDimensions,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, Image, Alert, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CommonButton } from "../../common/commonIndex";
 import getMissionCreateScreenStyles from "./MissionCreateScreenStyles";
 import { SelectMember, SelectMission } from "../../components/Mission/missionIndex";
 import { generateWeeklyMission } from "../../models/mission";
+import { getMembers } from "../../models/profile";
 import useAccessToken from "../../models/accessToken";
 import { ActivityIndicator } from "react-native";
 
 const MissionCreateScreen = ({ navigation }) => {
-  const [members, setMembers] = useState([
-    {
-      id: 1,
-      memberImage: require("../../assets/mock/album/album1.jpg"),
-      memberName: "아빠",
-      selected: false,
-      age: "",
-      gender: "",
-    },
-    {
-      id: 2,
-      memberImage: require("../../assets/mock/album/album2.jpg"),
-      memberName: "엄마",
-      selected: false,
-      age: "",
-      gender: "",
-    },
-    {
-      id: 3,
-      memberImage: require("../../assets/mock/album/album3.png"),
-      memberName: "아들",
-      selected: false,
-      age: "",
-      gender: "",
-    },
-    {
-      id: 4,
-      memberImage: require("../../assets/mock/album/album4.jpg"),
-      memberName: "딸",
-      selected: false,
-      age: "",
-      gender: "",
-    },
-  ]);
+  const [members, setMembers] = useState([]);
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingMembers, setLoadingMembers] = useState(true);
   const { width, height } = useWindowDimensions();
   const createStyles = getMissionCreateScreenStyles(width, height);
 
   const accessToken = useAccessToken();
+
+  useEffect(() => {
+    const loadFamilyMembers = async () => {
+      try {
+        setLoadingMembers(true);
+        const familyMembers = await getMembers(accessToken);
+        const formattedMembers = familyMembers.map(member => {
+          let memberImage;
+          if (typeof member.member_image === 'string' && member.member_image.trim() !== '') {
+            memberImage = { uri: member.member_image };
+          } else if (typeof member.member_image === 'number') {
+            memberImage = member.member_image; // require() 형태
+          } else {
+            memberImage = require("../../assets/AppBarImages/person.png"); // 기본 이미지
+          }
+
+          let gender = member.member_gender;
+          if (gender === "남자") {
+            gender = "남";
+          } else if (gender === "여자") {
+            gender = "여";
+          }
+
+          return {
+            id: member.member_id || member.id,
+            memberImage: memberImage,
+            memberName: member.member_name,
+            selected: false,
+            age: member.member_age ? member.member_age.toString() : "",
+            gender: gender || "",
+          };
+        });
+
+        setMembers(formattedMembers);
+      } catch (error) {
+        console.error("가족 구성원 로드 실패:", error);
+        Alert.alert("오류", "가족 구성원 정보를 불러오는데 실패했습니다.");
+        // 실패시 기본 데이터
+        setMembers([
+          {
+            id: 1,
+            memberImage: require("../../assets/AppBarImages/person.png"),
+            memberName: "구성원1",
+            selected: false,
+            age: "",
+            gender: "",
+          },
+        ]);
+      } finally {
+        setLoadingMembers(false);
+      }
+    };
+
+    loadFamilyMembers();
+  }, [accessToken]);
 
   const handleGenerateMission = async () => {
     try {
@@ -110,12 +124,19 @@ const MissionCreateScreen = ({ navigation }) => {
             원하는 사항을 입력하세요!
           </Text>
           <Text style={createStyles.missionDescriptionText}>
-            AI가 요구사항에 맞게 미션을 추천해드립니다! 😀
+            AI가 요구사항에 맞게 미션을 추천해드립니다!
           </Text>
 
           <Text style={createStyles.missionTitleText}>구성원 선택</Text>
           <View style={createStyles.inputTextWrapper}>
-            <SelectMember members={members} setMembers={setMembers} />
+            {loadingMembers ? (
+              <View style={createStyles.loadingContainer}>
+                <ActivityIndicator size="small" color="#666" />
+                <Text style={createStyles.loadingText}>구성원 정보를 불러오는 중...</Text>
+              </View>
+            ) : (
+              <SelectMember members={members} setMembers={setMembers} />
+            )}
           </View>
 
           <Text style={createStyles.missionTitleText}>미션 선택</Text>
@@ -133,6 +154,7 @@ const MissionCreateScreen = ({ navigation }) => {
               title="미션 만들기"
               onPress={handleGenerateMission}
               style={createStyles.commonButton}
+              disabled={loadingMembers}
             />
           )}
         </View>

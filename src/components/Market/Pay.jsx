@@ -1,17 +1,21 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Text, useWindowDimensions } from "react-native";
+import { TouchableOpacity, Text, useWindowDimensions, Alert } from "react-native";
 import PayStyles from "./PayStyles";
 import PayModal from "./PayModal";
 import PaySkeleton from "../../common/Skeleton/PaySkeleton";
 import useModal from "../../hooks/useModal";
 
-const Pay = ({ navigation }) => {
+const Pay = ({ navigation, isPointOK = false }) => {
     const { width, height } = useWindowDimensions();
     const payStyles = PayStyles(width, height);
     const payModal = useModal();
     const [isProcessing, setIsProcessing] = useState(false);
 
     const handlePay = () => {
+        if (isPointOK) {
+            Alert.alert("포인트 부족", "포인트가 부족합니다. 포인트를 충전해주세요.");
+            return;
+        }
         payModal.openModal();
     };
 
@@ -32,8 +36,20 @@ const Pay = ({ navigation }) => {
 
     return (
         <>
-            <TouchableOpacity onPress={handlePay} style={payStyles.payWrapper}>
-                <Text style={payStyles.payText}>결제하기</Text>
+            <TouchableOpacity
+                onPress={handlePay}
+                style={[
+                    payStyles.payWrapper,
+                    isPointOK && payStyles.payWrapperDisabled,
+                ]}
+                disabled={isPointOK}
+            >
+                <Text style={[
+                    payStyles.payText,
+                    isPointOK && payStyles.payTextDisabled,
+                ]}>
+                    {"결제하기"}
+                </Text>
             </TouchableOpacity>
 
             <PayModal

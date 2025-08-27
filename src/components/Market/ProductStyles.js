@@ -33,6 +33,9 @@ const ProductStyles = (width, height) => StyleSheet.create({
         ...Typography.bamin1,
         color: Colors.orange,
     },
+    pointInsufficientOrange: {
+        color: Colors.red,
+    },
     pointWrapper: {
         backgroundColor: Colors.basic,
         borderRadius: Spacing.lg,
@@ -49,6 +52,9 @@ const ProductStyles = (width, height) => StyleSheet.create({
         ...Typography.bamin1,
         fontSize: Fontsizes.xs,
     },
+    pointInsufficient: {
+        color: Colors.red,
+    },
     pointMinus: {
         ...Typography.bamin1,
         fontSize: Fontsizes.xs,
@@ -64,4 +70,3 @@ const ProductStyles = (width, height) => StyleSheet.create({
 });
 
 export default ProductStyles;
-

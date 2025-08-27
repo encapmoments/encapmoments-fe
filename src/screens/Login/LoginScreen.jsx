@@ -23,12 +23,7 @@ const LoginScreen = ({ navigation }) => {
         email,
         password,
         () => {
-          Alert.alert("로그인 성공!", "Mock 사용자로 로그인되었습니다.", [
-            {
-              text: "확인",
-              onPress: () => navigation.replace("Mission"),
-            },
-          ]);
+          navigation.replace("Mission");
         },
         msg => Alert.alert("로그인 실패", msg),
       );
@@ -53,7 +48,6 @@ const LoginScreen = ({ navigation }) => {
         <View style={loginStyles.safePadding}>
           <Text style={loginStyles.loginText}>로그인</Text>
 
-          {/* useMock 사용 시 로그인 자동 by Claude */}
           {useMock && (
             <View style={{ padding: 10, backgroundColor: '#f0f8ff', marginBottom: 20, borderRadius: 8 }}>
               <Text style={{ fontSize: 14, color: '#666', textAlign: 'center' }}>

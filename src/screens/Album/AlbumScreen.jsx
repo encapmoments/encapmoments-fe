@@ -61,6 +61,11 @@ const AlbumScreen = ({ navigation }) => {
                 keyExtractor={(item, index) => index.toString()}
                 columnWrapperStyle={albumStyles.albumListsRowColumn}
                 data={albumsToDisplay}
+                ListEmptyComponent={
+                  <Text style={albumStyles.emptyText}>
+                    해당하는 앨범이 없습니다.
+                  </Text>
+                }
                 renderItem={({ item }) => (
                   <Card
                     navigation={navigation}

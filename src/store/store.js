@@ -7,6 +7,8 @@ import {
   mockProfileDailyMissions,
   mockProfileWeeklyMissions,
   mockFamilyMembers,
+  mockMarketItems,
+  mockMyItems,
 } from "./mock";
 
 // 앨범 mock data
@@ -34,7 +36,7 @@ export const useMissionStore = create(set => ({
 }));
 
 // 프로필 mock data
-export const useProfileStore = create(set => ({
+export const useProfileStore = create((set, get) => ({
   profileUser: mockUser,
 
   profileDailyMissions: [...mockProfileDailyMissions],
@@ -43,6 +45,12 @@ export const useProfileStore = create(set => ({
   getProfileDaily: id => mockProfileDailyMissions.find(m => m.daily_id === id),
   getProfileWeekly: id =>
     mockProfileWeeklyMissions.find(m => m.weekly_id === id),
+
+  updateUserPoints: (newPoints) => {
+    set(state => ({
+      profileUser: { ...state.profileUser, points: newPoints },
+    }));
+  },
 }));
 
 // 가족 구성원 mock data
@@ -123,6 +131,45 @@ export const useFamilyStore = create((set, get) => ({
   getFamilyMember: member_id => {
     const currentMembers = get().familyMembers;
     return currentMembers.find(m => m.member_id === parseInt(member_id));
+  },
+}));
+
+// 마켓 mock data
+export const useMarketStore = create((set, get) => ({
+  marketItems: [...mockMarketItems],
+  myItems: [...mockMyItems],
+
+  // 재고 감소
+  decreaseStock: (item_id) => {
+    set(state => ({
+      marketItems: state.marketItems.map(item =>
+        item.item_id === item_id ? { ...item, stock: Math.max(0, item.stock - 1) } : item
+      ),
+    }));
+  },
+
+  // 마이 아이템 추가 (구매 시)
+  addMyItem: (newItem) => {
+    set(state => ({
+      myItems: [newItem, ...state.myItems],
+    }));
+  },
+
+  // 아이템 사용
+  useMyItem: (user_reward_id) => {
+    set(state => ({
+      myItems: state.myItems.map(item =>
+        item.user_reward_id === user_reward_id
+          ? { ...item, is_used: true, used_at: new Date().toISOString() }
+          : item
+      ),
+    }));
+  },
+
+  // 특정 마이 아이템 조회
+  getMyItem: (user_reward_id) => {
+    const currentItems = get().myItems;
+    return currentItems.find(item => item.user_reward_id === user_reward_id);
   },
 }));
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { ProfileBox } from "../../components/Profile/profileIndex";
+import { ProfileBox, LogoutModal } from "../../components/Profile/profileIndex";
 import { TabBar } from "../../common/commonIndex";
 import getProfileScreenStyles from "./ProfileScreenStyles";
 import { useGetProfileUser } from "../../viewmodels/profileViewModels";
@@ -26,25 +26,26 @@ const ProfileScreen = () => {
   const { profile, profileLoading } = useGetProfileUser(accessToken);
   const { handleLogout } = useLogout();
 
-  const onLogout = () => {
-    Alert.alert("로그아웃", "정말 로그아웃 하시겠습니까?", [
-      { text: "취소", style: "cancel" },
-      {
-        text: "확인",
-        onPress: () => {
-          handleLogout(
-            () =>
-              navigation.reset({
-                index: 0,
-                routes: [{ name: "Login" }],
-              }),
-            // () => navigation.navigate('Login'),
+  const [logoutModalVisible, setLogoutModalVisible] = useState(false);
 
-            err => Alert.alert("오류", err),
-          );
-        },
-      },
-    ]);
+  const onLogout = () => {
+    setLogoutModalVisible(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    setLogoutModalVisible(false);
+    handleLogout(
+      () =>
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Login" }],
+        }),
+      err => Alert.alert("오류", err),
+    );
+  };
+
+  const handleLogoutCancel = () => {
+    setLogoutModalVisible(false);
   };
 
   if (profileLoading || !profile) {
@@ -95,6 +96,12 @@ const ProfileScreen = () => {
         </View>
       </SafeAreaView>
       <TabBar navigation={navigation} />
+
+      <LogoutModal
+        visible={logoutModalVisible}
+        onConfirm={handleLogoutConfirm}
+        onCancel={handleLogoutCancel}
+      />
     </>
   );
 };

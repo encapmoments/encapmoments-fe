@@ -136,7 +136,7 @@ const mockUser = {
   password: "1234",
   nickname: "이강룡",
   profile_image: require("../assets/mock/album/album1.jpg"),
-  points: 100,
+  points: 2000,
 };
 
 const mockProfileWeeklyMissions = [
@@ -180,7 +180,6 @@ const mockProfileWeeklyMissions = [
 ];
 
 const mockProfileDailyMissions = [
-  // is_completed==true 인 것만
   {
     daily_id: 1,
     daily_title: "일일미션1",
@@ -213,7 +212,7 @@ const mockProfileDailyMissions = [
   },
 ];
 
-// 가족 구성원 mock data 추가
+// 가족 구성원 mock data
 const mockFamilyMembers = [
   {
     id: 1,
@@ -257,6 +256,100 @@ const mockFamilyMembers = [
   },
 ];
 
+// 마켓 mock data
+const mockMarketItems = [
+  {
+    item_id: 1,
+    name: "스타벅스 아메리카노",
+    description: "따뜻한 아메리카노",
+    image_url: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    category: "음료",
+    cost: 500,
+    stock: 10,
+    created_at: "2025-08-22T09:00:00Z",
+  },
+  {
+    item_id: 2,
+    name: "팔도비빔면",
+    description: "괄도네넴띤",
+    image_url: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    category: "라면",
+    cost: 3000,
+    stock: 2,
+    created_at: "2025-08-22T09:00:00Z",
+  },
+  {
+    item_id: 3,
+    name: "스윙칩 볶음고추장맛",
+    description: "스윙스",
+    image_url: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    category: "과자",
+    cost: 2500,
+    stock: 5,
+    created_at: "2025-08-22T09:00:00Z",
+  },
+  {
+    item_id: 4,
+    name: "CGV 영화관람권",
+    description: "CGV 일반 영화관람권",
+    image_url: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    category: "기타",
+    cost: 1200,
+    stock: 8,
+    created_at: "2025-08-22T09:00:00Z",
+  },
+  {
+    item_id: 5,
+    name: "CGV 영화관람권",
+    description: "CGV 일반 영화관람권",
+    image_url: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    category: "기타",
+    cost: 1200,
+    stock: 8,
+    created_at: "2025-08-22T09:00:00Z",
+  },
+];
+
+// 마이 아이템 mock data
+const mockMyItems = [
+  {
+    user_reward_id: 12,
+    item_name: "스타벅스 아메리카노",
+    item_image: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    barcode: "1234-5678-9999",
+    expires_at: "2025-12-31T23:59:59Z",
+    is_used: false,
+    purchased_at: "2025-08-22T10:00:00Z",
+  },
+  {
+    user_reward_id: 15,
+    item_name: "CGV 영화관람권",
+    item_image: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    barcode: "9876-5432-1111",
+    expires_at: "2026-01-31T23:59:59Z",
+    is_used: true,
+    purchased_at: "2025-08-20T14:30:00Z",
+  },
+  {
+    user_reward_id: 15,
+    item_name: "CGV 영화관람권",
+    item_image: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    barcode: "9876-5432-1111",
+    expires_at: "2026-01-31T23:59:59Z",
+    is_used: true,
+    purchased_at: "2025-08-20T14:30:00Z",
+  },
+  {
+    user_reward_id: 15,
+    item_name: "CGV 영화관람권",
+    item_image: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
+    barcode: "9876-5432-1111",
+    expires_at: "2026-01-31T23:59:59Z",
+    is_used: true,
+    purchased_at: "2025-08-20T14:30:00Z",
+  },
+];
+
 export {
   mockAlbums,
   mockUser,
@@ -265,4 +358,6 @@ export {
   mockProfileWeeklyMissions,
   mockProfileDailyMissions,
   mockFamilyMembers,
+  mockMarketItems,
+  mockMyItems,
 };

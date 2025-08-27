@@ -60,6 +60,7 @@ const getAlbumScreenStyles = (width, height) =>
     albumLists: {
       marginTop: -height * 0.02,
       borderRadius: Spacing.lg,
+      paddingBottom: height * 0.28,
     },
     albumListsRowColumn: {
       flexDirection: "row",
@@ -85,6 +86,13 @@ const getAlbumScreenStyles = (width, height) =>
       textAlignVertical: "center", // Android에서는 무시됨
       alignItems: "center", // iOS 정렬 대응
       height: height * 0.06 * 0.8,
+    },
+    emptyText: {
+      textAlign: 'center',
+      marginTop: 50,
+      ...Typography.bamin1,
+      color: Colors.black,
+      fontSize: Fontsizes.md,
     },
   });
 

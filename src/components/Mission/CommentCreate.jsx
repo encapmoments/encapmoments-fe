@@ -6,10 +6,13 @@ export const CommentCreate = ({
   commentId,
   selectedMember,
   onMemberSelect,
+  familyMembers = [],
 }) => {
   const [comment, setComment] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const familyMembers = ["엄마", "아빠"];
+
+  // Props로 받은 familyMembers가 없거나 비어있을 경우 기본값 설정
+  const memberList = familyMembers.length > 0 ? familyMembers : ["구성원1", "구성원2"];
 
   const handleMemberSelect = member => {
     onMemberSelect(commentId, member);
@@ -35,7 +38,6 @@ export const CommentCreate = ({
         numberOfLines={2}
       />
 
-      {/* 구성원 선택 모달 */}
       <Modal
         animationType="fade"
         transparent={true}
@@ -47,7 +49,7 @@ export const CommentCreate = ({
           onPress={() => setModalVisible(false)}>
           <View style={CommentCreateStyles.modalContainer}>
             <Text style={CommentCreateStyles.modalTitle}>구성원 선택</Text>
-            {familyMembers.map(member => (
+            {memberList.map(member => (
               <TouchableOpacity
                 key={member}
                 style={[
