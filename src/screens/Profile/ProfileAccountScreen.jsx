@@ -10,15 +10,11 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { InputText, CommonButton } from "../../common/commonIndex";
 import getProfileAccountScreenStyles from "./ProfileAccountScreenStyles";
 import getMemberStyles from "../../components/Profile/MemberStyles";
 import Member from "../../components/Profile/Member";
-import {
-  useGetProfileUser,
-  useUpdateProfile,
-} from "../../viewmodels/profileViewModels";
+import { useGetProfileUser, useUpdateProfile } from "../../viewmodels/profileViewModels";
 import useAccessToken from "../../models/accessToken";
 
 const ProfileAccountScreen = ({ navigation }) => {

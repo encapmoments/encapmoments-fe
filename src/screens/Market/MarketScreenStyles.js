@@ -27,8 +27,9 @@ const getMarketScreenStyles = (width, height) =>
       height: height * 0.08,
       justifyContent: "space-between",
       alignSelf: "center",
-      gap: 15,
-      padding: 10,
+      gap: 80,
+      paddingVertical: 10,
+      paddingHorizontal: 30,
       width: width * 0.9,
     },
     cardsWrapper: {

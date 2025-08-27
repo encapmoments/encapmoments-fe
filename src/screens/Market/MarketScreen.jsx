@@ -3,25 +3,16 @@ import { View, Text, FlatList } from "react-native";
 import getMarketScreenStyles from "./MarketScreenStyles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useWindowDimensions } from "react-native";
-import useMock from "../../models/useMock";
 import { AppBar, TabBar } from "../../common/commonIndex";
-import {
-  Card,
-  Category,
-  CategoryModal,
-  PointModal,
-  UsageModal,
-} from "../../components/Market/marketComponentsIndex";
+import { Card, Category, CategoryModal, PointModal } from "../../components/Market/marketComponentsIndex";
 import useModal from "../../hooks/useModal";
 
 const MarketScreen = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
   const marketStyles = getMarketScreenStyles(width, height);
   const categoryModal = useModal();
-  const usageModal = useModal();
   const pointModal = useModal();
   const [selectedCategory, setSelectedCategory] = useState("전체");
-  const [selectedUsage, setSelectedUsage] = useState("전체");
   const [selectedPoint, setSelectedPoint] = useState("전체");
 
   const mockData = [
@@ -81,11 +72,6 @@ const MarketScreen = ({ navigation }) => {
     console.log("선택된 카테고리:", category);
   };
 
-  const handleUsageSelect = (usage) => {
-    setSelectedUsage(usage);
-    console.log("선택된 사용 여부:", usage);
-  };
-
   const handlePointSelect = (point) => {
     setSelectedPoint(point);
     console.log("선택된 포인트 범위:", point);
@@ -104,10 +90,6 @@ const MarketScreen = ({ navigation }) => {
             <Category
               title={ selectedCategory === "전체" ? "카테고리" : selectedCategory }
               onPress={categoryModal.openModal}
-            />
-            <Category
-              title={ selectedUsage === "전체" ? "사용 여부" : selectedUsage }
-              onPress={usageModal.openModal}
             />
             {/* TODO: 포인트 범위 설정 */}
             <Category
@@ -141,11 +123,6 @@ const MarketScreen = ({ navigation }) => {
         isVisible={categoryModal.isVisible}
         onClose={categoryModal.closeModal}
         onCategorySelect={handleCategorySelect}
-      />
-      <UsageModal
-        isVisible={usageModal.isVisible}
-        onClose={usageModal.closeModal}
-        onUsageSelect={handleUsageSelect}
       />
       <PointModal
         isVisible={ pointModal.isVisible }

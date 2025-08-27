@@ -5,13 +5,12 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  TextInput,
-  Modal,
   Alert,
 } from "react-native";
 import { launchImageLibrary } from "react-native-image-picker";
 import getMemberUpdateStyles from "./MemberUpdateStyles";
-import {  CommonButton } from "../../common/commonIndex";
+import { CommonButton, InputText } from "../../common/commonIndex";
+import GenderButton from "./GenderButton";
 
 const MemberUpdate = ({ navigation, route }) => {
   const { width, height } = useWindowDimensions();
@@ -21,8 +20,6 @@ const MemberUpdate = ({ navigation, route }) => {
   const { member, isNewMember, onUpdate, onCancel } = route.params || {};
 
   const [memberName, setMemberName] = useState("");
-  const [tempName, setTempName] = useState("");
-  const [isEditingName, setIsEditingName] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   // 컴포넌트 마운트 시 기본값 설정
@@ -30,37 +27,15 @@ const MemberUpdate = ({ navigation, route }) => {
     if (isNewMember) {
       // 새 구성원인 경우 기본값 설정
       setMemberName("새 구성원");
-      setTempName("새 구성원");
       setSelectedImage(null); // 기본 이미지 사용
     } else if (member) {
       setMemberName(member.name || "이름");
-      setTempName(member.name || "이름");
       setSelectedImage(member.image || null);
     } else {
       // 기본값 (기존 코드 호환성)
       setMemberName("이름");
-      setTempName("이름");
     }
   }, [member, isNewMember]);
-
-  const handleNamePress = () => {
-    setTempName(memberName);
-    setIsEditingName(true);
-  };
-
-  const saveNameEdit = () => {
-    if (tempName.trim()) {
-      setMemberName(tempName.trim());
-      setIsEditingName(false);
-    } else {
-      Alert.alert("이름을 입력해주세요");
-    }
-  };
-
-  const cancelNameEdit = () => {
-    setTempName(memberName);
-    setIsEditingName(false);
-  };
 
   const handleImagePick = () => {
     launchImageLibrary({ mediaType: "photo", quality: 1 }, response => {
@@ -112,13 +87,10 @@ const MemberUpdate = ({ navigation, route }) => {
             />
           </TouchableOpacity>
           <Text style={updateStyles.mainText}>
-            {isNewMember ? "구성원 추가" : "구성원 설정"}
+            {isNewMember ? "구성원 추가" : "구성원 수정"}
           </Text>
         </View>
         <View style={updateStyles.updateContainer}>
-          <TouchableOpacity onPress={handleNamePress}>
-            <Text style={updateStyles.updateMember}>{memberName}</Text>
-          </TouchableOpacity>
           <TouchableOpacity
             onPress={handleImagePick}
             style={updateStyles.updateMemberImageWrapper}>
@@ -131,44 +103,29 @@ const MemberUpdate = ({ navigation, route }) => {
               }
             />
           </TouchableOpacity>
+          <View style={updateStyles.memberInfo}>
+            <View style={updateStyles.memberInfoItem}>
+              <Text style={updateStyles.memberText}>이름</Text>
+              <InputText title="" />
+            </View>
+            <View style={updateStyles.memberInfoItem}>
+              <Text style={updateStyles.memberText}>성별</Text>
+              <View style={updateStyles.memberGender}>
+                <GenderButton gender="남자" />
+                <GenderButton gender="여자" />
+              </View>
+            </View>
+            <View style={updateStyles.memberInfoItem}>
+              <Text style={updateStyles.memberText}>나이</Text>
+              <InputText title="" />
+            </View>
+          </View>
           <CommonButton
             style={updateStyles.commonButton}
             title="완료"
             onPress={handleComplete}
           />
         </View>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isEditingName}
-          onRequestClose={cancelNameEdit}>
-          <View style={updateStyles.modalOverlay}>
-            <View style={updateStyles.modalContainer}>
-              <Text style={updateStyles.modalTitle}>구성원 이름 입력</Text>
-              <TextInput
-                style={updateStyles.modalInput}
-                value={tempName}
-                onChangeText={setTempName}
-                placeholder="이름을 입력하세요"
-                autoFocus={true}
-                maxLength={10}
-              />
-              <View style={updateStyles.modalButtonContainer}>
-                <TouchableOpacity
-                  style={updateStyles.modalCancelButton}
-                  onPress={cancelNameEdit}>
-                  <Text style={updateStyles.modalCancelText}>취소</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={updateStyles.modalSaveButton}
-                  onPress={saveNameEdit}>
-                  <Text style={updateStyles.modalSaveText}>저장</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </Modal>
       </View>
     </>
   );
