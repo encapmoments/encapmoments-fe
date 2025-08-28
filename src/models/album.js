@@ -24,12 +24,13 @@ export const postAlbum = async (
 ) => {
   // TODO : mission_type 제공
   if (useMock) {
-    const newAlbum = { album_title, album_tag, album_image, location };
-    useAlbumStore.getState().addAlbum(newAlbum);
+    const newAlbumData = { album_title, album_tag, album_image, location };
+    const createdAlbum = useAlbumStore.getState().addAlbum(newAlbumData);
 
     return {
       success: true,
-      album: newAlbum,
+      album: createdAlbum,
+      album_id: createdAlbum.album_id,
     };
   }
 
@@ -132,5 +133,48 @@ export const getComments = async ({ album_id }, accessToken) => {
       },
       ...
     ] ,
+  */
+};
+
+// 댓글 작성
+export const createComment = async ({ album_id, member_name, comment_text }, accessToken) => {
+  if (useMock) {
+    const newComment = {
+      comment_id: Date.now(),
+      album_id,
+      member_name,
+      member_image: "default.jpg", // mock용 기본 이미지
+      comment_text,
+    };
+    useCommentStore.getState().addComment(newComment);
+    return {
+      success: true,
+      message: "댓글 등록 성공",
+    };
+  }
+
+  const res = await axios.post(
+    `${baseUrl}/album-comment/${album_id}`,
+    {
+      member_name,
+      comment_text,
+    },
+    {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      withCredentials: true,
+    }
+  );
+
+  return { success: true, ...res.data };
+  /*
+    REQUEST
+    {
+      "album_id": 1,
+      "member_name": "아들",
+      "comment_text": "재미있어요!"
+    }
+
+    RESPONSE
+    { "message": "댓글 등록 성공" }
   */
 };

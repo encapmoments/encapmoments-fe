@@ -6,17 +6,24 @@ export const CommentCreate = ({
   commentId,
   selectedMember,
   onMemberSelect,
+  onCommentTextChange,
   familyMembers = [],
 }) => {
   const [comment, setComment] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Props로 받은 familyMembers가 없거나 비어있을 경우 기본값 설정
   const memberList = familyMembers.length > 0 ? familyMembers : ["구성원1", "구성원2"];
 
   const handleMemberSelect = member => {
     onMemberSelect(commentId, member);
     setModalVisible(false);
+  };
+
+  const handleCommentChange = (text) => {
+    setComment(text);
+    if (onCommentTextChange) {
+      onCommentTextChange(commentId, text);
+    }
   };
 
   return (
@@ -33,7 +40,7 @@ export const CommentCreate = ({
         placeholder="느낀점 작성"
         placeholderTextColor="rgba(255, 255, 255, 0.7)"
         value={comment}
-        onChangeText={setComment}
+        onChangeText={handleCommentChange}
         multiline={true}
         numberOfLines={2}
       />

@@ -39,7 +39,7 @@ const MissionScreen = ({ navigation }) => {
   // const hasMissions = true; // weekly_time 조건 불충족시 false, 충족 시 true
   const hasMissions = useMemo(() => {
     if (useMock) {
-      return false;
+      return true;
     }
     if (weeklyLoading) {
       return true;

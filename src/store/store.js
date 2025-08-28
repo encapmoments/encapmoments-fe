@@ -13,12 +13,23 @@ import {
 } from "./mock";
 
 // 앨범 mock data
-export const useAlbumStore = create(set => ({
+export const useAlbumStore = create((set, get) => ({
   albums: [...mockAlbums],
-  addAlbum: album =>
+  addAlbum: album => {
+    const currentAlbums = get().albums;
+    const newAlbumId = Math.max(...currentAlbums.map(a => a.album_id), 0) + 1;
+
+    const newAlbum = {
+      ...album,
+      album_id: newAlbumId,
+    };
+
     set(state => ({
-      albums: [...state.albums, album],
-    })),
+      albums: [...state.albums, newAlbum],
+    }));
+
+    return newAlbum;
+  },
 }));
 
 // 댓글 mock data store
