@@ -1,3 +1,3 @@
-const baseUrl = "http://12.12.12.12";
+const baseUrl = "be-endpoint";
 
 export default baseUrl;

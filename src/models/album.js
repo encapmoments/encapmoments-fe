@@ -22,30 +22,39 @@ export const postAlbum = async (
   { album_title, album_tag, album_image, location, mission_type, mission_id },
   accessToken,
 ) => {
-  // TODO : mission_type 제공
   if (useMock) {
-    const newAlbumData = { album_title, album_tag, album_image, location };
-    const createdAlbum = useAlbumStore.getState().addAlbum(newAlbumData);
+    const newAlbum = { album_title, album_tag, album_image, location };
+    useAlbumStore.getState().addAlbum(newAlbum);
 
     return {
       success: true,
-      album: createdAlbum,
-      album_id: createdAlbum.album_id,
+      album: newAlbum,
     };
+  }
+
+  const formData = new FormData();
+  formData.append('album_title', album_title);
+  formData.append('album_tag', album_tag);
+  formData.append('location', location);
+  formData.append('mission_type', mission_type);
+  formData.append('mission_id', mission_id);
+
+  if (album_image) {
+    formData.append('album_image', {
+      uri: album_image,
+      type: 'image/jpeg',
+      name: 'album_image.jpg',
+    });
   }
 
   const res = await axios.post(
     `${baseUrl}/album/generate`,
+    formData,
     {
-      album_title,
-      album_tag,
-      album_image,
-      location,
-      mission_type,
-      mission_id,
-    },
-    {
-      headers: { Authorization: `Bearer ${accessToken}` },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
       withCredentials: true,
     },
   );
@@ -70,16 +79,29 @@ export const updateAlbum = async (
   accessToken,
 ) => {
   try {
+    const formData = new FormData();
+    formData.append('album_title', album_title);
+    formData.append('album_tag', album_tag);
+    formData.append('location', location);
+
+    if (album_image && !album_image.startsWith('http')) {
+      formData.append('album_image', {
+        uri: album_image,
+        type: 'image/jpeg',
+        name: 'album_image.jpg',
+      });
+    } else if (album_image) {
+      formData.append('album_image', album_image);
+    }
+
     const res = await axios.patch(
       `${baseUrl}/album/${album_id}`,
+      formData,
       {
-        album_title,
-        album_tag,
-        album_image,
-        location,
-      },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data',
+        },
         withCredentials: true,
       },
     );

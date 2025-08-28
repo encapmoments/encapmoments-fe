@@ -113,14 +113,38 @@ export const uploadImage = async imageUri => {
     };
   }
 
-  const res = await axios.post(
-    `${baseUrl}/auth/uploadImage`,
-    { profile_image: imageUri }, // ✅ JSON
-    {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    },
-  );
+  console.log("=== uploadImage 함수 시작 ===");
+  console.log("이미지 URI:", imageUri);
 
-  return res.data;
+  const formData = new FormData();
+  formData.append('profile_image', {
+    uri: imageUri,
+    type: 'image/jpeg', // 또는 'image/png'
+    name: 'profile_image.jpg',
+  });
+
+  console.log("FormData 생성 완료");
+
+  try {
+    const res = await axios.post(
+      `${baseUrl}/register/image`,
+      formData,
+      {
+        headers: { 
+          'Content-Type': 'multipart/form-data'
+        },
+        withCredentials: true,
+      },
+    );
+
+    console.log("✅ 업로드 성공:", res.data);
+    return res.data;
+
+  } catch (error) {
+    console.error("❌ 업로드 실패:", error);
+    console.error("에러 응답:", error.response?.data);
+    console.error("에러 상태:", error.response?.status);
+    throw error;
+  }
 };
+
