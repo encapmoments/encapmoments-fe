@@ -15,11 +15,7 @@ const SelectMission = () => {
                 <SelectButton />
             </View>
             <View style={selectStyles.missionSelect}>
-                <Text style={selectStyles.missionText}>미션의 1차 카테고리를 선택해주세요!</Text>
-                <SelectButton />
-            </View>
-            <View style={selectStyles.missionSelect}>
-                <Text style={selectStyles.missionText}>미션의 2차 카테고리를 선택해주세요!</Text>
+                <Text style={selectStyles.missionText}>미션의 카테고리를 선택해주세요!</Text>
                 <SelectButton />
             </View>
         </View>

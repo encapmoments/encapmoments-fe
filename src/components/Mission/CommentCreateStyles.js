@@ -14,7 +14,7 @@ export const CommentCreateStyles = StyleSheet.create({
     width: width * 0.9,
     height: height * 0.1,
     alignSelf: "center",
-    marginTop: height * 0.02,
+    marginTop: height * 0.01,
     borderRadius: Spacing.lg,
     paddingHorizontal: width * 0.03,
     paddingVertical: height * 0.01,

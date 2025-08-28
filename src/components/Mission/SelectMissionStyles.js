@@ -16,6 +16,7 @@ const SelectMissionStyles = (width, height) => StyleSheet.create({
         marginHorizontal: width * 0.04,
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginVertical: height * 0.005,
     },
     missionText: {
         ...Typography.bamin1,

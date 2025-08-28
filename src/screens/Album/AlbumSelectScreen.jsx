@@ -97,34 +97,34 @@ const AlbumSelectScreen = ({ navigation }) => {
             <View style={AlbumSelectScreenStyles.albumCommentsWrapper}>
               <ScrollView style={AlbumSelectScreenStyles.albumComments}>
                 <Comment
-                  image={require("../../assets/AppBarImages/person.png")}
-                  member={"아빠"}
-                  comment={"재밌어요"}
+                  memberImage={require("../../assets/AppBarImages/person.png")}
+                  memberName={"아빠"}
+                  commentText={"재밌어요"}
                 />
                 <Comment
-                  image={require("../../assets/AppBarImages/person.png")}
-                  member={"엄마"}
-                  comment={"재미없어요"}
+                  memberImage={require("../../assets/AppBarImages/person.png")}
+                  memberName={"엄마"}
+                  commentText={"재미없어요"}
                 />
                 <Comment
-                  image={require("../../assets/AppBarImages/person.png")}
-                  member={"나"}
-                  comment={"재밌어요"}
+                  memberImage={require("../../assets/AppBarImages/person.png")}
+                  memberName={"나"}
+                  commentText={"재밌어요"}
                 />
                 <Comment
-                  image={require("../../assets/AppBarImages/person.png")}
-                  member={"삼촌"}
-                  comment={"재미없어요"}
+                  memberImage={require("../../assets/AppBarImages/person.png")}
+                  memberName={"삼촌"}
+                  commentText={"재미없어요"}
                 />
                 <Comment
-                  image={require("../../assets/AppBarImages/person.png")}
-                  member={"고모"}
-                  comment={"재밌어요"}
+                  memberImage={require("../../assets/AppBarImages/person.png")}
+                  memberName={"고모"}
+                  commentText={"재밌어요"}
                 />
                 <Comment
-                  image={require("../../assets/AppBarImages/person.png")}
-                  member={"이모부"}
-                  comment={"재미없어요"}
+                  memberImage={require("../../assets/AppBarImages/person.png")}
+                  memberName={"이모부"}
+                  commentText={"재미없어요"}
                 />
                 <View style={AlbumSelectScreenStyles.commentLastText}>
                   <TouchableOpacity
