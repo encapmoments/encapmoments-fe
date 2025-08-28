@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  ActivityIndicator,
-  Alert,
-} from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { View, Text, Image, TouchableOpacity, ScrollView, ActivityIndicator, Alert } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import AlbumSelectScreenStyles from "./AlbumSelectScreenStyles";
 import { TabBar } from "../../common/commonIndex";
 import Comment from "../../components/Album/Comment";
 import { useGetAlbum } from "../../viewmodels/albumViewModels";
 import useAccessToken from "../../models/accessToken";
-import { deleteAlbum } from "../../models/album";
+import { deleteAlbum, getComments } from "../../models/album";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const AlbumSelectScreen = ({ navigation }) => {
@@ -24,6 +16,8 @@ const AlbumSelectScreen = ({ navigation }) => {
 
   const { albums, loading } = useGetAlbum(accessToken);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [loadingComments, setLoadingComments] = useState(true);
 
   const handleDelete = () => {
     Alert.alert("앨범 삭제", "정말 이 앨범을 삭제하시겠습니까?", [
@@ -52,12 +46,29 @@ const AlbumSelectScreen = ({ navigation }) => {
     ]);
   };
 
+  // 댓글 조회
+  const loadComments = useCallback(async () => {
+    try {
+      setLoadingComments(true);
+      const commentsData = await getComments({ album_id }, accessToken);
+      setComments(commentsData);
+    } catch (error) {
+      console.error("댓글 조회 실패:", error);
+      setComments([]);
+    } finally {
+      setLoadingComments(false);
+    }
+  }, [album_id, accessToken]);
+
   useEffect(() => {
     if (!loading) {
       const album = albums.find(a => a.album_id === album_id);
       setSelectedAlbum(album);
+      if (album) {
+        loadComments();
+      }
     }
-  }, [albums, loading, album_id]);
+  }, [albums, loading, album_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading || !selectedAlbum) {
     return <ActivityIndicator size="large" />;
@@ -96,36 +107,22 @@ const AlbumSelectScreen = ({ navigation }) => {
 
             <View style={AlbumSelectScreenStyles.albumCommentsWrapper}>
               <ScrollView style={AlbumSelectScreenStyles.albumComments}>
-                <Comment
-                  memberImage={require("../../assets/AppBarImages/person.png")}
-                  memberName={"아빠"}
-                  commentText={"재밌어요"}
-                />
-                <Comment
-                  memberImage={require("../../assets/AppBarImages/person.png")}
-                  memberName={"엄마"}
-                  commentText={"재미없어요"}
-                />
-                <Comment
-                  memberImage={require("../../assets/AppBarImages/person.png")}
-                  memberName={"나"}
-                  commentText={"재밌어요"}
-                />
-                <Comment
-                  memberImage={require("../../assets/AppBarImages/person.png")}
-                  memberName={"삼촌"}
-                  commentText={"재미없어요"}
-                />
-                <Comment
-                  memberImage={require("../../assets/AppBarImages/person.png")}
-                  memberName={"고모"}
-                  commentText={"재밌어요"}
-                />
-                <Comment
-                  memberImage={require("../../assets/AppBarImages/person.png")}
-                  memberName={"이모부"}
-                  commentText={"재미없어요"}
-                />
+                {loadingComments ? (
+                  <ActivityIndicator size="small" style={{ marginVertical: 20 }} />
+                ) : comments.length > 0 ? (
+                  comments.map(comment => (
+                    <Comment
+                      key={comment.comment_id}
+                      memberImage={comment.member_image}
+                      memberName={comment.member_name}
+                      commentText={comment.comment_text}
+                    />
+                  ))
+                ) : (
+                  <Text style={{ textAlign: 'center', marginVertical: 20, color: '#666' }}>
+                    아직 댓글이 없습니다.
+                  </Text>
+                )}
                 <View style={AlbumSelectScreenStyles.commentLastText}>
                   <TouchableOpacity
                     onPress={() =>
@@ -136,14 +133,12 @@ const AlbumSelectScreen = ({ navigation }) => {
                     }>
                     <Text style={AlbumSelectScreenStyles.commentLastTextUpdate}>
                       수정
-                    </Text>{" "}
-                    {/* TODO : MissionPostScreen 으로 넘어가서, 기존 정보 GET해놓기 &  PATCH  */}
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={handleDelete}>
                     <Text style={AlbumSelectScreenStyles.commentLastTextDelete}>
                       삭제
-                    </Text>{" "}
-                    {/* TODO : 해당 album_id 삭제*/}
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </ScrollView>

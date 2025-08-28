@@ -51,6 +51,45 @@ const mockAlbums = [
   },
 ];
 
+// 댓글 mock data - 새로 추가
+const mockComments = [
+  {
+    comment_id: 1,
+    album_id: 1,
+    member_name: "엄마",
+    member_image: require("../assets/mock/album/album1.jpg"),
+    comment_text: "정말 즐거운 하루였어요! 다음에도 함께 가고 싶어요.",
+  },
+  {
+    comment_id: 2,
+    album_id: 1,
+    member_name: "아빠",
+    member_image: require("../assets/mock/album/album2.jpg"),
+    comment_text: "아이들이 정말 좋아하네요. 좋은 추억이 되었습니다.",
+  },
+  {
+    comment_id: 3,
+    album_id: 2,
+    member_name: "딸",
+    member_image: require("../assets/mock/album/album3.png"),
+    comment_text: "물 마시기 힘들었지만 성공해서 뿌듯해요!",
+  },
+  {
+    comment_id: 4,
+    album_id: 3,
+    member_name: "아들",
+    member_image: require("../assets/mock/album/album4.jpg"),
+    comment_text: "한강에서 산책하면서 많은 이야기를 나눴어요.",
+  },
+  {
+    comment_id: 5,
+    album_id: 1,
+    member_name: "할머니",
+    member_image: require("../assets/mock/album/album5.jpg"),
+    comment_text: "손자들과 함께 하니까 더 재미있었어요.",
+  },
+];
+
 // 미션 mock data
 const mockDailyMissions = [
   {
@@ -191,22 +230,22 @@ const mockProfileDailyMissions = [
     reward: 100,
   },
   {
-    daily_id: 7,
+    daily_id: 5,
     daily_title: "일일미션3",
     reward: 100,
   },
   {
-    daily_id: 11,
+    daily_id: 7,
     daily_title: "일일미션4",
     reward: 100,
   },
   {
-    daily_id: 12,
+    daily_id: 9,
     daily_title: "일일미션5",
     reward: 100,
   },
   {
-    daily_id: 13,
+    daily_id: 11,
     daily_title: "일일미션6",
     reward: 100,
   },
@@ -216,43 +255,43 @@ const mockProfileDailyMissions = [
 const mockFamilyMembers = [
   {
     id: 1,
-    member_id: 4,
-    member_name: "아들",
-    member_image: "https://via.placeholder.com/150/FF6B6B/FFFFFF?text=Son",
-    member_gender: "남자",
-    member_age: 10,
+    member_id: 1,
+    member_name: "엄마",
+    member_image: require("../assets/mock/album/album1.jpg"),
+    member_gender: "여성",
+    member_age: 45,
   },
   {
     id: 2,
-    member_id: 5,
-    member_name: "딸",
-    member_image: "https://via.placeholder.com/150/4ECDC4/FFFFFF?text=Daughter",
-    member_gender: "여자",
-    member_age: 8,
+    member_id: 2,
+    member_name: "아빠",
+    member_image: require("../assets/mock/album/album2.jpg"),
+    member_gender: "남성",
+    member_age: 48,
   },
   {
     id: 3,
-    member_id: 6,
-    member_name: "할머니",
-    member_image: "https://via.placeholder.com/150/45B7D1/FFFFFF?text=Grandma",
-    member_gender: "여자",
-    member_age: 75,
+    member_id: 3,
+    member_name: "딸",
+    member_image: require("../assets/mock/album/album3.png"),
+    member_gender: "여성",
+    member_age: 16,
   },
   {
     id: 4,
-    member_id: 7,
-    member_name: "할아버지",
-    member_image: "https://via.placeholder.com/150/96CEB4/FFFFFF?text=Grandpa",
-    member_gender: "남자",
-    member_age: 78,
+    member_id: 4,
+    member_name: "아들",
+    member_image: require("../assets/mock/album/album4.jpg"),
+    member_gender: "남성",
+    member_age: 12,
   },
   {
     id: 5,
-    member_id: 8,
-    member_name: "막내",
-    member_image: "https://via.placeholder.com/150/FFEAA7/000000?text=Baby",
-    member_gender: "남자",
-    member_age: 5,
+    member_id: 5,
+    member_name: "할머니",
+    member_image: require("../assets/mock/album/album5.jpg"),
+    member_gender: "여성",
+    member_age: 72,
   },
 ];
 
@@ -352,11 +391,12 @@ const mockMyItems = [
 
 export {
   mockAlbums,
-  mockUser,
+  mockComments, // 새로 추가
   mockDailyMissions,
   mockWeeklyMissions,
-  mockProfileWeeklyMissions,
+  mockUser,
   mockProfileDailyMissions,
+  mockProfileWeeklyMissions,
   mockFamilyMembers,
   mockMarketItems,
   mockMyItems,

@@ -1,3 +1,4 @@
+import { transparent } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 import {
   Colors,
   Typography,
@@ -31,9 +32,7 @@ const CommentStyles = StyleSheet.create({
     width: width * 0.07,
     height: width * 0.08,
     borderRadius: Fontsizes.mm,
-    backgroundColor: Colors.white,
-    borderColor: Colors.white,
-    borderWidth: 1,
+    backgroundColor: "transparent",
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
@@ -43,6 +42,7 @@ const CommentStyles = StyleSheet.create({
     width: width * 0.06,
     height: width * 0.06,
     resizeMode: "cover",
+    borderRadius: width * 0.3,
   },
   commentMemberName: {
     ...Typography.bamin1,
@@ -52,9 +52,10 @@ const CommentStyles = StyleSheet.create({
   },
   commentMemberComment: {
     color: Colors.black,
-    ...Typography.bamin2,
-    fontSize: Fontsizes.md,
+    ...Typography.bamin1,
+    fontSize: Fontsizes.xs,
     marginLeft: width * 0.055,
+    marginTop: height * 0.01,
   },
 });
 

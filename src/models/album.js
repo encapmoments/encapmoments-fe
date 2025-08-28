@@ -1,6 +1,6 @@
 import useMock from "./useMock";
 import axios from "axios";
-import { useAlbumStore } from "../store/store";
+import { useAlbumStore, useCommentStore } from "../store/store";
 import baseUrl from "./baseUrl";
 
 // 모든 앨범 조회
@@ -105,6 +105,10 @@ export const deleteAlbum = async ({ album_id }, accessToken) => {
 
 // 댓글 조회
 export const getComments = async ({ album_id }, accessToken) => {
+  if (useMock) {
+    return useCommentStore.getState().getCommentsByAlbumId(album_id);
+  }
+
   const res = await axios.get(`${baseUrl}/album-comment/${album_id}`, {
     headers: { Authorization: `Bearer ${accessToken}` },
     withCredentials: true,
@@ -117,41 +121,16 @@ export const getComments = async ({ album_id }, accessToken) => {
       {
       "comment_id":1,
       "member_name":"여자",
-      "member_image":”xxx.jpg",
+      "member_image":"xxx.jpg",
       "comment_text":"좋았어요!"
       },
       {
       "comment_id":2,
       "member_name":"여자",
-      "member_image":”xxx.jpg",
+      "member_image":"xxx.jpg",
       "comment_text":"좋았어요!"
       },
       ...
     ] ,
   */
 };
-
-// 댓글 작성
-export const createComment = async ({ album_id }, accessToken) => {
-  const res = await axios.post(`${baseUrl}/album-comment/${album_id}`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-    withCredentials: true,
-  });
-
-  return res.data;
-  /*
-    REQUEST
-    {
-      "album_id": 1,
-      "member_name": "아들",
-      "comment_text": "재미있어요!"
-    }
-
-    RESPONSE
-    { "message": "댓글 등록 성공" }
-  */
-};
-
-// 댓글 수정, 삭제 => 일단 X
-
-

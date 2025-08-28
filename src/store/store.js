@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import {
   mockAlbums,
+  mockComments,
   mockUser,
   mockDailyMissions,
   mockWeeklyMissions,
@@ -18,6 +19,24 @@ export const useAlbumStore = create(set => ({
     set(state => ({
       albums: [...state.albums, album],
     })),
+}));
+
+// 댓글 mock data store
+export const useCommentStore = create((set, get) => ({
+  comments: [...mockComments],
+  getCommentsByAlbumId: (albumId) => {
+    const state = get();
+    return state.comments.filter(comment => comment.album_id === albumId);
+  },
+  addComment: (comment) =>
+    set(state => ({
+      comments: [...state.comments, comment],
+    })),
+  getMemberImageByName: (memberName) => {
+    const familyMembers = useFamilyStore.getState().familyMembers;
+    const member = familyMembers.find(m => m.member_name === memberName);
+    return member ? member.member_image : require("../assets/mock/album/album1.jpg");
+  },
 }));
 
 // 미션 mock data
