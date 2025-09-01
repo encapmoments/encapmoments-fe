@@ -12,6 +12,8 @@ import { ActivityIndicator } from "react-native";
 const MissionCreateScreen = ({ navigation }) => {
   const [members, setMembers] = useState([]);
   const [description, setDescription] = useState("");
+  const [selectedGoal, setSelectedGoal] = useState(""); // 가족 목표
+  const [selectedCategory, setSelectedCategory] = useState([]); // 미션 카테고리 (배열로 변경)
   const [loading, setLoading] = useState(false);
   const [loadingMembers, setLoadingMembers] = useState(true);
   const { width, height } = useWindowDimensions();
@@ -83,14 +85,27 @@ const MissionCreateScreen = ({ navigation }) => {
         return;
       }
 
+      let finalDescription = "";
+      if (selectedGoal) {
+        finalDescription += `가족 목표: ${selectedGoal}`;
+      }
+      if (selectedCategory && selectedCategory.length > 0) {
+        finalDescription += selectedGoal ? `, 카테고리: ${selectedCategory.join(', ')}` : `카테고리: ${selectedCategory.join(', ')}`;
+      }
+      if (description) {
+        finalDescription += (selectedGoal || (selectedCategory && selectedCategory.length > 0)) ? `, 추가 요청사항: ${description}` : description;
+      }
+
       const requestData = {
-        text: description,
+        text: finalDescription || "우리 가족을 위한 재미있는 주간 미션을 만들어주세요.",
         members: selectedMembers.map(m => ({
           age: parseInt(m.age, 10) || 0,
           gender: m.gender || "미정",
           name: m.memberName,
         })),
       };
+
+      console.log("미션 생성 요청 데이터:", requestData);
 
       const result = await generateWeeklyMission(requestData, accessToken);
 
@@ -105,6 +120,14 @@ const MissionCreateScreen = ({ navigation }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoalSelect = (goal) => {
+    setSelectedGoal(goal);
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
   };
 
   return (
@@ -141,7 +164,12 @@ const MissionCreateScreen = ({ navigation }) => {
 
           <Text style={createStyles.missionTitleText}>미션 선택</Text>
           <View style={createStyles.inputTextWrapper}>
-            <SelectMission />
+            <SelectMission 
+              onGoalSelect={handleGoalSelect}
+              onCategorySelect={handleCategorySelect}
+              selectedGoal={selectedGoal}
+              selectedCategory={selectedCategory}
+            />
           </View>
 
           {loading ? (

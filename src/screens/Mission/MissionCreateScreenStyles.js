@@ -82,6 +82,19 @@ const getMissionCreateScreenStyles = (width, height) =>
       borderRadius: Spacing.lg,
       padding: width * 0.03,
     },
+    selectedInfoContainer: {
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      borderRadius: Spacing.md,
+      padding: width * 0.03,
+      marginVertical: height * 0.01,
+      marginHorizontal: width * 0.05,
+    },
+    selectedInfoText: {
+      ...Typography.bamin1,
+      fontSize: Fontsizes.sm,
+      color: Colors.white,
+      marginBottom: height * 0.005,
+    },
   });
 
 export default getMissionCreateScreenStyles;
