@@ -13,7 +13,7 @@ export const getMarketItems = async accessToken => {
         withCredentials: true,
     });
 
-    return res.data;
+    return res.data.items;
     /*
         RESPONSE
         [
