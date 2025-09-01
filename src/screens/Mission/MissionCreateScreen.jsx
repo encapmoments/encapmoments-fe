@@ -164,7 +164,7 @@ const MissionCreateScreen = ({ navigation }) => {
 
           <Text style={createStyles.missionTitleText}>미션 선택</Text>
           <View style={createStyles.inputTextWrapper}>
-            <SelectMission 
+            <SelectMission
               onGoalSelect={handleGoalSelect}
               onCategorySelect={handleCategorySelect}
               selectedGoal={selectedGoal}
