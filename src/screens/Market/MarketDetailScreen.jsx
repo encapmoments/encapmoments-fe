@@ -5,17 +5,37 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AppBar, TabBar } from "../../common/commonIndex";
 import { Product } from "../../components/Market/marketComponentsIndex";
 import { getMarketItem } from "../../models/market";
-import { useProfileStore } from "../../store/store";
+import { getProfileUser } from "../../models/profile";
 import useAccessToken from "../../models/accessToken";
+import { useFocusEffect } from "@react-navigation/native";
 
 const MarketDetailScreen = ({ navigation, route }) => {
     const { width, height } = useWindowDimensions();
     const marketDetailStyles = getMarketDetailScreenStyles(width, height);
     const [marketItem, setMarketItem] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [currentPoints, setCurrentPoints] = useState(0);
     const accessToken = useAccessToken();
-    const profileUser = useProfileStore(state => state.profileUser);
+
     const { item_id, item } = route.params || {};
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const fetchCurrentUserPoints = async () => {
+                try {
+                    const profile = await getProfileUser(accessToken);
+                    setCurrentPoints(profile.points || 0);
+                } catch (error) {
+                    console.error("최신 포인트 불러오기 실패:", error);
+                    setCurrentPoints(0);
+                }
+            };
+
+            if (accessToken) {
+                fetchCurrentUserPoints();
+            }
+        }, [accessToken])
+    );
 
     useEffect(() => {
         const fetchMarketItem = async () => {
@@ -106,7 +126,7 @@ const MarketDetailScreen = ({ navigation, route }) => {
                         productPoint={marketItem.cost}
                         productStock={marketItem.stock}
                         productCategory={marketItem.category}
-                        myPoint={profileUser?.points || 0}
+                        myPoint={currentPoints}
                         navigation={navigation}
                         item_id={marketItem.item_id}
                         marketItem={marketItem}

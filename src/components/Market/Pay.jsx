@@ -4,12 +4,15 @@ import PayStyles from "./PayStyles";
 import PayModal from "./PayModal";
 import PaySkeleton from "../../common/Skeleton/PaySkeleton";
 import useModal from "../../hooks/useModal";
+import { purchaseItem } from "../../models/market";
+import { useAuthStore } from "../../store/store";
 
-const Pay = ({ navigation, isPointOK = false }) => {
+const Pay = ({ navigation, isPointOK = false, item }) => {
     const { width, height } = useWindowDimensions();
     const payStyles = PayStyles(width, height);
     const payModal = useModal();
     const [isProcessing, setIsProcessing] = useState(false);
+    const accessToken = useAuthStore(state => state.accessToken);
 
     const handlePay = () => {
         if (isPointOK) {
@@ -19,15 +22,39 @@ const Pay = ({ navigation, isPointOK = false }) => {
         payModal.openModal();
     };
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         payModal.closeModal();
         setIsProcessing(true);
 
-        // 결제 처리하는 척 (2.5 초)
-        setTimeout(() => {
+        try {
+            const response = await purchaseItem(item.item_id, accessToken);
+
+            if (response.message === "기프티콘 구매 성공") {
+                Alert.alert(
+                    "구매 완료",
+                    "기프티콘을 성공적으로 구매했습니다!",
+                    [
+                        {
+                            text: "확인",
+                            onPress: () => navigation.navigate("Market"),
+                        },
+                    ]
+                );
+            }
+        } catch (error) {
+            console.error("구매 실패:", error);
+            let errorMessage = "구매 중 오류가 발생했습니다.";
+
+            if (error.response?.data?.message) {
+                errorMessage = error.response.data.message;
+            } else if (error.message) {
+                errorMessage = error.message;
+            }
+
+            Alert.alert("구매 실패", errorMessage);
+        } finally {
             setIsProcessing(false);
-            navigation.navigate("Market");
-        }, 2500);
+        }
     };
 
     const handleCancel = () => {

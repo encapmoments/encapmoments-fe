@@ -7,7 +7,7 @@ import { AppBar, TabBar } from "../../common/commonIndex";
 import { Card, Category, CategoryModal, PointModal } from "../../components/Market/marketComponentsIndex";
 import useModal from "../../hooks/useModal";
 import { getMarketItems } from "../../models/market";
-import { useAuthStore, useProfileStore } from "../../store/store";
+import { getProfileUser } from "../../models/profile";
 import useAccessToken from "../../models/accessToken";
 
 const MarketScreen = ({ navigation }) => {
@@ -18,9 +18,25 @@ const MarketScreen = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState("전체");
   const [selectedPoint, setSelectedPoint] = useState("전체");
   const [marketItems, setMarketItems] = useState([]);
+  const [userPoints, setUserPoints] = useState(0);
   const [loading, setLoading] = useState(true);
   const accessToken = useAccessToken();
-  const profileUser = useProfileStore(state => state.profileUser);
+
+  useEffect(() => {
+    const fetchUserPoints = async () => {
+      try {
+        const profile = await getProfileUser(accessToken);
+        setUserPoints(profile.points || 0);
+      } catch (error) {
+        console.error("사용자 포인트 불러오기 실패:", error);
+        setUserPoints(0);
+      }
+    };
+
+    if (accessToken) {
+      fetchUserPoints();
+    }
+  }, [accessToken]);
 
   useEffect(() => {
     const fetchMarketItems = async () => {
@@ -86,7 +102,7 @@ const MarketScreen = ({ navigation }) => {
       <SafeAreaView style={marketStyles.safeArea}>
         <View style={marketStyles.backgroundStyle}>
           <Text style={marketStyles.point}>
-            내 잔여 포인트: {profileUser?.points || 0}
+            내 잔여 포인트: {userPoints}
             <Text style={marketStyles.pointP}> points</Text>
           </Text>
           <View style={marketStyles.category}>

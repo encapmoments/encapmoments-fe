@@ -7,6 +7,7 @@ import Comment from "../../components/Album/Comment";
 import { useGetAlbum } from "../../viewmodels/albumViewModels";
 import useAccessToken from "../../models/accessToken";
 import { deleteAlbum, getComments } from "../../models/album";
+import { getMembers } from "../../models/profile";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const AlbumSelectScreen = ({ navigation }) => {
@@ -18,6 +19,22 @@ const AlbumSelectScreen = ({ navigation }) => {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [comments, setComments] = useState([]);
   const [loadingComments, setLoadingComments] = useState(true);
+  const [familyMembers, setFamilyMembers] = useState([]);
+
+  useEffect(() => {
+    const loadFamilyMembers = async () => {
+      try {
+        const members = await getMembers(accessToken);
+        console.log("로드된 가족 구성원:", members);
+        setFamilyMembers(members);
+      } catch (error) {
+        console.error("가족 구성원 로드 실패:", error);
+        setFamilyMembers([]);
+      }
+    };
+
+    loadFamilyMembers();
+  }, [accessToken]);
 
   const handleDelete = () => {
     Alert.alert("앨범 삭제", "정말 이 앨범을 삭제하시겠습니까?", [
@@ -46,29 +63,57 @@ const AlbumSelectScreen = ({ navigation }) => {
     ]);
   };
 
-  // 댓글 조회
   const loadComments = useCallback(async () => {
     try {
       setLoadingComments(true);
       const commentsData = await getComments({ album_id }, accessToken);
-      setComments(commentsData);
+      console.log("받은 댓글 데이터:", commentsData);
+
+      const enhancedComments = commentsData.map((comment, index) => {
+        if (comment.member_name === "알 수 없음" || !comment.member_name) {
+          const memberIndex = index % familyMembers.length;
+          const assignedMember = familyMembers[memberIndex];
+          if (assignedMember) {
+            return {
+              ...comment,
+              member_name: assignedMember.member_name,
+              member_image: assignedMember.member_image,
+            };
+          }
+        } else {
+          const actualMember = familyMembers.find(member =>
+            member.member_name === comment.member_name
+          );
+          if (actualMember) {
+            return {
+              ...comment,
+              member_image: actualMember.member_image || comment.member_image,
+            };
+          }
+        }
+        return comment;
+      });
+
+      console.log("매칭된 댓글 데이터:", enhancedComments);
+      setComments(enhancedComments);
     } catch (error) {
       console.error("댓글 조회 실패:", error);
       setComments([]);
     } finally {
       setLoadingComments(false);
     }
-  }, [album_id, accessToken]);
+  }, [album_id, accessToken, familyMembers]);
 
+  // 앨범이 로드되고 가족 구성원 정보가 있을 때 댓글 로드
   useEffect(() => {
-    if (!loading) {
+    if (!loading && familyMembers.length > 0) {
       const album = albums.find(a => a.album_id === album_id);
       setSelectedAlbum(album);
       if (album) {
         loadComments();
       }
     }
-  }, [albums, loading, album_id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [albums, loading, album_id, familyMembers, loadComments]);
 
   if (loading || !selectedAlbum) {
     return <ActivityIndicator size="large" />;

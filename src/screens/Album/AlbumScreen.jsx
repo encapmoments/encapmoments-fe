@@ -35,6 +35,9 @@ const AlbumScreen = ({ navigation }) => {
   const albumsToDisplay = isSearching ? searchedAlbums : defaultAlbums;
   const loading = isSearching ? searchLoading : defaultLoading;
 
+  console.log("Albums data:", albumsToDisplay);
+  console.log("First album image:", albumsToDisplay[0]?.album_image);
+
   return (
     <>
       <AppBar />
