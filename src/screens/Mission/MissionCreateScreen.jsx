@@ -97,10 +97,10 @@ const MissionCreateScreen = ({ navigation }) => {
       }
 
       const requestData = {
-        text: finalDescription || "우리 가족을 위한 재미있는 주간 미션을 만들어주세요.",
+        text: finalDescription,
         members: selectedMembers.map(m => ({
           age: parseInt(m.age, 10) || 0,
-          gender: m.gender || "미정",
+          gender: m.gender,
           name: m.memberName,
         })),
       };
