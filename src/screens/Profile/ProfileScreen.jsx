@@ -90,7 +90,7 @@ const ProfileScreen = () => {
           <ProfileBox
             title={"내 기프티콘"}
             navigation={navigation}
-            route="ProfileMyMissions"
+            route="profileGifticon"
           />
           <ProfileBox title={"로그아웃"} onPress={onLogout} />
         </View>

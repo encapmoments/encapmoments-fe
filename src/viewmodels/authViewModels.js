@@ -86,24 +86,19 @@ export const useRegister = () => {
 
 export const useLogout = () => {
   const [loading, setLoading] = useState(false);
-  // const navigation = useNavigation();
+  const resetAccessToken = useAuthStore(state => state.resetAccessToken);
+  const resetUser = useUserStore(state => state.resetUser);
 
   const handleLogout = async (onSuccess, onError) => {
     setLoading(true);
-    try {
-      const res = await logout();
-      if (res.success) {
-        onSuccess?.();
-        // navigation.replace('Login');
-        // navigation.navigate('Login');
-      } else {
-        onError?.(res.message || "로그아웃 실패");
-      }
-    } catch (err) {
-      onError?.("서버 오류");
-    } finally {
+
+    resetAccessToken();
+    resetUser();
+
+    setTimeout(() => {
       setLoading(false);
-    }
+      onSuccess?.();
+    }, 300);
   };
 
   return { handleLogout, loading };

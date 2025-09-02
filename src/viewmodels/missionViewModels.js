@@ -7,6 +7,12 @@ export const useGetMissions = (type, accessToken) => {
   const [loading, setLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
+    if (!accessToken) {
+      setMissions([]);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     try {
       if (type === "daily") {
@@ -17,15 +23,20 @@ export const useGetMissions = (type, accessToken) => {
         setMissions(data);
       }
     } catch (err) {
-      console.error("미션 불러오기 실패", err);
+      if (err.response?.status === 403 || err.response?.status === 401) {
+        console.log("인증 토큰이 만료되거나 유효하지 않음");
+        setMissions([]);
+      } else {
+        console.error("미션 불러오기 실패", err);
+      }
     } finally {
       setLoading(false);
     }
-  }, [type, accessToken]); // ✅ 의존성 명확하게
+  }, [type, accessToken]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]); // ✅ 안정된 함수만 넣기
+  }, [fetchData]);
 
-  return { missions, loading, refetch: fetchData }; // ✅ 외부에서 수동 호출 가능
+  return { missions, loading, refetch: fetchData };
 };

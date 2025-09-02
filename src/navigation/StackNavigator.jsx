@@ -14,6 +14,7 @@ import MissionPostScreen from "../screens/Mission/MissionPostScreen";
 import ProfileScreen from "../screens/Profile/ProfileScreen";
 import ProfileAccountScreen from "../screens/Profile/ProfileAccountScreen";
 import ProfileMyMissionsScreen from "../screens/Profile/ProfileMyMissionsScreen";
+import ProfileMyGifticonScreen from "../screens/Profile/ProfileMyGifticonScreen";
 import MemberUpdate from "../components/Profile/MemberUpdate";
 import MarketScreen from "../screens/Market/MarketScreen";
 import MarketDetailScreen from "../screens/Market/MarketDetailScreen";
@@ -87,6 +88,11 @@ const StackNavigator = () => {
       <Stack.Screen
         name="ProfileAccount"
         component={ProfileAccountScreen}
+        options={{ headerShown: false, animation: "slide_from_left" }}
+      />
+      <Stack.Screen
+        name="profileGifticon"
+        component={ProfileMyGifticonScreen}
         options={{ headerShown: false, animation: "slide_from_left" }}
       />
       <Stack.Screen
